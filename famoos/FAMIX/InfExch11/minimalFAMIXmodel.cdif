@@ -1,0 +1,35 @@
+CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
+#| This file contains a transfer with information according to the
+   FAMOOS Information Exchange (FAMIX) Model, see
+     http://www.iam.unibe.ch/~famoos/InfoExchFormat/
+   using the CDIF standard for information exchange, see
+     http://www.cdif.org/
+|#
+
+(:HEADER
+    (:SUMMARY
+        (ExporterName	  "...")
+        (ExporterVersion  "...")
+        (ExporterDate	  "...")
+        (ExporterTime	  "...")
+        (PublisherName	  "...")
+    )
+)
+
+(:META-MODEL
+
+    (:SUBJECTAREAREFERENCE Foundation
+        (:VERSIONNUMBER "01.00")
+    )
+
+    (:SUBJECTAREAREFERENCE FAMOOSInfExchMod
+        (:VERSIONNUMBER "1.1")
+    )
+)
+    
+(:MODEL
+
+#| *** This part should contain the information to transfer *** |#
+
+)    
+

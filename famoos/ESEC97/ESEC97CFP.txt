@@ -1,0 +1,135 @@
+                         CALL FOR PARTICIPATION
+         ESEC/FSE'97 Workshop on Object-Oriented Reengineering
+                   Zurich, Friday September 26, 1997
+
+             Version 1.0 -- Latest Revision: May, 14th, 1997
+                  http://iamwww.unibe.ch/~famoos/ESEC97/
+
+Objective
+
+The ability to reengineer object-oriented legacy systems has become a
+vital matter in today's software industry. Early adopters of the
+object-oriented programming paradigm are now facing the problem of
+transforming their object-oriented "legacy" systems into full-fledged
+frameworks. Dealing with programs exceeding 10,000 lines of badly
+documented code definitely requires support from tools as well as
+methodologies.
+
+The Workshop on Object-Oriented Reengineering wants to gather people
+working on solutions for object-oriented legacy systems. We explicitly
+solicit experience reports from the software industry as well as
+contributions from tool producers and methodology providers. The
+workshop itself will be set up as a forum for exchanging experiences,
+discussing solutions, and exploring new ideas.
+
+
+Specific areas of interest include, but are not limited to:
+
+   * Experience reports from object-oriented reengineering projects
+   * Methods and techniques
+   * Tool-support
+   * Metrics and evaluation
+   * Migration to object-oriented frameworks
+   * Migration from procedural implementations
+   * Object-oriented schema integration
+   * Architectural issues
+   * Object-oriented analysis and design issues
+   * Design patterns in reengineering practices
+
+
+
+ESEC/FSE'97
+
+The Workshop is organised in conjunction with the "Sixth European
+Software Engineering Conference / Fifth ACM SIGSOFT Symposium on the
+Foundations of Software Engineering" Conference, to be held in Zurich -
+Switzerland from September 22-25, 1997.
+	http://www.ifi.unizh.ch/congress/esec97.html
+
+Intended Audience
+
+The workshop is intended for software engineering professionals with
+experience in object-oriented reengineering; either people who are
+actively engaged in reengineering projects, or people who develop
+methodologies and tools. Similar workshops held at other conferences
+(OOPSLA'95, OOPSLA'96, ECOOP'97), show that it is possible to gather a
+group of about 10 persons for a whole day of fruitful discussions.
+
+Preparation
+
+In order to make efficient use of the one day we have at our disposal,
+we want to pay special attention to the preparation of the workshop. We
+request each participant to submit a position paper in advance, so that
+all participants can get acquinted with the ideas that exist within the
+group.  Each participant is supposed to read all the submitted
+material, so that the workshop itself can be devoted to discussion
+instead of presentations.  Submissions will be made electronically to
+facilitate the rapid exchange of information.
+
+The upper limit for the number of participants is 20 and the
+particpants will be selected on the basis of the submitted material.
+The maximum number of particpants per position paper is limited to 2.
+
+Important Dates
+
+   * Friday, 27.07.97: Submission of position papers due.
+   * Friday, 15.08.97: Notification of acceptance.
+   * Monday, 01.09.97: Preliminary Program available.
+   * Friday, 26.09.97: Workshop on OO Renginerring
+
+Submission Guidelines
+
+  1. Be standard. There is lot's of work on re-engineering out there, which
+     gives rise to some terminology conflicts. We encourage people to use
+     the re-engineering taxonomy defined in Reverse Engineering and Design
+     Recovery : A Taxonomy by E.J. Chikofsky and J.H. Cross II -- IEEE
+     Software, January 1990. Check http://www.tcse.org/revengr/taxonomy.html
+     for an online summary.
+  2. Be electronic. Submit your position paper in HTML (preferably),
+     postcript or PDF, so that we can collect all of the submissions on a
+     web-site. A separate abstract including the e-mail addresses of the
+     authors and URL's of their home pages MUST be submitted in HTML.
+     Submit everything by e-mail to [ demeyer@iam.unibe.ch].
+  3. Be focussed. Propose only one idea. We all know that you are a quality
+     researcher with plenty of good ideas. Only, we have limited resources
+     and we must focus. Please keep all position papers under five pages.
+  4. Be relevant. Propose an idea that is relevant to object-oriented
+     re-engineering. Refer to the list of specific areas of interest.
+  5. Be innovative. Propose some recent idea that still has some unfinished
+     sides to it. It is supposed to be a WORKshop, not a mini-conference.
+  6. Be a rebel. Neglect these guidelines if you feel that your idea needs a
+     special treatment in some way.
+
+About the Organizers
+
+The organizers of the workshop are from the University of Berne,
+Switzerland and the Technical University of Vienna, Austria. Serge
+Demeyer, from the University of Berne, is a member of the Software
+Composition Group headed by Professor O. Nierstrasz. Harald Gall, from
+the Technical University of Vienna, is a member of the Distributed
+Systems Group headed by Professor M.  Jazayeri. Both groups are
+participating in ESPRIT research projects concerning reengineering
+which are FAMOOS and ARES respectively.
+
+Serge Demeyer
+     Serge Demeyer research focuses primarily on possible
+     cross-fertilizations between the software engineering and hypermedia
+     domains. He is currently the co-ordinator of the FAMOOS reengineering
+     project at the University of Berne. Serge Demeyer co-organised the '2nd
+     Workshop on Open Hypermedia Systems' and participated in many other
+     Open Hypermedia Workshops. He holds a Ph.D. in Computer Science (1997)
+     from the 'Vrije Universiteit Brussel' - Belgium.
+     demeyer@iam.unibe.ch
+     http://iamwww.unibe.ch/~demeyer/
+Harald Gall
+     Harald Gall is currently program committee member of the 1997 Working
+     Conference on Reverse Engineering (WCRE '97), the 1997 Workshop on
+     Program Comprehension (IWPC '97) and the ICSE'97 Workshop on Migration
+     Strategies for Legacy Systems. His research interests include
+     reengineering, software architecture, and object-oriented technologies.
+     He is currently involved in the architecture recovery tasks of the ARES
+     project and in the object-oriented re-architecturing project CORET. He
+     holds an M.Sc. and a Ph.D. in computer science from the Technical
+     University of Vienna.
+     H.Gall@infosys.tuwien.ac.at
+     http://www.infosys.tuwien.ac.at/Staff/hg/mypage.html

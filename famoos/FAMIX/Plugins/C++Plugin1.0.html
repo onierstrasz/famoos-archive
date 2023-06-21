@@ -1,0 +1,803 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>1 C++ language plugin</TITLE>
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<H1><A NAME="_Ref457903220"><A NAME="title"><A NAME="_Toc460241054"></A>FAMIX C++ language plug-in 1.0</A> </A></H1>
+<P>&nbsp;</P>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=420>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Author</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>Holger B&auml;r (baer@fzi.de)</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Version</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>1.0 </TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Last modified</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>1999-09-07</TD>
+</TR>
+</TABLE>
+
+<OL>
+
+<LI><A NAME="_Toc460241055"><B><FONT SIZE=5>Abstract</A></LI>
+</B></FONT><P><A NAME="abstract">This document defines a language plug-in for FAMIX, the FAMOOS information exchange model [Deme99]. It extends, instantiates and modifies the FAMIX core model to cover most of the entities and relationships that can be found in C++ source code.</A></P>
+<LI><A NAME="_Toc460241056"><B><FONT SIZE=5>Notation</A></LI></OL>
+
+</B></FONT><P>The common exchange model is modified in three different ways to handle C++ sources:</P>
+
+<UL>
+<LI>New classes are added to the basic FAMIX model to model entities and associations unique to C++. These classes are marked as new entities and new associations respectively.</LI>
+<LI>New attributes are added to existing classes of the basic FAMIX model. In this case the class is marked "modified" and only the new and modified (see below) attributes are listed in the definition of the modified class.</LI>
+<LI>The definition of attributes of existing classes are modified or their syntax and semantics are instantiated for C++. The instantiation case mostly occurs for attribute definitions in the core model having a phrase like &quot;… is a language dependent issue&quot;.<BR>
+Like with new attributes the corresponding class is marked "modified" and the modified attributes are listed in the definition of the modified class. To discriminate modified from new attributes, modified attributes are listed without any type information since that information isn't modified anyway.</LI></UL>
+
+<OL>
+
+<LI><A NAME="_Toc460241057"><B><FONT SIZE=5>Modified classes</A></LI>
+<OL>
+
+<LI><A NAME="_Toc460241058"></FONT><FONT SIZE=4>Class (interpreted and extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Class</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>instantiatesTemplate (): Name&#9;# new</P>
+<P>friendsAt (pos Integer): Name&#9;# new</P>
+<P>isUnion (): Boolean</P>
+<P>isAbstract</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241090">Figure 1: Class</A></P>
+</B><P>Each <I>definition</I> of a class in source code constitutes this entity. A class definition in C++ takes the form<BR>
+<CODE>class A { ... };</CODE><BR>
+in contrast to a class declaration of the form:<BR>
+<CODE>class A;</P>
+</CODE><P>Structures (<CODE>struct</CODE>) are modelled as classes. They differ only from classes in their members and base classes being public by default in spite of private in the case of classes. So only the parser must know the difference between classes and structures.</P>
+<P>Unions (<CODE>union</CODE>) are also modelled as classes. They are a kind of restricted classes: they can’t have any base classes, can’t be used as base classes, have no virtual methods, have no static methods or attributes. For a detailed description of all restrictions to unions please refer to [ISO98].</P>
+<P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>instantiatesTemplate: Name; optional<BR>
+</CODE>If the class is a template instantiation this attribute refers to the corresponding template. The uniqueName of the class template is used as a reference. How to deal with class templates is described in section 4.1.</LI>
+<CODE><LI>friends: 0 .. N Name; optional<BR>
+</CODE>This is a multi-valued attribute holding all friend classes and friend behavioural entities of a class. The friend entities are referenced by their uniqueName.</LI>
+<CODE><LI>isUnion: Boolean; optional</CODE><BR>
+This attribute is true, iff a C++ union is modelled by this entity.</LI>
+<CODE><LI>isAbstract<BR>
+In C++ a class is abstract, iff at least one of its methods is abstract.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460241059"></CODE><B><FONT SIZE=4>BehaviouralEntity (interpreted and extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">BehaviouralEntity</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>baseReturnType (): Name&#9;&#9;# new</P>
+<P>instantiatesTemplate (): Name&#9;# new</P>
+<P>accessControlQualifier</P>
+<P>signature</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241091">Figure 2: BehaviouralEntity</A></P>
+</B><P>The new and modified attributes are:</P>
+
+<UL>
+<CODE><LI>baseType: Name; optional<BR>
+The core model defines the totally not interpreted attribute declaredReturnType and the attribute declaredReturnClass, which refers to the class in the return type declaration of the Behavioural Entity, if there is any. For Behavioural Entities with a fundamental return type, for example, there is no declared class. The new attribute baseReturnType is similar to the declaredReturnClass attribute: it refers to the <I>most specific type representable</I> in the language model, i.e., core model plus language plug-in. If we have C* f()</CODE> in the source code, the baseReturnType of f is class C with the current language plug-in. If future versions of the C++ plug-in would also define pointers as type entities, the baseReturnType would refer an array entity referring to the class C.<BR>
+baseReturnType can’t replace declaredReturnClass, because generic FAMIX readers wouldn’t see the class C, where the type declaration ends, because they don’t know the intermediate pointer entity.</LI></UL>
+
+
+<UL>
+<CODE><LI>instantiatesTemplate: Name; optional<BR>
+</CODE>If the BehaviouralEntity is a template instantiation this attribute refers to the corresponding function template. The uniqueName of the function template is used as a reference. How to deal with function templates is described in section 4.2.</LI></UL>
+
+
+<UL>
+<CODE><LI>accessControlQualifier</CODE><BR>
+The two behavioural entities, Method and Function, have different sets of allowed access qualifiers in C++. Functions have the access qualifiers <CODE>static</CODE> (local to compilation unit) and <CODE>extern</CODE> (global). The access to Methods can be controlled by the qualifiers <CODE>public</CODE>, <CODE>protected</CODE> and <CODE>private</CODE>.</LI></UL>
+
+
+<UL>
+<CODE><LI>signature<BR>
+</CODE>The signature string takes the form<CODE> name(T1,T2, ... ,Tn)</CODE> (without spaces) where <CODE>name</CODE> is the method name and <CODE>T</CODE><SUB>1..n</SUB> are the types of the formal parameters of the method. Constant parameters of type <CODE>T</CODE> have the form: <CODE>const T</CODE>.</LI></UL>
+
+<OL>
+<OL>
+
+<CODE><LI><A NAME="_Toc460241060"></CODE><B><FONT SIZE=4>Method (interpreted and extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Method</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>isDestructor (): Boolean&#9;# new</P>
+<P>isOperator (): Boolean&#9;# new</P>
+<P>isVirtual (): Boolean&#9;&#9;# new</P>
+<P>isConst (): Boolean&#9;&#9;# new</P>
+<P>accessControlQualifier</P>
+<P>signature</P>
+<P>isAbstract</P>
+<P>isConstructor</P>
+<P>uniqueName</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241092">Figure 3: Method</A></P>
+</B><P>Each <I>declaration</I> of a method in source code constitutes this entity. One could have expected each method definition to constitute this entity, but in C++ a method declaration can be used to just manipulate the access to inherited methods. This can only be represented by a new Method entity.</P>
+<P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>isDestructor: Boolean; optional<BR>
+</CODE>Indicates whether or not the method is a destructor. A destructor is a method with no declared return type and a name equal to the name of the class it belongs to prepended with the tilde character ~.</LI>
+<CODE><LI>isOperator: Boolean; optional<BR>
+</CODE>Indicates whether or not the method is an operator function.</LI>
+<CODE><LI>isVirtual: Boolean; optional<BR>
+</CODE>Indicates whether or not the method is declared virtual.</LI>
+<CODE><LI>isConst: Boolean; optional<BR>
+</CODE>Indicates whether or not the method is declared constant. Constant methods assert, that they do not alter the object’s attributes, so that they can safely be called upon constant objects.</LI>
+<CODE><LI>accessControlQualifier<BR>
+</CODE>The allowed access qualifiers are: <CODE>public</CODE> (access for anyone), <CODE>protected</CODE> (access restricted to derived classes) and <CODE>private</CODE> <FONT SIZE=3>(access only from within the class).</LI>
+</FONT><CODE><LI>isAbstract<BR>
+</CODE>A method is abstract, iff it is declared as pure virtual, e.g.: <CODE>virtual void m() = 0;</LI>
+<LI>isConstructor<BR>
+</CODE>A constructor is a method with no declared return type and a name identical to the name of the class it belongs to.</LI>
+<CODE><LI>uniqueName<BR>
+const</CODE> is appended to the unique name without whitespace, iff isConst is true.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Ref457917483"><A NAME="_Toc460241061"><B><FONT SIZE=4>Function</A> (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Function</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>accessControlQualifier</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241093">Figure 4: Function</A></P>
+</B><P>Each definition of a global function in source code constitutes this entity.</P>
+<P>The modified attributes are:</P>
+
+<UL>
+<CODE><LI>accessControlQualifier<BR>
+</CODE>The allowed access qualifiers are: <CODE>static</CODE> and <CODE>extern</CODE>.<CODE><BR>
+They i</CODE>ndicate whether the function is declared external, i.e. globally accessible from all compilation units (each compilation unit results in an object file *.obj), or ), which is default for global functions in C++, or static. Static functions are local to a translation unit and can be declared using the keyword <CODE>static</CODE> like in:<BR>
+<CODE>static int helperFunc(int n) { ... }</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><LI><A NAME="_Toc460241062"><B><FONT SIZE=4>StructuralEntity (extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Attribute</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>baseType (): Name&#9;&#9;# new</P>
+<P>isConstant (): Boolean&#9;# new</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241094">Figure 5: StructuralEntity</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>baseType: Name; optional<BR>
+The core model defines the totally not interpreted attribute declaredType and the attribute declaredClass, which refers to the class in the type declaration of the Structural Entity, if there is any. For Structural Entities of fundamental type, for example, there is no declared class. The new attribute baseType is similar to the declaredClass attribute: it refers to the <I>most specific type representable</I> in the language model, i.e. core model plus language plug-in. If we have C* a[]</CODE> in the source code, the baseType is class C with the current language plug-in. If future versions of the C++ plug-in would also define pointers and arrays as type entities, the baseType would refer an array entity referring to a pointer entity referring to the class C.<BR>
+BaseType can’t replace declaredClass, because generic FAMIX readers wouldn’t see the class C, where the type declaration ends, because they dont’t know the intermediate entities array and pointer.</LI>
+<CODE><LI>isConstant: Boolean; optional<BR>
+</CODE>The <CODE>const</CODE> modifier is used in type declarations to express that the declared object must not be altered after its initialisation. This information could be interesting, e.g., to search for variables not declared as constant but only accessed once for writing. In such cases it is likely that the variable is a constant indeed and could therefore declared constant. In doing so future modifications of the source code cannot accidentally alter this variable.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460241063"><B><FONT SIZE=4>Attribute (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Attribute</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>accessControlQualifier</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241095">Figure 6: Attribute</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>accessControlQualifier<BR>
+</CODE>The allowed access qualifiers are: <CODE>public</CODE> (access for anyone), <CODE>protected</CODE> (access restricted to derived classes) and <CODE>private</CODE> <FONT SIZE=3>(access only from within the class).</LI></UL>
+
+<OL>
+<OL>
+
+</FONT><LI><A NAME="_Ref457917490"><A NAME="_Toc460241064"><B><FONT SIZE=4>GlobalVariable</A> (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">GlobalVariable</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>accessControlQualifier (): Qualifier&#9;&#9;# new</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241096">Figure 7: GlobalVariable</A></P>
+</B><P>Each definition of a global variable in source code constitutes this entity.</P>
+<P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>accessControlQualifier: Qualifier; optional<BR>
+</CODE>The allowed access qualifiers are: <CODE>static</CODE> and <CODE>extern</CODE>.<CODE><BR>
+They i</CODE>ndicate whether the variable is declared external, i.e. globally accessible from all compilation units (each compilation unit results in an object file *.obj), or ), which is default for global variables in C++, or static. Static variables are local to a translation unit and can be declared using the keyword <CODE>static</CODE> like in:<BR>
+<CODE>static int helper;</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><LI><A NAME="_Toc460241065"><B><FONT SIZE=4>InheritanceDefinition (interpreted and extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">InheritanceDefinition</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>isVirtual (): Boolean&#9;&#9;# new</P>
+<P>accessControlQualifier</P>
+<P>index</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241097">Figure 8: InheritanceDefinition</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>isVirtual: Boolean; optional<BR>
+</CODE>Indicates whether or not the inheritance is virtual, i.e., whether a class that is derived from the same base class multiple times via different paths, should include the data members of the base class only once or not.</LI>
+<CODE><LI>accessControlQualifier<BR>
+</CODE>The allowed access specifiers are: <CODE>public, protected, private</CODE>. The specifier sets the maximum access that clients of the derived class will have to the features of the base class.</LI>
+<CODE><LI>index<BR>
+</CODE>The index is always ´null´ as name collisions in C++ are not resolved by the order of the base classes.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460241066"><B><FONT SIZE=4>Access (extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Access</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>receivingClass (): Name&#9;&#9;# new</P>
+<P>receivingVariable (): Name&#9;&#9;# new</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241098">Figure 9: Access</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>receivingClass: Name; optional<BR>
+</CODE>The statically determinable class of the expression receiving the variable access. For example:<BR>
+<CODE>C* r;<BR>
+r-&gt;v = 0;<BR>
+Then C is the receiving class of this access. The receiving class is ´null´ for accesses to global variables. For accesses to local variables and to formal parameters the receiving class is the class the method defining the local variables resp. parameters belongs to, i.e. it is ´null´ for local variables and parameters of global methods (functions). The receiving class is referenced by its uniqueName.</LI>
+<LI>receivingVariable: Name; optional<BR>
+</CODE>The variable r in the above example. <CODE>The receiving variable is ´null´ for accesses to global or local variables, to formal parameters and within "chain calls". For example the access to attr in r.m1().attr </CODE>has no receiving variable.<CODE> The receiving variable is referenced by its uniqueName.</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><LI><A NAME="_Toc460241067"><B><FONT SIZE=4>Invocation (extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Invocation</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>receivingVariable (): Name&#9;&#9;# new</P>
+<P>base</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241099">Figure 10: Invocation</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>receivingVariable: Name; optional<BR>
+</CODE>The variable r in the above example.<CODE> The receiving variable is ´null´ for invocations of static or global methods and within "chain calls". For example the call to m2 in r.m1().m2() </CODE>has no receiving variable.<CODE> The receiving variable is referenced by its uniqueName.<A NAME="_Ref428673064"></LI>
+<LI>base: Name; optional<BR>
+In C++ this attribute contains t</CODE>he statically determinable class of the expression receiving the invocation. For example:<BR>
+<CODE>C* r;<BR>
+r-&gt;m();<BR>
+Then C is the receiving class of this invocation. For method invocations the candidate attribute holds all methods overriding the method base::invokes</CODE>.</LI></UL>
+
+<OL>
+
+<LI><A NAME="_Ref434149745"></LI>
+<B><FONT SIZE=5><LI><A NAME="_Toc460241068">New classes</A></LI>
+</B></FONT><P>The new classes from 4.3 to 4.6 all define entities representing a type in C++. Consequently they can be referred in the attributes baseType and baseReturnType.</P>
+<OL>
+
+<LI><A NAME="_Ref457903244"><A NAME="_Toc460241069"><B><FONT SIZE=4>ClassTemplate</A></A></A></A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">ClassTemplate</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>templateParameterAt (pos Integer): Qualifier</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241100">Figure 11: ClassTemplate</A></P>
+</B><P>This <B>new entity</B> models class templates of C++. It inherits from the entity Class of the core model. One could argue that Class Templates are no proper subclasses of Classes, because they cannot be used in every place a Class can be used, e.g., as the target of a reference via a declaredClass attribute. This is because class templates are no classes but only a template for a class that needs its template parameters to be instantiated to become a proper class. On the other hand the ClassTemplate entity needs all the attributes of a Class entity plus an attribute describing its template parameters. Even the newly defined attribute instantiatesTemplate makes sense, since class templates can be partially instantiated. So letting ClassTemplate not inherit from Class would mean to define a new entity with exactly the same attributes like an existing one plus one attribute. Therefore ClassTemplate inherits from Class. The same argumentation also applies to the new entity FunctionTemplate defined below also inheriting from its corresponding core model entity Function.</P>
+<P>The methods an attributes of a class template are modelled as Method and Attribute respectively. If it is necessary to determine whether a method/attribute is part of a template definition, this can be decided by looking at the type of the entity referred by the belongsToClass attribute of the method/attribute.</P>
+<P>The usage of one of the template parameters within the class template, e.g., for a type declaration of an attribute or within a function signature, is modelled by a reference to the template parameter. Template parameters are defined in 4.3.</P>
+<P>Fully instantiated class templates are modelled as ordinary classes with their template parameters substituted accordingly. Partially instantiated templates are themselves templates with only the bound template parameters substituted accordingly. Each different instantiation produces a different Class or ClassTemplate entity. The instantiated copies have the bound template parameters appended to the uniqueName attribute they would get as an ordinary class in the form of a comma separated list in <CODE>&lt;&gt;</CODE> without spaces, e.g.: <CODE>P::C&lt;D,int&gt;</CODE>.</P>
+<P>Besides the attributes inherited from <CODE>Class</CODE>, the new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>templateParameters: 0 .. N Name; mandatory<BR>
+This attribute holds all template parameters of the modelled class template definition. The entities defined within the class template can use these names, e.g., as their declared type. </LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Ref457915078"><A NAME="_Toc460241070"></CODE><B><FONT SIZE=4>FunctionTemplate</A></A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">FunctionTemplate</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>templateParameterAt (pos Integer): Qualifier</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241101">Figure 12: FunctionTemplate</A></P>
+</B><P>This <B>new entity</B> models function templates. It inherits from the entity Function of the core model instead of defining a new heir of Entity for the same reasons as with class templates (see 4.1 for a discussion).</P>
+<P>The usage of one of the template parameters within the function template, e.g., within the function signature or the type of a local variable, is modelled by a reference to the template parameter. Template parameters are defined in 4.3.</P>
+<P>Fully instantiated function templates are modelled as ordinary functions with their template parameters substituted accordingly. Partially instantiated templates are themselves templates with only the bound template parameters substituted accordingly.</P>
+<P>Besides the attributes inherited from <CODE>Function</CODE>, the new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>templateParameters: 0 .. N Name; mandatory<BR>
+This attribute holds all template parameters of the modelled function template definition. The entities defined within the template can use these names, e.g.,  as their declared type. </LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Ref457906862"><A NAME="_Toc460241071"></CODE><B><FONT SIZE=4>TemplateParameter</A></A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">TemplateParameter</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>belongsToTemplate (): Name</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241102">Figure 13: TemplateParameter</A></P>
+</B><P>This <B>new entity</B> models template parameters of a ClassTemplate or FunctionTemplate entity. It inherits from Entity and defines no new attributes.</P>
+<P>Besides the attributes inherited from <CODE>Entity</CODE>, the new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>belongsToTemplate: Name; mandatory<BR>
+</CODE>Refers to the unique name of the Template the TemplateParameter is a parameter of.</LI></UL>
+
+<P>The formula for uniqueName is:</P><DIR>
+<DIR>
+<DIR>
+
+<CODE><P>uniqueName (templParam) = belongsToTemplate (templParam) + &quot;.&quot; + name (templParam)</P></DIR>
+</DIR>
+</DIR>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460241072"></CODE><B><FONT SIZE=4>FunctionType</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">FunctionType</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>signature (): Qualifier</P>
+<P>declaredReturnType (): Qualifier</P>
+<P>declaredReturnClass (): Name</P>
+<P>baseReturnType (): Name</P>
+<P>belongsToContext (): Name</P>
+<P>isOperator (): Boolean</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241103">Figure 14: FunctionType</A></P>
+</B><P>This <B>new entity</B> models the declaration of a function type.</P>
+<P>It shares some attributes with BehaviouralEntity but the attributes of BehaviouralEntity describing its role as an callable piece of code do not apply. Unlike Method and Function a FunctionType can be defined in any scope resulting in an attribute belongsToContext that can refer to Package, Class, Method or Function.</P>
+<P>The attributes of FunctionType are then:</P>
+
+<UL>
+<CODE><LI>signature: Name; mandatory<BR>
+</CODE>The signature is defined as in BehaviouralEntity but lacks the name in front of  the left bracket.</LI>
+<CODE><LI>belongsToContext: Name; mandatory<BR>
+</CODE>Refers to the scope (Package, Class, Method or Function) the function type is declared in. The reference is established by the unique name of the scope.</LI>
+<LI>The remaining attributes defined above have exactly the same syntax and semantic as they have in the definition of BehaviouralEntity and Method.</LI></UL>
+
+<P>The formula for uniqueName is:</P><DIR>
+<DIR>
+<DIR>
+
+<CODE><P>uniqueName (funcType) = belongsToContext (funcType) + &quot;.&quot; + signature (funcType)</P></DIR>
+</DIR>
+</DIR>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460241073"></CODE><B><FONT SIZE=4>EnumerationType</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">EnumerationType</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>belongsToContext (): Name</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241104">Figure 15: EnumerationType</A></P>
+</B><P>This <B>new entity</B> models the declaration of an enumeration type (<CODE>enum</CODE>).</P>
+<P>Enumeration types are modelled because they are often used, especially in not pure object-oriented systems, to describe different options or states (e.g., drawing modes, output destinations). This way they introduce dependencies within the system.</P>
+<P>The only attribute of EnumerationType is:</P>
+
+<UL>
+<CODE><LI>belongsToContext: Name; mandatory<BR>
+</CODE>Refers to the scope (Package, Class, Method or Function) the enumeration type is declared in. The reference is established by the unique name of the scope.</LI></UL>
+
+<P>The formula for uniqueName is:</P><DIR>
+<DIR>
+<DIR>
+
+<CODE><P>uniqueName (enumeration) = belongsToContext (enumeration) + &quot;.&quot; + name (enumeration)</P>
+</CODE><P>&nbsp;</P></DIR>
+</DIR>
+</DIR>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Ref457916245"><A NAME="_Toc460241074"><B><FONT SIZE=4>TypeDef</A></A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">TypeDef</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>declaredReturnType (): Qualifier</P>
+<P>declaredReturnClass (): Name</P>
+<P>baseReturnType (): Name</P>
+<P>belongsToContext (): Name</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241105">Figure 16: TypeDef</A></P>
+</B><P>This <B>new entity</B> models type aliasing via the <CODE>typedef</CODE> keyword.</P>
+<P>The attributes of TypeDef are:</P>
+
+<UL>
+<CODE><LI>belongsToContext: Name; mandatory<BR>
+</CODE>Refers to the scope (Package, Class, Method or Function) the type alias is declared in. The reference is established by the unique name of the scope.</LI>
+<LI>The remaining attributes defined above have  the same syntax and analogous semantic as they have in the definition of StructuralEntity.</LI></UL>
+
+<P>The formula for uniqueName is:</P><DIR>
+<DIR>
+<DIR>
+
+<CODE><P>uniqueName (typeDef) = belongsToContext (typeDef) + &quot;.&quot; + name (typeDef)</P></DIR>
+</DIR>
+</DIR>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460241075"></CODE><B><FONT SIZE=4>TypeCast</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">TypeCast</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>belongsToBehaviour (): Name</P>
+<P>fromType (): Name</P>
+<P>toType (): Name</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241106">Figure 17: TypeCast</A></P>
+</B><P>This <B>new association</B> models type cast like <CODE>(C*)pointer</CODE>.</P>
+<P>Type casts are interesting for re-engineering as they often point to problems in the design of a system. There will be an instance of this class for every type cast occuring in the source code, even if the cast is between the same types, because we are interested in all the places where casts occur.</P>
+<P>The attributes of TypeCast are:</P>
+
+<UL>
+<CODE><LI>belongsToBehaviour: Name; mandatory<BR>
+</CODE>Refers to the BehaviouralEntity the cast appears in.</LI></UL>
+
+
+<UL>
+<CODE><LI>fromType: Name; optional<BR>
+</CODE>Refers to the unique name of the declared type the casted expression has. This is the type of <CODE>pointer</CODE> in the above example.</LI></UL>
+
+
+<UL>
+<CODE><LI>toType: Name; optional<BR>
+</CODE>Refers to the unique name of the type the expression is casted to (<CODE>C*</CODE> in the above example).</LI></UL>
+
+<OL>
+<OL>
+
+<CODE><LI><A NAME="_Toc460241076"></CODE><B><FONT SIZE=4>SourceFile</A></LI></B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">SourceFile</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241107">Figure 18: SourceFile</A></P>
+</B><P>This <B>new entity</B> models a file of the source code (header file or implementation file). It defines no additional attributes.</P>
+<P>Source files are a grouping unit in C++. An implementation file plus all included header files even defines a scoping unit, the compilation unit (see the definition of Function 3.4 and GlobalVariable 3.7).</P>
+<P>The structure of the relationships between source files created by include directives gives a rough overview about the dependencies in the system, because a dependency between two entities <I>always</I> is only possible with an include dependency between the files the two entities are defined in. This makes source files together with their include relations quite important for re-engineering purposes.</P>
+<P>The values of the <CODE>name</CODE> and <CODE>uniqueName</CODE> attributes are specific to the operating system used to compile the sources. One could think of the full path or of a relative path starting from a common root directory that contains any source files of the system in one of its subdirectories.</P>
+<LI><A NAME="_Toc460241077"><B><FONT SIZE=4>Include</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Include</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>includingFile (): Name</P>
+<P>includedFile (): Name</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460241108">Figure 19: Include</A></P>
+</B><P>This <B>new association</B> models an include directive of the preprocessor.</P>
+<P>The structure of the relationships between source files created by include directives gives a rough overview about the dependencies in the system, because a dependency between two entities <I>always</I> is only possible with an include dependency between the files the two entities are defined in. This makes source files together with their include relations quite important for re-engineering purposes.</P>
+<P>The attributes of Include are:</P>
+
+<UL>
+<CODE><LI>includingFile: Name; mandatory<BR>
+</CODE>Refers to the file containing the include directive.</LI></UL>
+
+
+<UL>
+<CODE><LI>includedFile: Name; mandatory<BR>
+</CODE>Refers to the file included by the include directive.</LI></UL>
+
+<OL>
+
+<CODE><LI><A NAME="_Toc460241078"></CODE><B><FONT SIZE=5>Excluded features of C++</A></LI></OL>
+
+</B></FONT><P>Some features of C++ are not covered by this language plug-in:</P>
+
+<UL>
+<LI>Type constructors <CODE>*</CODE>, <CODE>[]</CODE> and <CODE>&amp;</CODE>.<CODE><BR>
+</CODE>The interesting thing for re-engineering purposes with these type constructors is that the array constructor expresses multiplicity and the pointer constructor <I>may</I> mean multiplicity or reference. The reference operator is only a specification for code generation.</LI>
+<LI>Fundamental types and their operations.<BR>
+They do not carry interesting information and pollute the model of the system as, e.g.,  nearly every class uses some fundamental types.</LI></UL>
+
+
+<UL>
+<LI>Anonymous classes.<BR>
+Anonymous classes are not modelled explicitly because they can only be referenced locally, e.g., as an actual parameter in a function or method call. We only see two possible local references:</LI>
+<LI>References to the class as a type as in <CODE>typedef {int i; ... } moronsType</CODE>. Then we can set the declaredType to the whole class definition and leave baseType and declaredClass blank.</LI>
+<LI>References to the class as a value, e.g. as an actual parameter.<BR>
+Then we can treat them as a ComplexExpression.</LI>
+<LI>Nested classes</LI>
+<LI>The modifiers <CODE>inline</CODE>, <CODE>volatile</CODE>, <CODE>auto</CODE> and <CODE>register</CODE>.<CODE><BR>
+</CODE>These modifiers concern only the code generation and are therefore of no interest for re-engineering.</LI>
+<LI>Pointers to class members.<BR>
+We can model them as normal pointers by ignoring the fact that it can only access values within a certain class.</LI>
+<LI>Exceptions.<BR>
+If exceptions prove to be of interest we could model them as follows:</LI>
+<LI>A Class for every exception. Exceptions are classes in fact anyway.</LI>
+<LI>Ignoring the <CODE>try</CODE> block.</LI>
+<LI>The throwing (<CODE>throw</CODE>) of an exception is modelled as a call to the constructor of the exception.</LI>
+<LI>The <CODE>catch</CODE> statement results in a definition of a local variable with the type of the catched expressions.</LI></UL>
+
+<OL>
+
+<LI><A NAME="_Toc460241079"><B><FONT SIZE=5>References</A></LI></OL>
+
+</B></FONT><P>[<A NAME="Famix20">Deme99</A>]&#9;Serge Demeyer, Sander Tichelaar and Patrick Steyaert, FAMIX – The FAMOOS Information Exchange Model, version 2.0 alpha, July 1999. See <A HREF="http://www.iam.unibe.ch/~famoos/FAMIX/">http://www.iam.unibe.ch/~famoos/FAMIX/</A>.</P>
+<P>[<A NAME="CppStandard">ISO98</A>]&#9;International Standard ISO/IEC 14882, Programming Languages — C++, First Edition 1998-09-01, American Natinal Standards Institute, New York.</P>
+<FONT FACE="Arial" SIZE=5><H1 ALIGN="CENTER">&nbsp;</H1>
+<H1 ALIGN="CENTER"><A NAME="_Toc460241080">Cover Pages</A></H1>
+</FONT><B><FONT FACE="Arial" SIZE=4><P ALIGN="CENTER">Achievement 2.4.1a</P>
+</B></FONT><H2 ALIGN="CENTER"><A NAME="_Toc460241081">FAMIX C++ language plug-in 1.0 </A></H2>
+<H2><A NAME="_Toc460241082">1) Identification</A></H2>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Project Id:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>Esprit IV #21975 &quot;FAMOOS&quot;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Deliverable Id:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>D 2.2 – FINALFHB Final FAMOOS Methodology Handbook</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Date for delivery:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>31.08.99</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Planned date for delivery:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>31.08.99</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>WP(s) contributing to:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>1</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Author(s):</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>Holger B&auml;r</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460241083">2) Abstract</A></H2>
+<P>This document defines a language plug-in for FAMIX, the FAMOOS information exchange model [Deme99]. It extends, instantiates and modifies the FAMIX core model to cover most of the entities and relationships that can be found in C++ source code.</P>
+<H2><A NAME="_Toc460241084">3) Keywords</A></H2>
+<P>Object-oriented, reengineering, reverse engineering, code repository, round-trip engineering, FAMOOS, FAMIX, C++.</P>
+<H2><A NAME="_Toc460241085">4) Version History</A></H2>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<STRONG><P>Ver</STRONG></TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<STRONG><P>Date</STRONG></TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<STRONG><P>Editor(s)</STRONG></TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<STRONG><P>Status &amp; Notes</STRONG></TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>1.0beta</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>24.08.99</TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>Holger B&auml;r</TD>
+<TD WIDTH="51%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>1.0</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>25.08.99</TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>Sander Tichelaar</TD>
+<TD WIDTH="51%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460241086">5) Issues for future releases</A></H2>
+<H2><A NAME="_Toc460241087">6) Table of Contents</A></H2>
+<B><P>FAMIX C++ language plug-in 1.0&#9;</B><A HREF="#_Toc460241054">*</A><DIR>
+
+<B><P>1&#9;Abstract&#9;</B><A HREF="#_Toc460241055">*</A></P>
+<B><P>2&#9;Notation&#9;</B><A HREF="#_Toc460241056">*</A></P>
+<B><P>3&#9;Modified classes&#9;</B><A HREF="#_Toc460241057">*</A></P><DIR>
+
+<FONT FACE="Times"><P>3.1&#9;Class (interpreted and extended)&#9;</FONT><A HREF="#_Toc460241058">*</A></P>
+<FONT FACE="Times"><P>3.2&#9;BehaviouralEntity (interpreted and extended)&#9;</FONT><A HREF="#_Toc460241059">*</A></P>
+<FONT FACE="Times"><P>3.3&#9;Method (interpreted and extended)&#9;</FONT><A HREF="#_Toc460241060">*</A></P>
+<FONT FACE="Times"><P>3.4&#9;Function (interpreted)&#9;</FONT><A HREF="#_Toc460241061">*</A></P>
+<FONT FACE="Times"><P>3.5&#9;StructuralEntity (extended)&#9;</FONT><A HREF="#_Toc460241062">*</A></P>
+<FONT FACE="Times"><P>3.6&#9;Attribute (interpreted)&#9;</FONT><A HREF="#_Toc460241063">*</A></P>
+<FONT FACE="Times"><P>3.7&#9;GlobalVariable (interpreted)&#9;</FONT><A HREF="#_Toc460241064">*</A></P>
+<FONT FACE="Times"><P>3.8&#9;InheritanceDefinition (interpreted and extended)&#9;</FONT><A HREF="#_Toc460241065">*</A></P>
+<FONT FACE="Times"><P>3.9&#9;Access (extended)&#9;</FONT><A HREF="#_Toc460241066">*</A></P>
+<FONT FACE="Times"><P>3.10&#9;Invocation (extended)&#9;</FONT><A HREF="#_Toc460241067">*</A></P></DIR>
+
+<B><P>4&#9;New classes&#9;</B><A HREF="#_Toc460241068">*</A></P><DIR>
+
+<FONT FACE="Times"><P>4.1&#9;ClassTemplate&#9;</FONT><A HREF="#_Toc460241069">*</A></P>
+<FONT FACE="Times"><P>4.2&#9;FunctionTemplate&#9;</FONT><A HREF="#_Toc460241070">*</A></P>
+<FONT FACE="Times"><P>4.3&#9;TemplateParameter&#9;</FONT><A HREF="#_Toc460241071">*</A></P>
+<FONT FACE="Times"><P>4.4&#9;FunctionType&#9;</FONT><A HREF="#_Toc460241072">*</A></P>
+<FONT FACE="Times"><P>4.5&#9;EnumerationType&#9;</FONT><A HREF="#_Toc460241073">*</A></P>
+<FONT FACE="Times"><P>4.6&#9;TypeDef&#9;</FONT><A HREF="#_Toc460241074">*</A></P>
+<FONT FACE="Times"><P>4.7&#9;TypeCast&#9;</FONT><A HREF="#_Toc460241075">*</A></P>
+<FONT FACE="Times"><P>4.8&#9;SourceFile&#9;</FONT><A HREF="#_Toc460241076">*</A></P>
+<FONT FACE="Times"><P>4.9&#9;Include&#9;</FONT><A HREF="#_Toc460241077">*</A></P></DIR>
+
+<B><P>5&#9;Excluded features of C++&#9;</B><A HREF="#_Toc460241078">*</A></P>
+<B><P>6&#9;References&#9;</B><A HREF="#_Toc460241079">*</A></P>
+<B><FONT FACE="Arial"><P>Cover Pages</FONT>&#9;</B><A HREF="#_Toc460241080">*</A></P><DIR>
+
+<FONT FACE="Times"><P>FAMIX C++ language plug-in 1.0&#9;</FONT><A HREF="#_Toc460241081">*</A></P>
+<FONT FACE="Times"><P>1) Identification&#9;</FONT><A HREF="#_Toc460241082">*</A></P>
+<FONT FACE="Times"><P>2) Abstract&#9;</FONT><A HREF="#_Toc460241083">*</A></P>
+<FONT FACE="Times"><P>3) Keywords&#9;</FONT><A HREF="#_Toc460241084">*</A></P>
+<FONT FACE="Times"><P>4) Version History&#9;</FONT><A HREF="#_Toc460241085">*</A></P>
+<FONT FACE="Times"><P>5) Issues for future releases&#9;</FONT><A HREF="#_Toc460241086">*</A></P>
+<FONT FACE="Times"><P>6) Table of Contents&#9;</FONT><A HREF="#_Toc460241087">*</A></P>
+<FONT FACE="Times"><P>7) List of Figures&#9;</FONT><A HREF="#_Toc460241088">*</A></P>
+<FONT FACE="Times"><P>8) List of Tables&#9;</FONT><A HREF="#_Toc460241089">*</A></P>
+<P>&nbsp;</P></DIR>
+</DIR>
+</P>
+<H2><A NAME="_Toc460241088">7) List of Figures</A></H2>
+<H2>Figure 1: Class&#9;<A HREF="#_Toc460241090">*</A><DIR>
+
+<P>Figure 2: BehaviouralEntity&#9;<A HREF="#_Toc460241091">*</A></P>
+<P>Figure 3: Method&#9;<A HREF="#_Toc460241092">*</A></P>
+<P>Figure 4: Function&#9;<A HREF="#_Toc460241093">*</A></P>
+<P>Figure 5: StructuralEntity&#9;<A HREF="#_Toc460241094">*</A></P>
+<P>Figure 6: Attribute&#9;<A HREF="#_Toc460241095">*</A></P>
+<P>Figure 7: GlobalVariable&#9;<A HREF="#_Toc460241096">*</A></P>
+<P>Figure 8: InheritanceDefinition&#9;<A HREF="#_Toc460241097">*</A></P>
+<P>Figure 9: Access&#9;<A HREF="#_Toc460241098">*</A></P>
+<P>Figure 10: Invocation&#9;<A HREF="#_Toc460241099">*</A></P>
+<P>Figure 11: ClassTemplate&#9;<A HREF="#_Toc460241100">*</A></P>
+<P>Figure 12: FunctionTemplate&#9;<A HREF="#_Toc460241101">*</A></P>
+<P>Figure 13: TemplateParameter&#9;<A HREF="#_Toc460241102">*</A></P>
+<P>Figure 14: FunctionType&#9;<A HREF="#_Toc460241103">*</A></P>
+<P>Figure 15: EnumerationType&#9;<A HREF="#_Toc460241104">*</A></P>
+<P>Figure 16: TypeDef&#9;<A HREF="#_Toc460241105">*</A></P>
+<P>Figure 17: TypeCast&#9;<A HREF="#_Toc460241106">*</A></P>
+<P>Figure 18: SourceFile&#9;<A HREF="#_Toc460241107">*</A></P>
+<P>Figure 19: Include&#9;<A HREF="#_Toc460241108">*</A></P>
+<H2>&nbsp;</H2></DIR>
+<A NAME="_Toc460241089">8) List of Tables</A></H2>
+<P>&nbsp;</P></BODY>
+</HTML>

@@ -1,0 +1,269 @@
+<HTML>
+
+<!--
+Version History
+===============
++ 28.04.99: Redid the file; apparently older index.html file got lost
++ 16.06.99: Added sniff2famix stuff
++ 07.07.99: Added link to MOOSE
++ 07.09.99: Added Famix 2.0 final release and language plug-ins
++ 26.10.99: Added Famix 2.0 CDIF specifications and updated the
+	    example to Famix 2.0
++ 08.02.08: Added link to latest Famix version.
++ 23.02.08: Added link to Moose.
+-->
+
+<HEAD>
+ <TITLE>SCG / FAMOOS / FAMIX (Information Exchange Model) </TITLE>
+ <LINK REV="MADE" HREF="mailto:demeyer@iam.unibe.ch">
+</HEAD>
+
+
+<BODY BGCOLOR="#FFFFFF">
+
+<!-- MAIN-MENU -->
+<CENTER>
+	  <A HREF= "../">FAMOOS Home</A>
+	| <A HREF= "mailto:famoos@iam.unibe.ch">E-mail Feedback</A>
+</CENTER>
+<HR>
+<!-- /MAIN-MENU -->
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP>
+<A HREF = "../">
+   <IMG ALT="FAMOOS Logo" SRC="../Images/bigfamoos.gif" WIDTH=75 HEIGHT=83 ALIGN=left BORDER=0 >
+  </A>
+</TD>
+
+<TD>
+<P><EM>Last revision: February, 22nd 2008</EM></P>
+
+<H1>SCG / FAMOOS / FAMIX (Information Exchange Model) </H1>
+
+<P>This page provides various pointers to the FAMIX model. This model
+provides a language-independent representation of object-oriented
+source code and is used by the FAMOOS tool prototypes as a basis for exchanging
+information about object-oriented software systems.</P>
+</TD>
+</TR>
+</TABLE>
+
+<HR>
+
+<!-- BODY PAGE -->
+
+<div style="padding:1ex; font-size:200%; background: beige; border: 1px solid peru;">
+Famix is still in use, please refer to</dd>
+<ul>
+<li><a href="http://smallwiki.unibe.ch/fame/">Famix Meta-environment</a>
+<li><a href="http://moose.unibe.ch/docs/famix">Famix 3.0</a>
+<li><a href="http://moose.unibe.ch">Moose analysis technology</a>
+</ul>
+</div>
+
+<h1>Old FAMIX pointers</h1>
+
+<DL>
+
+  <DT><STRONG>Why FAMIX ?</STRONG></DT>
+   <BR>
+   <BR>
+   <DD>
+
+   <DL>
+
+    <DT><EM>The Rationale underlying FAMIX</EM></DT>
+
+     <DD>This document is describing why we did the effort of
+	specifying our own proper information exchange model, and why we did
+	not rely on existing standards such as UML.
+
+     <BR>[ <A HREF = "whyFAMIX/whyFAMIX.html">HTML</A>
+	| <A HREF = "whyFAMIX/whyFAMIX.ps.gz">Compressed Postcript</A>
+	| <A HREF = "whyFAMIX/whyFAMIX.pdf">PDF</A>
+     ]</DD>
+   
+   </DL>
+   </DD>
+</DL>
+
+<HR>
+
+<DL>
+
+  <DT><STRONG>FAMIX Release 2.0</STRONG></DT>
+   <BR>
+   <BR>
+   <DD>
+
+   <DL>
+
+    <DT><EM>The FAMIX 2.0 specification</EM></DT>
+     <DD>This specification is based upon the
+      <A HREF="http://www.eigroup.org/cdif/index.html">CDIF</A> standard
+      so that it can be transferred via flat ASCII streams.
+     <BR>[ <A HREF = "Famix20/Html/famix20.html">HTML</A>
+	 | <A HREF = "Famix20/famix20.pdf">PDF</A>
+	 | <A HREF = "Famix20/famix20.ps.gz">Compressed postcript</A>
+     ]</DD>
+   
+   <BR>
+   <BR>
+
+    <DT><EM>The CDIF headers for FAMIX 2.0 transfers</EM></DT>
+     <DD>All <A HREF="http://www.eigroup.org/cdif/index.html">CDIF</A>
+      ASCII streams contain headers in order for the readers to be 
+      able to interpret the information cantained in the transfer. If you write a
+      <A HREF="http://www.eigroup.org/cdif/index.html">CDIF</A>
+      stream, you should include one of the following ... 
+     <BR>[ <A HREF = "Famix20/famix20.cdif">Complete CDIF FAMIX specification</A>
+	| <A HREF = "Famix20/minimalFamix20.cdif">Minimal CDIF FAMIX specification</A>
+     ]</DD>
+
+   <BR>
+   <BR>
+
+    <DT><EM>An example</EM></DT>
+     <DD> An example of a FAMIX/CDIF file generated from a simple Java
+      project containing a class Point and a class ColoredPoint.
+     <BR>[ <A HREF = "Example/Point.java">Point.java</A>
+	| <A HREF = "Example/ColoredPoint.java">ColoredPoint.java</A>
+	| <A HREF = "Example/Point.shared.cdif">CDIF file</A>
+     ]</DD>
+
+   </DL>
+   </DD>
+</DL>
+
+<HR>
+
+<DL>
+
+  <DT><STRONG>FAMIX Language Plugins</STRONG></DT>
+<!--        <img src="../Images/new.gif"> -->
+   <BR>
+   <BR>
+   <DD>
+
+   <DL>
+
+    <DT><EM>C++ Language Plug-in 1.0</EM></DT>
+     <DD>This document describes the interpretation and extension of
+     FAMIX for the C++ language.
+     <BR>[ <A HREF = "Plugins/C++Plugin1.0.html">HTML</A>
+	 | <A HREF = "Plugins/C++Plugin1.0.pdf">PDF</A>
+	 | <A HREF = "Plugins/C++Plugin1.0.ps.gz">Compressed postcript</A>
+     ]</DD>
+   
+    <DT><EM>Java Language Plug-in 1.0</EM></DT>
+     <DD>This document describes the interpretation and extension of
+     FAMIX for the Java language.
+     <BR>[ <A HREF = "Plugins/JavaPlugin1.0.html">HTML</A>
+	 | <A HREF = "Plugins/JavaPlugin1.0.pdf">PDF</A>
+	 | <A HREF = "Plugins/JavaPlugin1.0.ps.gz">Compressed postcript</A>
+     ]</DD>
+
+    <DT><EM>Ada Language Plug-in 2.2</EM></DT>
+     <DD>This document describes the interpretation and extension of
+     FAMIX for the Ada language.
+     <BR>[ <A HREF = "Plugins/AdaPlugin2.2.html">HTML</A>
+	 | <A HREF = "Plugins/AdaPlugin2.2.pdf">PDF</A>
+	 | <A HREF = "Plugins/AdaPlugin2.2.ps.gz">Compressed postcript</A>
+     ]</DD>
+
+   </DL>
+   </DD>
+</DL>
+
+<HR>
+
+<DL>
+
+  <DT><STRONG>Tool support</STRONG></DT>
+   <BR>
+   <BR>
+   <DD>
+
+   <DL>
+
+    <DT><EM>MOOSE</EM></DT>
+        <img src="../Images/updated.gif">
+     <DD> Moose is the Smalltalk implementation of the FAMIX
+        metamodel. For more information see the page dedicated to <A HREF =
+        "http://moose.unibe.ch">MOOSE</A>. 
+     </DD>
+
+    <BR>
+    <BR>
+
+    <DT><EM>sniff2famix</EM></DT>
+        <img src="../Images/updated.gif">
+     <DD>sniff2famix extracts information according to the FAMIX model from 
+      <A HREF="http://www.takefive.com">SNiFF+</A> symbol 
+      tables and puts it into
+      <A HREF="http://www.eigroup.org/cdif/index.html">CDIF</A>
+      industrial standard ASCII streams. For more information see the
+      <A HREF
+     ="http://titan.cnds.unibe.ch:8080/SCG/sniff2famix">sniff2famix Wiki
+     page</A> 
+
+
+
+   </DL>
+   </DD>
+</DL>
+
+
+<HR>
+
+<DL>
+
+  <DT><STRONG>Older FAMIX Releases</STRONG></DT>
+   <BR>
+   <BR>
+   <DD>
+
+   <DL>
+
+    <DT><EM>The FAMIX 1.1 specification</EM></DT>
+     <DD>This specification is based upon the
+      <A HREF="http://www.eigroup.org/cdif/index.html">CDIF</A> standard
+      so that it can be transferred via flat ASCII streams. While
+      writing the specification, the name FAMIX was not yet agreed
+      upon, so this explains why it is never mentioned 
+      in the document.
+     <BR>[ <A HREF = "InfExch11/INFXCH11.html">HTML</A>
+	| <A HREF = "InfExch11/infxch11.pdf">PDF</A>
+	| <A HREF = "InfExch11/infxch11.ps.gz">Compressed postcript</A>
+	| <A HREF = "InfExch11/infxch11.2pgup.ps.gz">Compressed postcript (2 page up)</A>
+     ]</DD>
+   <BR>
+   <BR>
+
+    <DT><EM>The CDIF headers for FAMIX 1.1 transfers</EM></DT>
+     <DD>All <A HREF="http://www.eigroup.org/cdif/index.html">CDIF</A>
+      ASCII streams contain headers in order for the readers to be 
+      able to interpret the information cantained in the transfer. If you write a
+      <A HREF="http://www.eigroup.org/cdif/index.html">CDIF</A>
+      stream, you should include one of the following ... 
+     <BR>[ <A HREF = "InfExch11/FAMIXmodel.cdif">Complete FAMIX specification</A>
+	| <A HREF = "InfExch11/minimalFAMIXmodel.cdif">Minimal FAMIX specification</A>
+     ]</DD>
+
+   </DL>
+   </DD>
+</DL>
+
+<HR>
+
+<!-- MAIN-MENU -->
+<CENTER>
+	  <A HREF= "../">FAMOOS Home</A>
+	| <A HREF= "mailto:famoos@iam.unibe.ch">E-mail Feedback</A>
+</CENTER>
+<!-- /MAIN-MENU -->
+
+</BODY>
+</HTML>

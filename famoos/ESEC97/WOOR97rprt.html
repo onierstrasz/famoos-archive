@@ -1,0 +1,191 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>ESEC-FSE'97 / Workshop on OO Reengineering / Report</TITLE>
+   <META NAME="GENERATOR"
+      CONTENT="Mozilla/3.01Gold (X11; I; HP-UX B.10.20 9000/800) [Netscape]">
+   <LINK REV="MADE" HREF="mailto:demeyer@iam.unibe.ch">
+
+<!--
+Version History
+===============
++ 22.10.97: First version based on index.html
+-->
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<CENTER><P>
+
+<!-- MAIN-MENU -->
+<A HREF="">WOOR'97</A>
+| <A HREF="ESEC97CFP.html">CFP</A>
+| <A HREF="mailto:demeyer@iam.unibe.ch">E-mail</A>
+
+<HR>
+<!-- /MAIN-MENU -->
+</P>
+</CENTER>
+
+<H1 ALIGN=CENTER>Report: Workshop on Object-Oriented Re-engineering (WOOR'97)
+ <BR>Zurich, Friday September 26, 1997 </H1>
+<CENTER><P>
+<EM>Version 1.0 -- Latest Revision: October, 22nd 1997</EM></P>
+</CENTER>
+
+<h2>Context</h2>
+
+<P>The ability to reengineer object-oriented systems has become a
+vital matter in today's software industry. Early adopters of the
+object-oriented programming paradigm are now facing the problem of
+transforming their object-oriented 'legacy' systems into full-fledged
+frameworks. Dealing with programs exceeding 10,000 lines of badly
+documented code definitely requires support from methodologies as well
+as tools.</P>
+
+<P>During the ESEC/FSE'97 conference (1), a workshop was organised
+with the explicit goal to gather people working on solutions for
+object-oriented legacy systems. In here we report on the experiences
+exchanged, the solutions discussed and the ideas explored. More
+information can be found in the workshop proceedings [Demeyer,Gall'97]
+or via the world-wide web
+(http://www.iam.unibe.ch/~famoos/ESEC97/).</P>
+
+<P>Prior to the workshop, participants were requested to submit a
+position paper describing their work on OO re-engineering. The
+accepted papers were collected in the workshop proceedings and
+distributed to the participants in advance so that people could get
+familiar with the material beforehand. 14 position papers were
+accepted for the workshop with 26 different authors. The workshop
+itself gathered 23 persons from 12 different countries in Europe, USA,
+Australia, and Japan.</P>
+
+<P>The workshop started with a quick tour of the submitted papers
+covering topics such as code analysis and visualization, repositories,
+metrics, design patterns, cluster analysis, meta models,
+restructuring, testing, and architecture. Based on these topics, we
+split up the group in two separate task forces.</P>
+
+
+<h2>Analysis and Repositories</h2>
+
+<P>The first task force discussed analysis techniques and repository
+technology available for re-engineering. A prominent question was to
+what extent object-oriented re-engineering is different from
+'conventional' re-engineering. It was concluded that re-engineering
+depends largely on the amount of structure inside the legacy system:
+OO re-engineering may benefit from explicit structuring primitives
+such classes and inheritance but --especially in hybrid approaches--
+one cannot be sure that software engineers applied those
+primitives.</P>
+
+<P>A second question was whether it is worthwhile to do a dynamic
+analysis, or whether a static analysis is sufficient. The question
+remained unanswered: dynamic analysis is hard to do and generates huge
+amounts of data, and it is not sure whether the benefits outweigh the
+costs. On the other hand, pure static analysis cannot address all of
+the re-engineering issues.</P>
+
+<P>Concerning repository technology, it was agreed that no approach
+can store all available information and so trade-offs must be made to
+restrict the repository to a manageable size. This trade off is
+especially important, since a re-engineering repository must be able
+to store extra information in addition to what can be extracted from
+source code. An important area for such extra information is what is
+required by all kinds of visualization tools.</P>
+
+<P>Finally the participants compiled a list of the tools they have
+found useful during their re-engineering projects.</P>
+
+
+<h2>Restructuring and Tools</h2>
+
+<P>The second task force discussed how one can restructure
+object-oriented systems and to what extent tool support is
+required. The work was organised around a number of questions, the
+first being 'What is the problem?'. Here we came up with a
+non-exhaustive list of cases where re-engineering is appropriate; some
+of them were specific for OO others were not. Part of the list was
+based on the case studies of the FAMOOS project [FAMOOS'97]. The
+second question was 'How serious is the problem?'.  Everybody agreed
+that it was imperative to publish work on good examples of the
+necessity to restructure software systems.</P>
+
+<P>The third question discussed in length was 'How do we restructure a
+legacy system?'. The task force classified the answer into three
+layers of targets for restructuring: (1) classes, (2) patterns, and
+(3) frameworks. For restructuring into classes, it seems that starting
+from (persistent) data is at least a workable approach. After
+identifying the classes one can concentrate on the methods and finally
+start to refactor the class hierachy to make the system more flexible.
+Concerning restructuring into patterns, the general feeling was that
+it would be useful and that it is feasible to a certain extent. To
+restructure into frameworks, the group pointed out that frameworks are
+not necessarily implemented in an OO medium and that the hardest
+problem seems to be identifying the common functionality that needs to
+be factored out in the framework design.</P>
+
+<P>The final question concerned how much of the original system is to
+be preserved in the restructuring process. We agreed that it is hard
+to come up with a fool-proof definition of 'semantic preserving' or
+(what seems to be the weaker variant) 'behaviour
+preserving'. Moreover, proving that a certain restructuring operation
+preserves behaviour is even harder -- all one can do is agree on a
+certain model and then prove that the operation preserves behaviour
+with respect to that model. Viewn from that perspective, it seems that
+it might be useful to define a model where it is easy to come up with
+behaviour preserving operations and worry about how to extract that
+model later.</P>
+
+
+<h2>Summary</h2>
+
+<P>The workshop showed that the need for object-oriented
+re-engineering can be seen from at least two perspectives: (1)
+re-engineering procedural systems to object-oriented; and (2)
+re-engineering object-oriented systems to improve their quality. The
+amount of problems that have to be adressed in each of these
+approaches showed that more practical research is required. ESPRIT
+projects such as FAMOOS and ARES, that concentrate on several parts of
+the problem, can contribute a lot to solve at least some of the
+research issues.</P>
+
+
+<h2>References</h2>
+
+<DL>
+  <DT>[Demeyer,Gall'97]</DT>
+
+  <DD>Demeyer, S. and Gall, H. (editors) "Proceedings of the
+  ESEC/FSE'97 Workshop on Object-Oriented Re-engineering".  Technical
+  Report TUV-1841-97-10, Technical University of Vienna, Austria,
+  August 1997.</DD>
+
+  <DT>[FAMOOS'97]</DT>
+
+  <DD>FAMOOS Newsletter Number 02. July 1997. See
+  http://www.sema.es/projects/FAMOOS/</DD>
+
+  <DT>[ARES]</DT>
+
+  <DD>ESPRIT project ARES (Architectural Reasoning for Embedded
+  Systems), see http://www.infosys.tuwien.ac.at/Projects/ARES/</DD>
+
+</DL>
+
+(1) ESEC/FSE'97 was a joint meeting of the European Software Engineering
+Conference and the ACM SIGSOFT's Symposium on the Foundations of Software
+Engineering in Zurich, Switzerland, September 22-25, 1997.
+
+
+<CENTER><P>
+
+<!-- MAIN-MENU -->
+<A HREF="">WOOR'97</A>
+| <A HREF="ESEC97CFP.html">CFP</A>
+| <A HREF="mailto:demeyer@iam.unibe.ch">E-mail</A>
+
+</P></CENTER>
+
+</BODY>

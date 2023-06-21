@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>ESEC-FSE'99 / Workshop on OO Reengineering / Submissions</TITLE>
+   <LINK REV="MADE" HREF="mailto:demeyer@iam.unibe.ch">
+
+<!--
+Version History
+===============
++ 04.08.99: New version with submitted abstracts.
++ 05.08.99: Added Haralds paper + links to postcript + e-mails
++ 23.08.99: Added new versions + pdf files + participant lists
+-->
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<CENTER><P>
+
+<!-- MAIN-MENU -->
+  <A HREF="http://www.cert.fr/anglais/dprs/esec99.html">ESEC/FSE'99</A>
+| <A HREF="../">WOOR'99</A>
+| <A HREF="">papers</A>
+| <A HREF="mailto:demeyer@iam.unibe.ch">E-mail</A>
+
+<HR>
+<!-- /MAIN-MENU -->
+</P>
+</CENTER>
+
+<H1 ALIGN=CENTER>ESEC/FSE'99 Workshop on Object-Oriented Reengineering
+ <BR>Toulouse (France), Monday September 6th, 1999
+ <BR>Submitted Position Papers</H1>
+<CENTER>
+
+<P><EM>Version 0.2 -- Latest Revision: August, 5th, 1999</EM></P>
+
+<P><A HREF ="http://www.iam.unibe.ch/~famoos/ESEC99/">
+http://www.iam.unibe.ch/~famoos/ESEC99/</A></P>
+
+</CENTER>
+
+<H2>
+List of Position Papers</H2>
+
+<UL>
+
+<LI><EM>Round-Trip Software Engineering Using UML: From Architecture to Design and
+Back</EM>
+
+<DL>
+<DT>Authors:</DT>
+<DD>Nenad Medvidovic (Computer Science Department,
+    University of Southern California, USA)
+
+ <BR>Alexander Egyed (Computer Science Department,
+    University of Southern California, USA)
+
+ <BR>David S. Rosenblum (Department of Information and Computer Science
+    University of California, Irvine, USA)</DD>
+
+<DT>Abstract:</DT><DD>
+A key promise of software architecture research is that better software
+systems can result from modeling their important aspects throughout
+development. Choosing which system aspects to model and how to evaluate them
+are two decisions that frame software architecture research. Part of the
+software architecture community, primarily from academia, has focused on
+analytic evaluation of architectural descriptions. Another part of the
+community, primarily from industry, has chosen to model a wide range of issues
+that arise in software development, with a family of models that span and
+relate the issues. One problem that neither community has adequately addressed
+to date is round-trip software engineering: consistently refining a high-level
+model of a software system into a lower-level model (forward engineering) and
+abstracting a low-level model into a higher-level one (reverse
+engineering). This paper investigates the possibility of using the Unified
+Modeling Language (UML), an object-oriented design language, to that end. The
+paper assesses UML's suitability for modeling architectural concepts and
+provides a framework for identifying and resolving mismatches within and
+across different UML views, both at the same level of abstraction and across
+lev-els of abstraction. Finally, the paper briefly discusses our current tool
+support for round-trip software engineering.
+</DD>
+
+<DT>Download:</DD>
+  <DD>[<A HREF = "01Medvidovic.ps.gz">gzipped postcript</A> | 
+       <A HREF = "01Medvidovic.pdf">PDF</A>]</DD>
+
+</DL></LI>
+
+<LI><EM>Understanding class hierarchies with KABA</EM>
+
+<DL>
+<DT>Authors:</DT>
+<DD>Mirko Streckenbach (Universit&auml;t Passau, Germany)
+  <BR>Gregor Snelting (Universit&auml;t Passau, Germany)</DD>
+
+<DT>Abstract:</DT><DD>
+  KABA is a prototype implementation of the Snelting/Tip analysis
+  for JAVA. KABA combines dataflow analysis, type inference and concept
+  lattices in order to perform a
+  fine-grained analysis of member-access patterns in a class hierarchy
+  together with a given set of applications. KABA computes a transformed
+  hierarchy which is guaranteed to be 1. operationally equivalent,
+  2. maximally factorized, 3. minimal. The new hierarchy in particular
+  makes obvious which classes can be splitted and which cannot; which
+  inheritance relations must be retained and which can be discarded. The
+  paper presents several case studies on medium-sized JAVA programs.
+<DD>
+
+<DT>Download:</DD>
+  <DD>[<A HREF = "02snelting.ps.gz">gzipped postcript</A> | 
+       <A HREF = "02snelting.pdf">PDF</A>]</DD>
+
+</DL></LI>
+
+
+<LI><EM>Extracting Reusable Software Architectures: A Slicing-Based Approach</EM>
+
+<DL> <DT>Authors:</DT> <DD>Jianjun Zhao (Department of Computer Science and
+Engineering, Fukuoka Institute of Technology, Japan)<DD>
+
+<DT>Abstract:</DT><DD> An alternative approach to developing reusable
+components from scratch is to recover them from existing systems. Although
+numerous techniques have been proposed to recover reusable components from
+existing systems, most have focused on implementation code, rather than
+software architecture. In this paper, we apply architectural slicing to
+extract reusable architectures from existing architectural specifications.
+Architectural slicing is designed to operate on the architectural
+specification of a software system to provide knowledge about the high-level
+structure of a software system, rather than the traditional program slicing
+which is designed to operate on the source code of a program to provide the
+low-level implementation details of a program.  <DD>
+
+<DT>Download:</DD>
+  <DD>[<A HREF = "03zhao.ps.gz">gzipped postcript</A> | 
+       <A HREF = "03zhao.pdf">PDF</A>]</DD>
+
+</DL></LI>
+
+<LI><EM>SNiFF+ Talks to Rational Rose -- Interoperability using a Common Exchange Model</EM>
+
+<DL>
+<DT>Authors:</DT>
+<DD>Sander Tichelaar (Software Composition Group, University of Berne, Switzerland)
+  <BR>Serge Demeyer (Software Composition Group, University of Berne, Switzerland)</DD>
+
+<DT>Abstract:</DT><DD> Nowadays development environments are required to be
+open: users want to be able to work with a combination of their preferred
+commercial and home-grown tools. TakeFive has opened up SNiFF+ with a
+so-called "Symbol Table API"; Rational has opened up the UML tool Rose via the
+so-called "Rose Extensibility Interface (REI)". On the other hand, efforts are
+underway to define standards for exchanging information between case-tools;
+CDIF being a notable example. This paper reports on our experience to generate
+UML diagrams in Rational Rose from the symbol table in SNiFF+ using a standard
+CDIF exchange format.  <DD>
+
+<DT>Download:</DD>
+  <DD>[<A HREF = "04demeyer.ps.gz">gzipped postcript</A> | 
+       <A HREF = "04demeyer.pdf">PDF</A>]</DD>
+
+</DL></LI>
+
+<LI><EM>Object-Model Driven Abstraction-to-Code Mapping</EM>
+
+<DL>
+<DT>Authors:</DT>
+<DD>Harald Gall (Distributed Systems Group, Technical University of
+Vienna, Austria)
+  <BR> Johannes Weidl (Distributed Systems Group, Technical University of
+Vienna, Austria)</DD>
+
+<DT>Abstract:</DT><DD> In object-oriented re-architecting, we face the
+problem of improving the maintainability of procedural source code to
+facilitate software evolution. We do this by transforming the
+procedural code into an object-structure employing encapsulation to
+the legacy data structures and their related procedures. To handle the
+concept assignment problem, we established a stepwise
+abstraction-to-code mapping via different object models based on
+criteria such as the kind of information used in the modeling process,
+model granularity, and model abstraction.  This mapping is
+object-model (and thus forward-) driven rather than source-code (or
+reverse-) driven and therefore enables the specific use of application
+and domain knowledge. For that, an object-model driven approach
+promises a high-level semantic class structure for an improved
+software evolution process. We have applied our approach to a
+real-world embedded software system to identify potential objects;
+several results from the case study are given in the paper.
+
+<DD>
+
+<DT>Download:</DD>
+  <DD>[<A HREF = "05gall.ps.gz">gzipped postcript</A> | 
+       <A HREF = "05gall.pdf">PDF</A>]</DD>
+
+</DL></LI>
+
+</UL>
+
+
+<HR>
+
+<CENTER><P>
+
+<!-- MAIN-MENU -->
+
+  <A HREF="http://www.cert.fr/anglais/dprs/esec99.html">ESEC/FSE'99</A>
+| <A HREF="../">WOOR'99</A>
+| <A HREF="">papers</A>
+| <A HREF="mailto:demeyer@iam.unibe.ch">E-mail</A>
+
+<!-- /MAIN-MENU -->
+
+</BODY>
+</HTML>

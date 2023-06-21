@@ -1,0 +1,135 @@
+*********************************************************************
+*
+*  README file for sniff2famix, version 1.1
+*
+*  sniff2famix
+*     is a program that produces information according to the FAMIX
+*     Model from the symbol table of a SNiFF+ project using the CDIF
+*     standard for information exchange.  
+*
+*  Author: Sander Tichelaar, tichel@iam.unibe.ch
+*     based on work by Holger Baer and Serge Demeyer.
+*
+*  For more information about the FAMIX Model
+*  and the CDIF format, see:
+*     http://www.iam.unibe.ch/~famoos/FAMIX/
+* 
+*  For more information on SNiFF+, see:
+*     http://www.takefive.com
+*
+*********************************************************************
+
+
+The distribution is a gzipped tarred file, expanding into a directory,
+called sniff2famix<version number>. In this directory you will find the
+source code of sniff2famix. 
+
+Prerequisite for using this software is an installation of SNiFF+. The
+current version of sniff2famix has been tested with SNiFF+ 3.0.1.
+sniff2famix makes use of the Symbol Table API of SNiFF+.
+
+Questions, comments and/or suggestions are welcome! Direct them to
+Sander Tichelaar, tichel@iam.unibe.ch.
+
+CONTENTS
+
+1. INSTALLATION
+2. RUNNING THE PROGRAM
+3. IMPORTANT !!
+4. OTHER REMARKS
+
+
+1. INSTALLATION
+
+ 1. un(g)zip and untar (if needed) the distribution file (or just
+    unzip . It will expand into a directory, called
+    sniff2famix<version number>.  
+
+    The directory contains:
+
+    Source code:
+     sniff2famix.c 
+     extractor.c
+     extractor.h
+     makefile       
+
+    Miscellaneous:
+     sniff2famix      // binary for use with SNiFF+ 3.0.1 on Solaris 2.5.1
+     infxch11CDIF.txt // CDIF definition of the FAMOOS Information
+                      // Exchange Model
+     README	      // this file 
+
+ 2. The binary is compiled with the SNiFF+ 3.0.1 libraries. To use this
+    program with any other version of SNiFF+, you need to recompile it
+    with the right libraries for your platform. The SNIFF_DIR
+    environment should point rightly to your SNiFF+ installation
+    (which it normally does, if SNiFF+ is installed rightly). Edit the
+    makefile so that SNIFF_LIB indicates the right library for your
+    platform:
+
+    The file libSniffApi.a can normally be found in
+      SNIFF_LIB = $SNIFF_DIR/symbol_API/lib.<yourplatform>/libSniffApi.a  
+                                            --------------
+					    
+    Running make should compile the stuff nicely.
+
+ 3. run the program (see RUNNING THE PROGRAM below).
+
+
+2. RUNNING THE PROGRAM
+
+ To run sniff2famix you have to have a copy of SNiFF+ running.
+
+ sniff2famix <SNiff+ project> starts SNiFF+, queries the symboltable
+ of a SNiFF+ project to extract information according to the FAMIX
+ model and puts it on stdout (or a file, if specified) using the CDIF
+ format.
+ 
+ For more options, run sniff2famix -h. This will result in:
+
+  Usage: sniff2famix [-options] <sniff-project>
+
+  where options include:
+    -help, -h, -?               print out this message
+    -version, -v                print out the version of sniff2famix
+    -noHeader, -nh              don't put CDIF header in output
+    -level <1-4>                level of reification in the FAMOOS model.
+                                Default = 1. The higher the level, the more
+                                information is included.
+    +/-access                   show or hide variableAccess (only useful when
+                                level>=3. Default = show.
+    +/-invocation               show or hide methodInvocation (only useful when
+                                level>=3. Default = show.
+    +/-sourceAnchor             show or hide source anchors for CDIF entities.
+                                Default = show.
+    +/-packages                 show or hide package names. Default = false.
+    +/-fullInheritanceDef       show or hide full InheritanceDefinition. If false,
+                                the attrs accessControlQualifier and index of
+                                InheritanceDefinition are suppressed.
+                                Default = hide.
+    -publisherName, -pn <name>  set name of publisher.
+    -o <filename>               write output to file with name filename.
+                                Default = stdout.
+
+ 
+3. IMPORTANT!!
+
+ - Apparently a project can only be opened via the SNiFF+ symbol table
+   API if the SNIFF+ Working Environment of this project is set as the
+   default working environment. sniff2famix will hang in this
+   case. Don't forget to kill SNiFF+ after killing sniff2famix.
+
+ - If the project to parse contains any items that need preprocessing,
+   be sure that in SNiFF+ the preprocessor is enabled for this project
+   (see Project Attributes > Parser > Preproccesing before
+   Parsing). Otherwise sniff2famix (and SNiFF+ itself) may provide
+   false information.
+
+4. OTHER REMARKS
+
+ - sniff2famix doesn't provide all information as specified in the
+   FAMIX model. This is mainly, because the SNiFF+ symbol table and
+   its API do not provide the information. The output contains all
+   mandatory information though.
+
+ - all subprojects of a project are also parsed.

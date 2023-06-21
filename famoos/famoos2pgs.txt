@@ -1,0 +1,117 @@
+FAMOOS
+	Framework-based
+	Approach for
+	Mastering
+	Object-
+	Oriented
+	Software Evolution
+
+Software Composition Group - Institut für Informatik - University of Berne
+
+
+
+The Project in a Nutshell
+-------------------------
+
+FAMOOS is an ESPRIT project that will last 3 years starting from
+September 1st, 1996. ESPRIT projects are concerned with research and
+development activities in the area of information technology, i.e., all
+software that underpins the way companies do business and supports the
+design and manufacture of products. The FAMOOS project intends to
+improve existing software by making it more flexible; i.e. adaptable to
+the changing requirements imposed by the way people want to use
+information technology. In computer science, the state of the art
+dictates object-oriented programming as a key factor to achieve
+flexibility.
+
+An ESPRIT project must bring together companies and research
+institutions from different members of the European Union, but
+encourages the participation of non-member countries as well. Since
+Switzerland invests in joint international research projects, the
+University of Berne was able to participate in the ESPRIT programme.
+
+The partners in the FAMOOS project are:
+
+- Nokia Corporation (Finland) is an international group strongly
+positioned in all key growth areas of the telecommunication business.
+Nokia relies heavily on state of the art information technology for all
+of its activities.
+
+- Daimler-Benz (Germany) is the largest industrial concern in Europe.
+The group is active in the areas of traffic & transport systems and
+services - areas that benefit a lot from information technology
+projects.
+
+- SEMA Group s.a.e. (Spain) is one of the largest software houses in
+Spain. SEMA provides the FAMOOS project with the Concerto2/Audit tool.
+
+
+- TakeFive Software (Austria) is a company dedicated to providing
+solutions for managing complex software development by providing tools
+and technologies. TakeFive sells the SNiFF+ tool, used in the FAMOOS
+project.
+
+- FZI (Germany) is a research centre that transfers technology from
+computer science to the software industry and, as such, has lots of
+experience with re-engineering.
+
+- Software Composition Group (Switzerland) is a research group part of
+the Institut fr Informatik at the University of Berne, specialised in
+object-oriented software engineering.
+
+
+Oversimplified, the set-up of the FAMOOS project is such that the
+technology users (i.e., Nokia and Daimler-Benz) provide real-world
+cases to be studied by the academic partners (i.e., University of Berne
+and FZI) using the tools supplied by the technology providers (i.e.,
+SEMA and TakeFive).
+
+
+The Role of the Software Composition Group
+------------------------------------------
+
+Improvement of software systems requires controlled modifications.
+Therefore the FAMOOS project is essentially about re-engineering
+existing software systems, where we regard re-engineering as an
+evolutionary process with five phases:
+ 1.Model Capture: documenting and understanding the software system
+ 2.Problem Detection: identifying flexibility and quality problems
+ 3.Problem Resolution: selecting new software architectures to correct
+   the problems
+ 4.Reorganisation: transforming the existing software architecture for a
+   new release
+ 5.Change Propagation: ensuring that all client systems benefit from the
+   new release
+
+Although the Software Composition Group works on the complete
+re-engineering cycle, our main contribution is expected within phases 3
+and 4, i.e. the quest for improving the software architecture or --put
+into different terms-- forward engineering. Indeed, the Software Compo-
+sition Group acts as strong advocates for the idea of software
+components: we believe that the best way to create flexible software
+systems is by building them out of reusable components conforming to a
+"plug-in architecture". Just like a malfunctioning TV-systems can be
+repaired more effectively by replacing defective IC's, we want to adapt
+an outdated software system by substituting new software components for
+older ones. The Software Composition Group group has done quite a lot
+of work on both the formal as well as practical aspects of
+component-based software architectures, and the FAMOOS project gives us
+an excellent opportunity to test our ideas on real-world cases.
+
+
+More Information
+----------------
+
+To learn more about FAMOOS and the role of the Software Composition
+Group in the project, you might want to look at our world-wide web site
+or contact us via the following coordinates.
+
+	http://iamwww.unibe.ch/~famoos/
+	e-mail: famoos@iam.unibe.ch
+
+	Institut für Informatik (IAM) - Universität Bern
+	Software Composition Group
+	Neubrückstrasse 10
+	CH-3012 Berne, Switzerland
+	Tel: +41 (31) 631.4618
+	Fax: +41 (31) 631.3965

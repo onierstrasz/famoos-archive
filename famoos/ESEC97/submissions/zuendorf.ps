@@ -1,0 +1,5078 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 5.1
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%-
+%- Frame ps_prolog 5.0, for use with Frame 5.0 products
+%- This ps_prolog file is Copyright (c) 1986-1996 Adobe Systems, Incoporated.
+%- All rights reserved.  This ps_prolog file may be freely copied and 
+%- distributed in conjunction with documents created using FrameMaker, 
+%- FrameMaker/SGML FrameReader and FrameViewer as long as this 
+%- copyright notice is preserved.
+%-
+%- FrameMaker users specify the proper paper size for each print job in the
+%- "Print" dialog's "Printer Paper Size" "Width" and "Height~ fields.  If the
+%- printer that the PS file is sent to does not support the requested paper
+%- size, or if there is no paper tray of the proper size currently installed, 
+%- then the job will not be printed.  The following flag, if set to true, will
+%- cause the job to print on the default paper in such cases.
+/FMAllowPaperSizeMismatch            false def
+%-
+%- Frame products normally print colors as their true color on a color printer
+%- or as shades of gray, based on luminance, on a black-and white printer. The
+%- following flag, if set to true, forces all non-white colors to print as pure
+%- black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%-
+%- Frame products can either set their own line screens or use a printer's 
+%- default settings. Three flags below control this separately for no 
+%- separations, spot separations and process separations. If a flag
+%- is true, then the default printer settings will not be changed. If it is
+%- false, Frame products will use their own settings from a table based on
+%- the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%-
+%- For any given PostScript printer resolution, Frame products have two sets of 
+%- screen angles and frequencies for printing process separations, which are 
+%- recomended by Adobe. The following variable chooses the higher frequencies
+%- when set to true or the lower frequencies when set to false. This is only
+%- effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%-
+%- The following is a set of predefined optimal frequencies and angles for various
+%- common dpi settings. This is taken from "Advances in Color Separation Using
+%- PostScript Software Technology," from Adobe Systems (3/13/89 P.N. LPS 0043)
+%- and corrolated with information which is in various PPD (4.0) files.
+%-
+%- The "dpiranges" figure is the minimum dots per inch device resolution which
+%- can support this setting. The "low" and "high" values are controlled by the
+%- setting of the FMUseHighFrequencyScreens flag above. The "TDot" flags control
+%- the use of the "Yellow Triple Dot" feature whereby the frequency id divided by
+%- three, but the dot function is "trippled" giving a block of 3x3 dots per cell.
+%-
+%- PatFreq is a compromise pattern frequency for ps Level 2 printers which is close
+%- to the ideal WYSIWYG pattern frequency of 9 repetitions/inch but does not beat
+%- (too badly) against the screen frequencies of any separations for that DPI.
+% This is computed by taking dpi/9 as the ideal pixels per repetition, and then
+% computing a tiling size in printer pixels for each of the four separations as 
+% (dpi/screenFreq)*(cos(screenAngle)+sin(screenAngle)) Actually, this is the same 
+% for Cyan and Magenta). Then, we take a "nice" LCM of the tile sizes close to
+% the desired pattern tile where the beat factor is not more than 2 or 3.
+%
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+%-
+%- PostScript Level 2 printers contain an "Accurate Screens" feature which can
+%- improve process separation rendering at the expense of compute time. This 
+%- flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%-
+%- The following PostScript procedure defines the spot function that Frame
+%- products will use for process separations. You may un-comment-out one of
+%- the alternative functions below, or use your own.
+%-
+%- Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%-
+%- Line function
+%- /FMSpotFunction { pop } def
+%-
+%- Elipse function
+%- /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%-		sqrt 1 exch sub } def
+%-
+%-
+
+/FMversion (5.0) def % matches PS_VERSION in fmprintdriver
+
+% PostScript Level 1 = true, 2 = false
+/fMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+
+% Set up Color vs. Black-and-White
+/FMPColor
+	fMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+%		statusdict /processcolors known {
+%			statusdict /processcolors get exec
+%		} {1} ifelse
+%		1 gt
+		true
+	} ifelse
+def
+
+/FrameDict 400 dict def % should check this value each time changes made
+
+%
+% For NeWS we add a fake errordict, so we can psh files
+%
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+
+%- The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put % save old rangecheck
+errordict /rangecheck {FrameDict /bug true put} put % will flag bug found
+FrameDict /bug false put % flag bug not found
+mark % since we're not sure what will happen next
+%- Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark % junk from readline and rangecheck
+errordict /rangecheck FrameDict /tmprangecheck get put % restore rangecheck
+FrameDict /bug get { % redefine readline if last one got a rangecheck
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop % get a char
+			dup 10 eq {exit} if % exit if LF
+			dup 13 eq {exit} if % exit if CR
+			gstring exch gindex exch put % store it away
+			/gindex gindex 1 add def % bump index
+		} loop
+		pop % eol character
+		gstring 0 gindex getinterval true % simulate real readline
+		} bind def
+	} if
+
+% outer-world defs
+
+/FMshowpage /showpage load def
+/FMquit /quit load def
+
+/FMFAILURE { % enter with two error strings on the stack
+	dup = flush % send a copy of the message to the console
+	FMshowpage % msg on a page by itself, so it can't be, say, black on black
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto show
+	72 220 moveto show
+	FMshowpage % we might be in the middle of some EPS, where "showpage"
+	FMquit % and "quit" are redefined
+	} def % only used once at most, so no bind
+
+/FMVERSION {
+	FMversion ne {
+		(Adobe Frame product version does not match ps_prolog!  Check installation;)
+		(also check ~/fminit and ./fminit for old versions) FMFAILURE
+		} if
+	} def % only used at startup, so no bind
+
+/FMBADEPSF { % Call with bad operator name on stack (as a string)
+	(Adobe's PostScript Language Reference Manual, 2nd Edition, section H.2.4)
+	(says your EPS file is not valid, as it calls X              )
+	dup dup (X) search pop exch pop exch pop length % parmstr errstr errstr indx
+	5 -1 roll % errstr errstr index parmstr
+	putinterval % errstr
+	FMFAILURE
+	} def
+
+% standard concatprocs routine
+/fmConcatProcs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+
+% Put all local variables here in alphabetical order.
+FrameDict begin [
+	/ALDsave
+	/FMdicttop
+	/FMoptop
+	/FMpointsize
+	/FMsaveobject
+	/b
+	/bitmapsave
+	/blut
+	/bpside
+	/bs
+	/bstring
+	/bwidth
+	/c
+	/cf
+	/cs
+	/cynu
+	/depth
+	/edown
+	/fh
+	/fillvals
+	/fw
+	/fx
+	/fy
+	/g
+	/gfile
+	/gindex
+	/grnt
+	/gryt
+	/gstring
+	/height
+	/hh
+	/i
+	/im
+	/indx
+	/is
+	/k
+	/kk
+	/landscape
+	/lb
+	/len
+	/llx
+	/lly
+	/m
+	/magu
+	/manualfeed
+	/n
+	/offbits
+	/onbits
+	/organgle
+	/orgbangle
+	/orgbfreq
+	/orgbproc
+	/orgbxfer
+	/orgfreq
+	/orggangle
+	/orggfreq
+	/orggproc
+	/orggxfer
+	/orgmatrix
+	/orgproc
+	/orgrangle
+	/orgrfreq
+	/orgrproc
+	/orgrxfer
+	/orgxfer
+	/pagesave
+	/paperheight
+	/papersizedict
+	/paperwidth
+	/pos
+	/pwid
+	/r
+	/rad
+	/redt
+	/sl
+	/str
+	/tran
+	/u
+	/urx
+	/ury
+	/val
+	/width
+	/width
+	/ws
+	/ww
+	/x
+	/x1
+	/x2
+	/xindex
+	/xpoint
+	/xscale
+	/xx
+	/y
+	/y1
+	/y2
+	/yelu
+	/yindex
+	/ypoint
+	/yscale
+	/yy
+] { 0 def } forall
+
+% Start of PDF/Acrobat support
+
+% Bind def
+/FmBD {bind def} bind def
+
+systemdict /pdfmark known {
+	/fMAcrobat true def
+
+	% FmPD is a conditional PDFMark
+	/FmPD /pdfmark load def
+	
+	% FmPT is a show text operator which only show up when distiller is active
+	/FmPT /show load def
+	
+	% FmPD2 and FmPA are Acrobat 2.0-specific
+	currentdistillerparams /CoreDistVersion get 2000 ge {
+	
+		% FmPD2 is like FmPD but for Acrobat 2.0-specific PDF
+		/FmPD2 /pdfmark load def
+		
+		% x y/name FmPA
+		% 	is equivalent to
+		% [/Dest/name/View[/FitH x y FmDC exch pop]/DEST FmPD
+		% It is a shortcut for pagragraph Uinique ID designators whic occurr commonly.
+		/FmPA { mark exch /Dest exch 5 3 roll 
+				/View [ /XYZ null 6 -2 roll FmDC exch pop null] /DEST FmPD 
+		}FmBD
+	} {
+		% These are No-Ops for Distiller 1.0
+		/FmPD2 /cleartomark load def
+		/FmPA {pop pop pop}FmBD
+	} ifelse
+} {
+	% these are the No-Ops for regular PostScript
+	/fMAcrobat false def
+	/FmPD /cleartomark load def
+	/FmPD2 /cleartomark load def
+	/FmPT /pop load def
+	/FmPA {pop pop pop}FmBD
+} ifelse
+
+% This convert a set of X Y coordinates from the current user space to the default
+% PostScript coordinates needed by some pdfmark variants. We also convert to 
+% integer because the distiller doesn't always like floats!
+/FmDC {
+	transform fMDefaultMatrix itransform cvi exch cvi exch
+}FmBD
+
+% This converts four numbers into a bounding box making sure the first two are maller than the last two
+/FmBx {
+	dup 3 index lt {3 1 roll exch} if 
+	1 index 4 index lt {4 -1 roll 3 1 roll exch 4 1 roll} if
+}FmBD
+
+% End of PDF/Acrobat support
+
+%
+% Color separation code
+%
+
+% Constants.
+
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+
+/fMNegative false def % we are inverting the page
+
+% Variables.
+
+/FrameSepIs FMnone def % separation we are printing
+% If FrameSepIs is FMcustom, this is the custom color
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def % c m y k r g b
+
+% Utility routines
+
+/FrameColorEpsilon .001 def	% epsilon by which values can differ and sill be equal
+/eqepsilon {		% v1 v2 eqeps bool
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+
+% are the cmyk and cmykrgb arrays on the stack the same color?
+/FrameCmpColorsCMYK { % [ c1 m1 y1 k1 ] [ c2 m2 y2 k2 r2 g2 b2] -> bool
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+% are the rgb and cmykrgb arrays on the stack the same color?
+/FrameCmpColorsRGB { % [ r1 g1 b1 ] [ c2 m2 y2 k2 r2 g2 b2] -> bool
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+
+% convert r g b to c m y k
+/RGBtoCMYK { % r g b
+	1 exch sub % r g y
+	3 1 roll % y r g
+	1 exch sub % y r m
+	3 1 roll % m y r
+	1 exch sub % m y c
+	3 1 roll % c m y
+	3 copy % c m y c m y
+	2 copy % c m y c m y m y
+	le { pop } { exch pop } ifelse % c m y c min(m,y)
+	2 copy % c m y c min(m,y) c min(m,y)
+	le { pop } { exch pop } ifelse % c m y min(c, min(m,y))
+	dup dup dup % c m y k k k k
+	6 1 roll % c k m y k k k
+	4 1 roll % c k m k y k k
+	7 1 roll % k c k m k y k
+	sub % k c k m k y
+	6 1 roll % y k c k m k
+	sub % y k c k m
+	5 1 roll % m y k c k
+	sub % m y k c
+	4 1 roll % c m y k 
+} bind def
+/CMYKtoRGB { % c m y k CMYKtoRGB r g b
+	dup dup 4 -1 roll add 						  % c m k k y+k
+	5 1 roll 3 -1 roll add 						  % y+k c k m+k
+	4 1 roll add 								  % m+k y+k c+k
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  % r m+k y+k
+	1 exch sub dup 0 lt {pop 0} if exch 	      % r b m+k
+	1 exch sub dup 0 lt {pop 0} if exch	  		  % r g b
+} bind def
+
+% Public routines
+
+
+% Happens at the top of each page that is a separation
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+% Tell the separation code that this separation is for a custom color
+/FrameSetSepColor { % c m y k r g b
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+% Tell the separation code that this separation is Cyan
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+% Tell the separation code that this separation is Magenta
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+% Tell the separation code that this separation is Yellow
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+% Tell the separation code that this separation is Black
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+% Tell the separation code we are not doing a separation
+/FrameNoSep { %
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+
+% Initialize the separation code with all the custom colors we are
+% separating (not process colors)
+/FrameSetSepColors { % list of arrays of [c m y k r g b] count 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  % array of arrays of colors we are separating
+	exch def end
+	} bind def
+
+% is this color array in the array of custom color separations?
+/FrameColorInSepListCMYK { % [ c m y k ] -> bool
+	FrameSepColors {  % color elem-of-array
+       		exch dup 3 -1 roll % color color elem
+       		FrameCmpColorsCMYK % color bool
+       		{ pop true exit } if
+    	} forall % exits with either [color] or true
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { % [ r g b ] -> bool
+	FrameSepColors {  % color elem-of-array
+       		exch dup 3 -1 roll % color color elem
+       		FrameCmpColorsRGB % color bool
+       		{ pop true exit } if
+    	} forall % exits with either [color] or true
+	dup true ne {pop false} if
+	} bind def
+
+% Level 1 color operators saved and redefined
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+
+% Setgray patch
+/setgray { % num
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ % go to white unless the current sep color is black
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { % r g b
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] % r g b [ r g b ]
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor % safe since we will overwrite the color state
+		currentrgbcolor  % r g b - Let PostsCript to the conversion.
+		setrgbcolor % call our version
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		RealSetrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { % c m y k
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+
+% Set up a prototype pattern for PostScript Level 2
+fMLevel1 { 
+	% set up screen functions for the patterns in PS level 1
+	% each entry contains an angle, spot function, flipped spot function,
+	% gray level and frequency multiplier.
+	/patScreenDict 7 dict dup begin
+		<0f1e3c78f0e1c387> [ 45  { pop } {exch pop} 		.5   2 sqrt] FmBD
+		<0f87c3e1f0783c1e> [ 135 { pop } {exch pop}			.5   2 sqrt] FmBD
+		<cccccccccccccccc> [ 0   { pop } dup				.5   2	   ] FmBD
+		<ffff0000ffff0000> [ 90  { pop } dup				.5   2	   ] FmBD
+		<8142241818244281> [ 45  { 2 copy lt {exch} if pop}	dup .75  2 sqrt] FmBD
+		<03060c183060c081> [ 45  { pop } {exch pop}			.875 2 sqrt] FmBD
+		<8040201008040201> [ 135 { pop } {exch pop}			.875 2 sqrt] FmBD
+	end def
+} { % prototype level 2 pattern dictionary
+	% define some PostScript procedures for known jaggy patterns.
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		% Always 1 for PS Level 2
+		/PaintType 2 def		% Uncolored pattern
+		/TilingType 3 def		% constant spacing and faster tiling
+		/BBox [ 0 0 8 8 ] def 	% bounding box
+		/XStep 8 def			% X offset
+		/YStep 8 def			% Y offset
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} ifelse
+
+%combineColor puts together the current gray value (which could also be
+%a fraction of on bits for a fill pattern and the current color and calls
+%the appropriate function
+%
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode fMLevel1 or not {
+			% Level 2 pattern
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				fMAcrobat not FMPColor graymode and and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { % separation case
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode fMLevel1 or not {
+			% Level 2 pattern
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not fMLevel1 and {
+				% Level 1 patterns are either all there or not there at all
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/fMDefaultMatrix matrix defaultmatrix def
+/fMatrix2 matrix def
+/dpi    72 0 fMDefaultMatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+% freq and sangle are used for ps Level 1 pattern building.
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 fMDefaultMatrix dtransform exch atan def
+	sangle fMatrix2 rotate 
+	fMDefaultMatrix fMatrix2 concatmatrix 
+	dup 0 get /sflipx exch def
+	    3 get /sflipy exch def
+
+%
+% screen index depending on dpi
+%	- screenIndex smallint
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+
+%
+% These routines get the standard Adobe frequencies, angles, and spot functions
+% depending on the DPI
+%
+% - getCyanScreen freq angle spotfunction
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+
+%
+% - getMagentaScreen freq angle spotFunction
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+
+%
+% - getYellowScreen freq angle spotFunction
+% note that some of these use a "tripple dot" function at 1/3 the frequency
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+
+%
+% - getBlackScreen freq angle spotFunction
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+
+%
+% - getSpotScreen freq angle spotFunction
+/getSpotScreen {
+	getBlackScreen
+} bind def
+
+%
+% - getCompositeScreen freq angle spotFunction
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+
+% FmSetScreen sets the screen for either PostScript Level 1 or Level 2 and optionally
+% sets the accuratescreens flag in the latter case
+% freq angle spotfunction FMSetScreen -
+/FMSetScreen 
+	fMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+
+% This sets the default screen as was set at the beginning of the job
+% - setDefaultScreen -
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+
+% This sets the current screen depending on FrameSepIs
+% - setCurrentScreen -
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+
+
+end
+
+% End of Color separation code
+%
+	
+/FMDOCUMENT { % xscale yscale edown negative paperwidth paperheight manfeed numcopies numfonts
+	array /FMfonts exch def % Why isn't this in FrameDict???
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /fMNegative exch def % invert page
+	0 ne /edown exch def % flip page along y axis
+	/yscale exch def
+	/xscale exch def
+
+	fMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def % some PS's leave junk on dict ...
+		/FMoptop count def % ...or on operand stack...
+		setpapername % This stuff may alter the transfer/screen/angle
+		manualfeed {true} {papersize} ifelse % true->more work to do
+		{manualpapersize} {false} ifelse % true->more work to do
+		{desperatepapersize} {false} ifelse % true->failed completely
+		{papersizefailure} if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for %...if tray not installed
+		}
+		{2 dict
+		 dup /PageSize [paperwidth paperheight] put
+		 manualfeed {dup /ManualFeed manualfeed put} if
+		 {setpagedevice} stopped {papersizefailure} if
+		}
+	ifelse % fMLevel1
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+
+			currentcolortransfer 
+			fMNegative {
+				1 1 4 { 
+					pop { 1 exch sub } fmConcatProcs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		fMNegative {
+			{ 1 exch sub } fmConcatProcs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+
+	end % FrameDict
+} def % only used at startup, so no bind
+
+/FMBEGINPAGE { % pagewidth pageheight landscape color-arrays count
+	FrameDict begin % for the whole page...
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { % check for landscape
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+% paint the whole page in "white".  If the page is inverted, then
+% this will actually paint our black background
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave % for CLIP
+} def % only used infrequently, so no bind
+
+/FMENDPAGE {
+	grestore % for CLIP
+	pagesave restore
+	end % FrameDict
+	showpage
+	} def % only used infrequently, so no bind
+
+/FMFONTDEFINE { % fontindex nonstd_encoding fontname -- 
+	FrameDict begin
+	findfont % fontindex nonstd_encoding font
+	ReEncode % fontindex font'
+	1 index exch % fontindex fontindex font'
+	definefont % fontindex font"
+	FMfonts 3 1 roll %  FMfonts fontindex font"
+	put
+	end % FrameDict
+	} def % only used infrequently, so no bind
+
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end % framedict
+	} def % Only called once, so no bind
+
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end % FrameDict
+	} def % only used infrequently, so no bind
+
+% Set things to a known, quiescent state, for when we switch to another writer
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray % Not FMsetgray; only called outside of our environment!
+	} bind def
+
+/FMBEGINEPSF { % <theta> llx lly urx ury fw fh fx fy
+	end % FrameDict
+	/FMEPSF save def % in userdict
+	/showpage {} def % this def is in userdict
+%- See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+%- "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def % FMBADEPSF knows this is the longest!
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+%	/initmatrix {(initmatrix) FMBADEPSF} def	% Aldus Freehand 4.0 epsf uses this harmlessly <Gus 4/26/95>
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS % in case we're in a strange state
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall % neat trick
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale % then scale
+	llx neg lly neg translate % then compensate for LL offset 
+	/FMdicttop countdictstack 1 add def % high-water mark of dict stack
+	/FMoptop count def % tricky! "/FMoptop" on stack
+	} bind def
+
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for % clear EPS junk from operand stack
+	countdictstack -1 FMdicttop {pop end} for % ditto for dict stack
+	FMEPSF restore
+	FrameDict begin % for the whole page...
+	} bind def
+
+FrameDict begin % put most defs here
+
+/setmanualfeed {
+%%BeginFeature: *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+
+/pagedimen { % name width height
+	paperheight sub abs 16 lt exch % 16pt is an arbitrary slop amount
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+
+/setpapername { % Already set up: paperwidth paperheight and manualfeed
+	/papersizedict 14 dict def % one for /papername, one for /unknown
+	papersizedict begin
+	/papername /unknown def % in case no match
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end % return true if more work to do
+	} bind def
+
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped % return true if more work to do
+	} bind def
+
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped % return true iff failed
+		end
+		} {true} ifelse % return true iff failed
+	} bind def
+
+/papersizefailure {
+	FMAllowPaperSizeMismatch not
+		{
+(The requested paper size is not available in any currently-installed tray)
+(Edit the PS file to "FMAllowPaperSizeMismatch true" to use default tray)
+		 FMFAILURE } if
+	} def
+
+%
+% Font re-encoding to include diacritics
+% 
+/DiacriticEncoding [
+
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+
+] def
+
+/ReEncode { % nonstd_encoding font -- reencodedfont
+	dup % nonstd_encoding font font
+	length % nonstd_encoding font dictlength
+	dict begin % nonstd_encoding font % currentdict = newdict
+	{% forall % forall is over font to be copied
+	1 index /FID ne % skip FID
+		{def} % defs go into newfontdict which is currentdict
+		{pop pop} ifelse % copy all keys including /Encoding
+	} forall % nonstd_encoding
+	0 eq {/Encoding DiacriticEncoding def} if % --
+	currentdict % push a copy of the copied font dict onto operand stack
+	end % font' % before popping it off dictionary stack
+	} bind def
+
+FMPColor 
+	% setup procs for color printing
+	{
+
+	/BEGINBITMAPCOLOR { % iw, ih, width, height, theta, x y 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { % iw, ih, width, height, theta, x y 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYK } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKc } def
+	}
+	% setup procs for B&W printing
+	{
+	/BEGINBITMAPCOLOR { % iw, ih, width, height, theta, x y 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { % iw, ih, width, height, theta, x y 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYKGRAY } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKGRAYc } def
+	}
+ifelse
+
+/K { % c m y k r g b SEPARATION
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+%
+% graymode is true if we are just doing gray fills, this way do not keep calling
+% setscreen. I don't know what the cost is on calling setscreen with defaults, but
+% this is easy to keep track of, and we know for sure we aren't wasting cycles.
+% if graymode is false and fMLevel1 is false, then we are using Level 2 patterns.
+%
+/graymode true def
+
+% used by level 1 patterns
+% defaultflip matrixentry fmGetFlit -> eith -1 or 1
+fMLevel1 {
+	/fmGetFlip {
+		fMatrix2 exch get mul 0 lt { -1 } { 1 } ifelse
+	} FmBD
+} if
+
+/setPatternMode {
+	fMLevel1 {
+		2 index patScreenDict exch known {
+			pop pop
+			patScreenDict exch get aload pop % angle spot fspot gray mult
+			freq 								% freq
+			mul									% times multiplier
+			5 2 roll							% angle spot fspot gray mult freq -> gray freq angle spot fspot
+			fMatrix2 currentmatrix 1 get 0 ne {
+				3 -1 roll 90 add 3 1 roll 		% landscape
+				sflipx 1 fmGetFlip sflipy 2 fmGetFlip neg mul
+			} {  								% portrait     
+				sflipx 0 fmGetFlip sflipy 3 fmGetFlip mul 
+			} ifelse
+			0 lt {exch pop} {pop} ifelse 		% take regular or flipped spot function
+			fMNegative { 
+				{neg} fmConcatProcs 			% invert spot function
+			} if
+			bind
+			% we need to bypass any screen filter and go directly to systemdict
+			% to avoid problems with Kodak Precision calibration software
+			% <Gus 9/13/93>
+			systemdict /setscreen get exec		% leave graylevel on stack
+			/FrameCurGray exch def
+		} {
+			/bwidth  exch def
+			/bpside  exch def
+			/bstring exch def
+			/onbits 0 def  /offbits 0 def
+			freq sangle landscape {90 add} if 
+				{/ypoint exch def
+				 /xpoint exch def
+				 /xindex xpoint 1 add 2 div bpside mul cvi def
+				 /yindex ypoint 1 add 2 div bpside mul cvi def
+				 bstring yindex bwidth mul xindex 8 idiv add get
+				 1 7 xindex 8 mod sub bitshift and 0 ne fMNegative {not} if
+				 {/onbits  onbits  1 add def 1}
+				 {/offbits offbits 1 add def 0}
+				 ifelse
+				}
+				setscreen
+			offbits offbits onbits add div fMNegative {1.0 exch sub} if
+			/FrameCurGray exch def
+		} ifelse
+	} { % Level 2 version
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { % not in cache
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+%			9 orgfreq 
+%				organgle sin abs organgle cos abs add div
+%				dup 16 div round dup 0 le {pop 1} if  % Unix pattern size
+%			    dup  9 div round dup 0 le {pop 1} if  % Mac larger (WYSIWYG) size
+%					div div dup matrix scale % This gives Unix pattern size.
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		fMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+
+/lnormalize { % line widths are always odd so that arrow heads work
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+
+/H { % THICK
+	lnormalize setlinewidth
+	} bind def
+
+/Z {
+	setlinecap
+	} bind def
+	
+% This is used to fill or stroke white behind a Level 2 pattern
+/PFill {
+	graymode fMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode fMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+
+/X { % TEXTURE
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} % Silly to pass parameters here
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+
+/V { % FILL
+	PFill gsave eofill grestore
+	} bind def
+
+/Vclip {
+	clip
+	} bind def
+
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+
+/N { % PEN
+	PStroke
+	} bind def
+
+/Nclip {
+	strokepath clip newpath
+	} bind def
+
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+
+/L { % POLYLINE
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+
+/Y { % POLYGON !!!
+	L % POLYLINE
+	closepath
+	} bind def
+
+/R { % RECT x1 y1 x2 y2
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y % POLYGON
+	} bind def
+
+/rarc % Leaves all sorts of junk on the operand stack for caller to clear off
+	{rad % arcto might fail if we're scaled way down
+	 arcto
+	} bind def
+
+/RR { % ROUNDRECT x1 y1 x2 y2 r
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if % in case rarc failed for degenerate arcs
+	cleartomark
+	} bind def
+
+/RRR { % ROUNDRECT ROTATED xs ys x1 y1 x2 y2 x3 y3 x4 y4 r
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto % eats xs ys
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+
+/C { % CLIP
+	grestore
+	gsave
+	R % RECT
+	clip
+	setCurrentScreen
+} bind def
+
+/CP { % CLIPPOLY p1x p1y p2x p2y ... n 
+	grestore
+	gsave
+	Y % POLYGON
+	clip
+	setCurrentScreen
+} bind def
+
+/F { % FONT
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+
+/Q { % POINTSIZE (& font)
+	/FMpointsize exch def
+	F % could be slightly optimized here
+	} bind def
+
+/T { % TEXT <string> <x> <y>
+	moveto show
+	} bind def
+
+% Callers of RF (rotate/flip) must gsave (or save) first; (g)restore when done
+/RF { % <flip> <theta>
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+
+/TF { % TEXTFLIPROTATE <string> <flip> <theta> <x> <y>
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+
+/P { % PADTEXT <pad> <string> <x> <y>
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+
+/PF { % PADTEXTFLIPROTATE <pad> <string> <flip> <theta> <x> <y>
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+
+/S { % SPREADTEXT <spread> <string> <x> <y>
+	moveto
+	0 exch ashow
+	} bind def
+
+/SF { % SPREADTEXTFLIPROTATE <spread> <string> <flip> <theta> <x> <y>
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+
+/B { % PADSPREADTEXT <pad> <spread> <string> <x> <y>
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+
+/BF { % PADSPREADTEXTFLIPROTATE <pad> <spread> <string> <flip> <theta> <x> <y>
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+
+/G { % ARCFILL theta1 theta2 width height x y
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto % eats x y
+	dnormalize scale % eats width height
+	0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch % theta1 theta2 width height x y
+    normalize 2 index 2 div sub exch 3 index 2 div add exch % theta1 theta2 width height x y
+    translate
+    scale % eats width height
+    0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+
+/Gclip { % ARCFILL theta1 theta2 width height x y swid
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto % eats x y
+	dnormalize scale % eats width height
+	0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+
+/GG { % ARCFILL ROTATED theta1 theta2 width height angle x y
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto % eats x y
+	rotate % eats angle
+	dnormalize scale % eats width height
+	0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+
+/GGclip { % ARCFILL ROTATED theta1 theta2 width height angle x y
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto % eats x y
+    rotate % eats angle
+    dnormalize scale % eats width height
+    0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+
+/GGstrk { % ARCFILL ROTATED swid theta1 theta2 width height angle x y
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto % eats x y
+    rotate % eats angle
+    dnormalize scale % eats width height
+    0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+
+/A { % ARCPEN theta1 theta2 width height x y
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch % theta1 theta2 width height x y
+	normalize 2 index 2 div sub exch 3 index 2 div add exch % theta1 theta2 width height x y
+	translate 
+	scale % eats width height
+	0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto % eats x y
+	dnormalize scale % eats width height
+	0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+
+/Astrk {
+	Gstrk
+} bind def
+
+/AA { % ARCPEN ROTATED theta1 theta2 width height angle x y
+	gsave
+	savematrix
+	newpath
+	% theta1 theta2 width height angle x y
+	3 index 2 div add exch 4 index 2 div sub exch 
+	% theta1 theta2 width height angle x y
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate % eats x y
+	rotate % eats angle
+	scale % eats width height
+	0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto % eats x y
+    rotate % eats angle
+    dnormalize scale % eats width height
+    0.0 0.0 1.0 5 3 roll arc % eats theta1 theta2
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+
+/AAstrk {
+	GGstrk
+} bind def
+
+/BEGINPRINTCODE { % -x -y width height
+	/FMdicttop countdictstack 1 add def % high-water mark of dict stack
+	/FMoptop count 7 sub def % tricky! 7 params on stack, plus "/FMoptop"
+	/FMsaveobject save def
+	userdict begin % insulate user from FrameDict; not in /FMdicttop count
+	/showpage {} def % this def is in userdict
+	FMNORMALIZEGRAPHICS % in case we're in a strange state
+	3 index neg 3 index neg translate
+	} bind def
+
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for % clear user junk from operand stack
+	countdictstack -1 FMdicttop {pop end} for % ditto for dict stack
+	FMsaveobject restore % this is now safe, unless user very malicious
+	} bind def
+
+/gn { % get a number in a funny encoding scheme
+	0 % result on stack
+	{	46 mul % shift old digits
+		cf read pop % get next character
+		32 sub % zero is the space character
+		dup 46 lt {exit} if % quit if we're the last digit
+		46 sub add % add in this digit and loop around for next
+		} loop
+	add % result on stack
+	} bind def
+
+/cfs { % create a string of length "sl" filled with "val"s
+	/str sl string def % create string as "str"
+	0 1 sl 1 sub {str exch val put} for % fill array
+	str def % define real array name, too; name is on stack from caller
+	} bind def
+
+/ic [ % "case" stmt list of procedures that the image commands should call
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+
+/ms { % make all the strings
+	/sl exch def % remember length of currently existing strings
+	/val 255 def % that's white
+	/ws cfs % make "ws" a string filled with white
+	/im cfs % and "im" is a complete image scanline
+	/val 0 def % that's black
+	/bs cfs % make "bs" a string filled with black
+	/cs cfs % here's where we'll put complete command lines
+	} bind def
+
+400 ms % make strings that will be plenty long for most applications
+
+/ip { % image procedure; reads and executes commands to make scanlines
+	is % leave image string and...
+	0 % ...image position on stack all through this procedure
+	cf cs readline pop % get a string of commands
+	{	ic exch get exec % execute next command
+		add % all commands leave a length on the stack; update pos
+		} forall % step through all commands
+	pop % get rid of image position pointer
+	% image string left on stack, so it's returned to image primitive
+	} bind def
+/rip { % this is similar to ip above, except for 24 bit images
+	   % this takes an extra argument, the width of the image
+	  % do red
+	  bis ris copy pop % copy blue to red
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop % remove is and position from stack
+	  ris gis copy pop % copy red to green
+	  dup is exch % position of green is width bytes into is
+	  % do green
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop % copy green to blue
+	  dup add is exch % position of blue is 2*width bytes into is
+	  % do blue
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+
+/rip4 { % this is similar to ip above, except for 32 bit images
+	   % this takes an extra argument, the width of the image
+	  % do cyan
+	  kis cis copy pop % copy black to cyan
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop % remove is and position from stack
+	  cis mis copy pop % copy cyan to magenta
+	  dup is exch % position of magenta is width bytes into is
+	  % do magenta
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  mis yis copy pop % copy magenta to yellow
+	  dup dup add is exch % position of yellow is 2*width bytes into is
+	  % do yellow
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  yis kis copy pop % copy yellow to black
+	  3 mul is exch % position of black is 3*width bytes into is
+	  % do black
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+
+
+/wh { % fill a number of bytes with "white"
+	/len exch def % number of bytes to fill
+	/pos exch def % position to put them at
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len % remember where we got to
+	} bind def
+
+/bl { % fill a number of bytes with "black"
+	/len exch def % number of bytes to fill
+	/pos exch def % position to put them at
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len % remember where we got to
+	} bind def
+
+/s1 1 string def
+
+/fl { % fill a number of bytes with a specific hex value
+	/len exch def % number of bytes to fill
+	/pos exch def % position to put them at
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len % remember where we got to
+	} bind def
+
+/hx { % read hex bytes directly; on entry, stack has <str> <pos> <len>
+	3 copy getinterval % stack has <str> <pos> <len> <substr>
+	cf exch readhexstring pop pop % stack back to <str> <pos> <len>
+	} bind def
+
+/wbytes { % width depth -> wb      find width in bytes  given 1, 2, 8 or 24 or 32
+      dup dup
+      8 gt { pop 8 idiv mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { % iw, ih, width, height, theta, x y 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { % iw, ih, width, height, theta, x y 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { % iw, ih, width, height, theta, x y 
+	2 {} COMMONBITMAPc
+	} bind def
+%
+% Common routine for imaging compressed images
+%
+/COMMONBITMAPc { % iw, ih, width, height, theta, x y depth proc
+		 % (x,y) is the lower left corner of the image
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	% rotate about center of image
+	3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+	4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+	translate		% iw ih width height theta
+	rotate			% iw ih width height
+	1 index 2 div neg	% iw ih width height -(width/2)
+	1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+	translate		% iw ih width height
+	scale			% iw ih
+	/height exch def /width exch def
+	/lb width depth wbytes def % so "lb" has width in bytes
+	sl lb lt {lb ms} if % maybe make bigger strings
+	/bitmapsave save def % LW+ has a buggy memory leak!
+	cvtProc                % run the desired proc after save has occurred
+	/is im 0 lb getinterval def % image substring
+	ws 0 lb getinterval is copy pop % whiten it
+	/cf currentfile def % evaluate "currentfile" only once
+	width height depth [width 0 0 height neg 0 height] % top to bottom
+	{ip} image % zap!
+	bitmapsave restore % avoid occasional disaster on the LW+
+	grestore
+	} bind def
+/BEGINBITMAPBW { % iw, ih, width, height, theta, x y 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { % iw, ih, width, height, theta, x y 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { % iw, ih, width, height, theta, x y 
+	2 {} COMMONBITMAP
+	} bind def
+%
+% Common routine for uncompressed images
+%
+/COMMONBITMAP { % iw, ih, width, height, theta, x y depth proc
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	% rotate about center of image
+	3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+	4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+	translate		% iw ih width height theta
+	rotate			% iw ih width height
+	1 index 2 div neg	% iw ih width height -(width/2)
+	1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+	translate		% iw ih width height
+	scale			% iw ih
+	/height exch def /width exch def
+	/bitmapsave save def % LW+ has a buggy memory leak!
+	cvtProc              % run the desired proc after save has occurred
+	/is width depth wbytes string def
+	/cf currentfile def % evaluate "currentfile" only once
+	width height depth [width 0 0 height neg 0 height] % top to bottom
+	{cf is readhexstring pop} image
+	bitmapsave restore % avoid occasional disaster on the LW+
+	grestore
+	} bind def
+
+%
+% All this hairy color setup stuff gus wrote on the mac, I just copied and
+% changed the variable names to be humanly readable.
+
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+
+fMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/kk cynu magu min yelu min def
+% The HP PaintJet XL300 ignores the gray transfer curve but still sets its
+% default black generation and undercolor removal functions as if it is
+% used. This causes black colors not to work. Bug#56844 <Gus 2/22/93>
+% - We go back to the old (correct?) way of doing this since this code
+% is now bypassed for PS Level 2 printers in favor of colorSetup2 which
+% uses PS Level 2 indexed color, which is much cleaner. <Gus 3/3/93>
+		/u kk currentundercolorremoval exec def
+%-		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 kk currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+% Here, we set up indexed color for imaging on PS Level 2 without mucking around
+% with the transfer functions.
+
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+
+%
+% Setup a transfer function to convert psuedo color values into grayscale
+% values based on the color lookup tables.
+%
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch fmConcatProcs settransfer
+} bind def
+%
+% image a color image
+%
+/BITMAPCOLOR { % iw, ih, width, height, theta, x y 
+	/depth 8 def
+	gsave
+	% rotate about center of image
+	3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+	4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+	translate		% iw ih width height theta
+	rotate			% iw ih width height
+	1 index 2 div neg	% iw ih width height -(width/2)
+	1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+	translate		% iw ih width height
+	scale			% iw ih
+	/height exch def /width exch def
+	/bitmapsave save def
+	fMLevel1 {	
+		colorsetup
+		/is width depth wbytes string def
+		/cf currentfile def % evaluate "currentfile" only once
+		width height depth [width 0 0 height neg 0 height] % top to bottom
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is width depth wbytes string def
+		/cf currentfile def % evaluate "currentfile" only once
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+%
+% Compressed color image rendering
+%
+/BITMAPCOLORc { % iw, ih, width, height, theta, x y 
+	/depth 8 def
+	gsave
+	% rotate about center of image
+	3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+	4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+	translate		% iw ih width height theta
+	rotate			% iw ih width height
+	1 index 2 div neg	% iw ih width height -(width/2)
+	1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+	translate		% iw ih width height
+	scale			% iw ih
+	/height exch def /width exch def
+	/lb width depth wbytes def % so "lb" has width in bytes
+	sl lb lt {lb ms} if % maybe make bigger strings
+	/bitmapsave save def 
+	fMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def % image substring
+		ws 0 lb getinterval is copy pop % whiten it
+		/cf currentfile def % evaluate "currentfile" only once
+		width height depth [width 0 0 height neg 0 height] % top to bottom
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def % image substring
+		ws 0 lb getinterval is copy pop % whiten it
+		/cf currentfile def % evaluate "currentfile" only once
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {ip} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/depth 24 def
+        gsave
+ 	% rotate about center of image
+	3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+	4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+	translate		% iw ih width height theta
+	rotate			% iw ih width height
+	1 index 2 div neg	% iw ih width height -(width/2)
+	1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+	translate		% iw ih width height
+	scale			% iw ih
+	/height exch def /width exch def
+	/lb width depth wbytes def % so "lb" has width in bytes
+	sl lb lt {lb ms} if % maybe make bigger strings
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	% Whole scanline
+	/ris im 0 width getinterval def	% red part of im
+	/gis im width width getinterval def	% green part of im
+	/bis im width 2 mul width getinterval def % blue part of im
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip pop ris} {gis} {bis} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCMYKc { 
+	/depth 32 def
+        gsave
+ 	% rotate about center of image
+	3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+	4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+	translate		% iw ih width height theta
+	rotate			% iw ih width height
+	1 index 2 div neg	% iw ih width height -(width/2)
+	1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+	translate		% iw ih width height
+	scale			% iw ih
+	/height exch def /width exch def
+	/lb width depth wbytes def % so "lb" has width in bytes
+	sl lb lt {lb ms} if % maybe make bigger strings
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	% Whole scanline
+	/cis im 0 width getinterval def	% cyan part of im
+	/mis im width width getinterval def	% magenta part of im
+	/yis im width 2 mul width getinterval def % yellow part of im
+	/kis im width 3 mul width getinterval def % black part of im
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip4 pop cis} {mis} {yis} {kis} true 4 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		% rotate about center of image
+		3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+		4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+		translate		% iw ih width height theta
+		rotate			% iw ih width height
+		1 index 2 div neg	% iw ih width height -(width/2)
+		1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+		translate		% iw ih width height
+		scale			% iw ih
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYK { 
+        gsave
+		% rotate about center of image
+		3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+		4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+		translate		% iw ih width height theta
+		rotate			% iw ih width height
+		1 index 2 div neg	% iw ih width height -(width/2)
+		1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+		translate		% iw ih width height
+		scale			% iw ih
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /mis width string def
+        /yis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf mis readhexstring pop } 
+        { cf yis readhexstring pop } 
+        { cf kis readhexstring pop } 
+        true 4 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+%
+% image a color image to a b&width device
+%
+/BITMAPTRUEGRAYc { 
+	/depth 24 def
+        gsave
+	% rotate about center of image
+	3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+	4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+	translate		% iw ih width height theta
+	rotate			% iw ih width height
+	1 index 2 div neg	% iw ih width height -(width/2)
+	1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+	translate		% iw ih width height
+	scale			% iw ih
+	/height exch def /width exch def
+	/lb width depth wbytes def % so "lb" has width in bytes
+	sl lb lt {lb ms} if % maybe make bigger strings
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	% Whole scanline
+	/ris im 0 width getinterval def	% red part of im
+	/gis im width width getinterval def	% green part of im
+	/bis im width 2 mul width getinterval def % blue part of im
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop ris gis bis width gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAYc { 
+	/depth 32 def
+        gsave
+	% rotate about center of image
+	3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+	4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+	translate		% iw ih width height theta
+	rotate			% iw ih width height
+	1 index 2 div neg	% iw ih width height -(width/2)
+	1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+	translate		% iw ih width height
+	scale			% iw ih
+	/height exch def /width exch def
+	/lb width depth wbytes def % so "lb" has width in bytes
+	sl lb lt {lb ms} if % maybe make bigger strings
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	% Whole scanline
+	/cis im 0 width getinterval def	% cyan part of im
+	/mis im width width getinterval def	% magenta part of im
+	/yis im width 2 mul width getinterval def % yellow part of im
+	/kis im width 3 mul width getinterval def % black part of im
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop cis mis yis kis width cgray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/cgray { % c m y k width
+        /ww exch def
+        /k exch def
+        /y exch def
+        /m exch def
+        /c exch def
+        0 1 ww 1 sub { /i exch def c i get m i get y i get k i get CMYKtoRGB
+				.144 mul 3 1 roll .587 mul 3 1 roll .299 mul add add
+				c i 3 -1 roll floor cvi put } for
+        c
+ 		} bind def
+/gray { % r g b width
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		% rotate about center of image
+		3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+		4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+		translate		% iw ih width height theta
+		rotate			% iw ih width height
+		1 index 2 div neg	% iw ih width height -(width/2)
+		1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+		translate		% iw ih width height
+		scale			% iw ih
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop width gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAY { 
+        gsave
+		% rotate about center of image
+		3 index 2 div add exch	% iw ih width height theta y+(height/2) x
+		4 index 2 div add exch	% iw ih width height theta x+(width/2) y+(height/2)
+		translate		% iw ih width height theta
+		rotate			% iw ih width height
+		1 index 2 div neg	% iw ih width height -(width/2)
+		1 index 2 div neg	% iw ih width height -(width/2) -(height/2)
+		translate		% iw ih width height
+		scale			% iw ih
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /yis width string def
+        /mis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf mis readhexstring pop 
+          cf yis readhexstring pop 
+          cf kis readhexstring pop width cgray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { % iw, ih, width, height, theta, x y 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { % iw, ih, width, height, theta, x y 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end % of FrameDict definitions
+
+% OPI stuff
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+
+% Dashed lines stuff
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+
+%%EndProlog
+%%BeginSetup
+(5.0) FMVERSION
+1 1 0 0 595.28 841.89 0 1 14 FMDOCUMENT
+0 0 /Helvetica FMFONTDEFINE
+1 0 /Times-Bold FMFONTDEFINE
+2 0 /Times-Roman FMFONTDEFINE
+3 0 /Times-Italic FMFONTDEFINE
+4 0 /Helvetica-Narrow FMFONTDEFINE
+5 0 /Helvetica-Narrow-Bold FMFONTDEFINE
+6 1 /ZapfDingbats FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: A4
+%%EndPaperSize
+595.28 841.89 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 1 1 0 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 0 0 1 0 0 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(1) 294.85 25.7 T
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 R
+7 X
+V
+1 18 Q
+0 X
+(Rewriting poor Design P) 80.85 773.36 T
+(atter) 270.16 773.36 T
+(ns by good Design P) 306.86 773.36 T
+(atter) 460.71 773.36 T
+(ns) 497.41 773.36 T
+2 12 Q
+(Position Paper) 262.8 741.36 T
+(Jens Jahnke, Albert Z\237ndorf) 229.65 720.36 T
+(University of Paderborn, Germany) 214.32 705.36 T
+([jahnke|zuendorf]@uni-paderborn.de) 208.44 690.36 T
+1 14 Q
+(1) 56.5 650.03 T
+(Introduction) 87.68 650.03 T
+2 12 Q
+-0.12 ([GHJV94] proposed a number of) 56.5 621.36 P
+3 F
+-0.12 (design patterns) 217.54 621.36 P
+2 F
+-0.12 ( that offer good solutions for recurring design situa-) 291.09 621.36 P
+0.68 (tions. Along with the good solutions they also discuss naiv solutions to these design situations and) 56.5 606.36 P
+-0.02 (argue why such naiv solutions should be replaced by a sound design pattern. Our position is that this) 56.5 591.36 P
+0.09 (exactly describes the task of OO reengineering: find patterns within a legacy OO program that show) 56.5 576.36 P
+-0.43 (a poor solution for a \050recurring\051 problem and replace this poor solution by a sound solution offered by) 56.5 561.36 P
+(the corresponding design pattern.) 56.5 546.36 T
+-0.55 (By replacing a poor solution with a good design pattern one gains all the advantages offered by design) 56.5 525.36 P
+0.14 (patterns like a well structured and well documented and easy to understand \050sub\051design that is flexi-) 56.5 510.37 P
+(ble, extensible and easy to maintain.) 56.5 495.37 T
+(To yield this one has to solve two main problems:) 56.5 474.37 T
+(1.) 67.84 453.37 T
+(detecting occurences of \050poor\051 implementation/design patterns in legacy programs) 87.68 453.37 T
+(2.) 67.84 432.37 T
+(replacing the poor code/design by a good implementation/design pattern) 87.68 432.37 T
+0.27 (We attack the first problem by GFRNs \050Generic Fuzzy Reasoning Nets, cf. [JSZ97a]\051 which offer a) 56.5 411.37 P
+0.31 (general, graphical, very high level language for modelling and applying reverse engineering knowl-) 56.5 396.37 P
+-0.64 (edge. This language enables to define and analyse fuzzy knowledge that deals with incomplete or con-) 56.5 381.37 P
+3 (tradicting analysis results, is able to defer expensive analysis operations until demand and to) 56.5 366.37 P
+(incorporate interactively \050uncertain\051 user assumptions.) 56.5 351.37 T
+0.69 (The second problem is attacked by a knowledge base of design patterns that stores the structure of) 56.5 330.37 P
+0.26 (design patterns on a high conceptual level together with a description of a prototypical implementa-) 56.5 315.36 P
+-0.11 (tion and rules for the variation and adaptation of a pattern \050and its implementation\051.) 56.5 300.36 P
+2 9.6 Q
+-0.09 (1) 455.64 305.17 P
+2 12 Q
+-0.11 ( In addition, this) 460.44 300.36 P
+0.41 (knowledge base will contain rules describing how to replace poor design patterns by corresponding) 56.5 285.36 P
+(good desgin patterns.) 56.5 270.36 T
+-0.02 (Nevertheless, we consider OO reengineering as an interactive design task. Thus, we plan to offer the) 56.5 249.36 P
+0.34 (proposed mechanisms as semi-automatic tool support within the FUCABA \050From Uml to C++ And) 56.5 234.36 P
+-0.27 (Back Again\051 design environment [Rose97]. The FUCABA environment currently supports editing of) 56.5 219.36 P
+-0.26 (UML class diagrams with \050limited\051 support of design patterns and transformations of UML class dia-) 56.5 204.36 P
+-0.74 (grams to C++ including standard implementations for associations and design patterns. The FUCABA) 56.5 189.36 P
+0.6 (environment also supports structure oriented editing of the C++ code and backward propagation of) 56.5 174.36 P
+(design relevant changes to the UML class diagram.) 56.5 159.36 T
+-0.38 (Section 2 introduces a Singleton situation as a running example. Section 3 shows how GFRNs will be) 56.5 138.36 P
+-0.59 (used to identify the poor situation within our example and section 4 shows how this poor situation will) 56.5 123.36 P
+(be replaced by an instance of the Singleton design pattern.) 56.5 108.36 T
+(We assume that the reader is familar with UML \050cf. [UML97a]\051 and C++ \050[Strous91]\051.) 56.5 87.36 T
+56.5 62.67 538.77 76.84 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+56.5 62.67 538.77 76.84 R
+7 X
+0 0 0 1 0 0 0 K
+V
+57.33 69.75 201.07 69.75 2 L
+V
+0.5 H
+2 Z
+0 X
+N
+-0.01 -0 595.29 841.89 C
+0 0 0 1 0 0 0 K
+2 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(1.) 56.5 56 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(The representation of design patterns we have in mind is to some extend comparable to the one found in [FMW97].) 73.51 56 T
+0 0 0 1 0 0 0 K
+2 12 Q
+(submitted to: ESEC/FSE\32597 Workshop on Object-Oriented Reengineering Z\237rich, Friday September 26, 1997) 28.34 811.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+595.28 841.89 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 1 1 0 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 0 0 1 0 0 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(2) 294.85 25.7 T
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 R
+7 X
+V
+1 14 Q
+0 X
+(2) 56.5 776.03 T
+(The singleton example) 87.68 776.03 T
+2 12 Q
+-0.22 (A typical yet simple example of a poor design/implementation that may/should be fixed by an appro-) 56.5 747.36 P
+-0.23 (priate design pattern is a \050number of\051 global variable\050s\051 that should be replaced by a Singleton design) 56.5 732.36 P
+(pattern.) 56.5 717.36 T
+0.28 (Figure) 56.5 696.36 P
+0.28 (1 shows some code of an example university administration system containing a global vari-) 90.83 696.36 P
+0.62 (able) 56.5 681.36 P
+0 10 Q
+0.57 (course_program) 80.11 681.36 P
+2 12 Q
+0.62 ( of type) 152.91 681.36 P
+0 10 Q
+0.57 (map<string, Course*>) 194.42 681.36 P
+2 12 Q
+0.62 ( that provides global access to all courses via their) 292.26 681.36 P
+0.75 (title. As one would expect, the global variable consists of a definition of the variable on file scope) 56.5 666.36 P
+0.27 (within a certain cc-file and a\050n extern\051 declaration in the corresponding h-file making it available to) 56.5 651.36 P
+(clients.) 56.5 636.36 T
+-0.35 (During reverse engineering we analyse the application code and identify its basic elements and create) 56.5 365.92 P
+-0.53 (a logical representation that abstracts from the code details and its variants. Figure) 56.5 350.92 P
+-0.53 (2 shows the logical) 448.04 350.92 P
+2.94 (representation derived from the code fragements of Figure) 56.5 335.92 P
+2.94 (1 in an \050extended\051 UML-class-dia-) 360.37 335.92 P
+0.52 (gram-like notation. The global variable is represented as an explicit object using the UML notation) 56.5 320.92 P
+-0.22 (for class instances, i.e. an underlined object declaration within a rectangle. Its identification as a poor) 56.5 305.92 P
+(Singleton pattern is shown in a dashed oval, the UML notation for design patterns.) 56.5 290.92 T
+56.5 48.67 538.77 785.36 C
+0 0 0 1 0 0 0 K
+59.74 382.92 535.54 632.36 C
+0 0 0 1 0 0 0 K
+399.9 512.34 530.29 600.22 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 10 Q
+0 X
+(\307V.cc\310) 449.81 588.55 T
+4 F
+(#include \322XY.h\323) 406.9 567.55 T
+(...) 415.49 549.55 T
+(course_program.print\050\051;) 415.49 535.55 T
+(...) 415.49 521.55 T
+399.9 512.34 530.29 600.22 R
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+530.27 522.9 517.97 512.34 2 L
+2 Z
+N
+517.97 522.9 517.97 512.34 2 L
+N
+517.97 522.9 530.27 522.9 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+65.41 532.24 255.33 602.77 R
+7 X
+V
+0 F
+0 X
+(\307XY.h.top_level_scope\310) 106.45 591.1 T
+4 F
+(...) 81 570.1 T
+(extern map<string, Course *> course_program;) 81 556.1 T
+(...) 81 542.1 T
+65.41 532.24 255.33 602.77 R
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+254.82 540.41 244.12 532.18 2 L
+2 Z
+N
+244.12 540.41 244.12 532.18 2 L
+N
+244.12 540.41 254.82 540.41 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+65.41 452.81 255.33 523.62 R
+7 X
+V
+0 F
+0 X
+(\307XY.cc.top_level_scope\310) 104.23 511.96 T
+4 F
+(...) 81 490.96 T
+-0.05 (map<string, Course *> course_program\050 1000 \051;) 81 476.96 P
+(...) 81 462.96 T
+65.41 452.81 255.33 523.62 R
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+255.6 461.04 244.91 452.53 2 L
+2 Z
+N
+244.91 461.04 244.91 452.53 2 L
+N
+244.91 461.04 255.6 461.04 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+3 F
+(F) 231.85 392.29 T
+(igur) 237.51 392.29 T
+(e) 253.81 392.29 T
+(1: Global variable e) 260.75 392.29 T
+(xample code) 341.93 392.29 T
+J
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+314.86 404.63 504.78 492.5 R
+7 X
+V
+0 F
+0 X
+(\307W.cc\310) 393.15 480.83 T
+4 F
+(extern map<string, Course *> course_program;) 330.45 459.83 T
+(...) 330.45 445.83 T
+(... course_program[ ... ] ...) 330.45 431.83 T
+(...) 330.45 417.83 T
+314.86 404.63 504.78 492.5 R
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+504.75 415.18 493.44 404.62 2 L
+2 Z
+N
+493.44 415.18 493.44 404.62 2 L
+N
+493.44 415.18 504.75 415.18 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+278.01 501.67 391.39 566.87 R
+7 X
+V
+0 F
+0 X
+(\307U.cc\310) 319.14 555.2 T
+4 F
+(...) 293.6 534.2 T
+(...course_program[ ... ] ...) 293.6 520.2 T
+(...) 293.6 506.2 T
+278.01 501.67 391.39 566.87 R
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+391.38 509.5 380.68 501.67 2 L
+2 Z
+N
+380.68 509.5 380.68 501.67 2 L
+N
+380.68 509.5 391.38 509.5 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+278.01 571.87 391.39 622.89 R
+7 X
+V
+0 F
+0 X
+(\307U.h\310) 321.36 611.23 T
+4 F
+(#include \322XY.h\323) 285.01 590.23 T
+(...) 285.01 576.23 T
+278.01 571.87 391.39 622.89 R
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+391.38 578 380.68 571.87 2 L
+2 Z
+N
+380.68 578 380.68 571.87 2 L
+N
+380.68 578 391.38 578 2 L
+N
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 C
+-0.01 -0 595.29 841.89 C
+56.5 48.67 538.77 785.36 C
+59.74 77.18 535.54 286.92 C
+0 0 0 1 0 0 0 K
+313.23 108.33 381.26 162.19 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 0 0 1 0 0 0 K
+313.23 145.12 381.26 147.19 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+313.23 146.18 781.23 146.18 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 77.18 535.54 286.92 C
+5 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(Course) 333.12 150.53 T
+0 0 0 1 0 0 0 K
+4 F
+(+title : string) 320.23 132.46 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(. . .) 320.23 118.46 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+313.23 108.33 381.26 162.19 R
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+168.66 108.33 236.69 162.19 R
+7 X
+V
+0 0 0 1 0 0 0 K
+168.66 145.12 236.69 147.19 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+168.66 146.18 636.66 146.18 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 77.18 535.54 286.92 C
+5 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(Student) 187.42 150.53 T
+0 0 0 1 0 0 0 K
+4 F
+(+name : string) 175.66 132.46 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(. . .) 175.66 118.46 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+168.66 108.33 236.69 162.19 R
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+236.69 136.68 313.23 136.68 2 L
+2 Z
+N
+(attends) 259.37 142.35 T
+(n) 239.53 127.41 T
+(n) 305.83 127.41 T
+288.68 149.49 288.68 140.77 294.35 145.13 3 Y
+V
+N
+0 0 0 1 0 0 0 K
+168.66 223.61 216.85 264.9 R
+7 X
+V
+0 0 0 1 0 0 0 K
+168.66 247.83 216.85 249.9 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+168.66 248.9 636.66 248.9 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 77.18 535.54 286.92 C
+5 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(map) 184.33 253.24 T
+0 0 0 1 0 0 0 K
+4 F
+(. . .) 175.66 235.17 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+168.66 223.61 216.85 264.9 R
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+204.89 259.86 236.07 274.03 R
+7 X
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+0 X
+(T1, T2) 206.03 262.37 T
+0 0 0 1 0 0 0 K
+J
+204.89 272.03 204.89 274.03 206.89 274.03 3 L
+7 X
+V
+0 X
+N
+[3.883 3.883] 3.883 I
+206.89 274.03 234.07 274.03 2 L
+7 X
+V
+0 X
+N
+J
+234.07 274.03 236.07 274.03 236.07 272.03 3 L
+7 X
+V
+0 X
+N
+[3.391 3.391] 3.391 I
+236.07 272.03 236.07 261.86 2 L
+7 X
+V
+0 X
+N
+J
+236.07 261.86 236.07 259.86 234.07 259.86 3 L
+7 X
+V
+0 X
+N
+[3.883 3.883] 3.883 I
+234.07 259.86 206.89 259.86 2 L
+7 X
+V
+0 X
+N
+J
+206.89 259.86 204.89 259.86 204.89 261.86 3 L
+7 X
+V
+0 X
+N
+[3.391 3.391] 3.391 I
+204.89 261.86 204.89 272.03 2 L
+7 X
+V
+0 X
+N
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+J
+226.99 237.78 226.99 232.22 217.35 237.78 226.99 243.35 4 Y
+N
+J
+293.39 237.78 227.24 237.78 2 L
+J
+293.39 237.78 291.64 237.78 2 L
+2 Z
+N
+[3.624 4.659] 3.624 I
+291.64 237.78 228.99 237.78 2 L
+N
+J
+228.99 237.78 227.24 237.78 2 L
+N
+3 F
+(F) 239.51 92.22 T
+(igur) 245.17 92.22 T
+(e) 261.47 92.22 T
+(2: A poor Singleton situation) 268.41 92.22 T
+J
+0 0 0 1 0 0 0 K
+J
+245.2 229.28 426.61 249.12 R
+7 X
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+416.91 236.45 254.9 236.45 2 L
+0 X
+V
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+5 F
+(+course_program : map<string, Course*>) 254.9 237.45 T
+0 0 0 1 0 0 0 K
+245.2 229.28 426.61 249.12 R
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[3.555 4.571] 0 I
+303.31 192.08 M
+ 303.31 201.47 290.3 209.09 274.25 209.09 D
+ 258.2 209.09 245.2 201.47 245.2 192.08 D
+ 245.2 182.69 258.2 175.07 274.25 175.07 D
+ 290.3 175.07 303.31 182.69 303.31 192.08 D
+O
+2 Z
+N
+1 1 1 0 0 0 0 K
+J
+0 11 Q
+1 1 1 0 0 0 0 K
+(Singleton) 251.32 185.85 T
+0 0 0 1 0 0 0 K
+J
+325.99 219.5 329.9 229.38 2 L
+0 Z
+0 0 0 1 0 0 0 K
+N
+323.32 220.83 329.9 229.38 328.85 218.64 3 L
+N
+J
+301.89 193.37 321.73 208.73 325.99 219.5 3 L
+J
+301.89 193.37 303.27 194.45 2 L
+2 Z
+N
+[3.686 4.739] 3.686 I
+303.27 194.45 320.35 207.66 2 L
+N
+J
+320.35 207.66 321.73 208.73 322.38 210.36 3 L
+N
+[2.263 2.91] 2.263 I
+322.38 210.36 325.35 217.87 2 L
+N
+J
+325.35 217.87 325.99 219.5 2 L
+N
+1 1 1 0 0 0 0 K
+J
+1 1 1 0 0 0 0 K
+(poor) 262.79 196.77 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+4 10 Q
+0 0 0 1 0 0 0 K
+(definition) 327.74 209.42 T
+0 0 0 1 0 0 0 K
+J
+56.5 48.67 538.77 785.36 C
+-0.01 -0 595.29 841.89 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+595.28 841.89 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 1 1 0 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 0 0 1 0 0 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(3) 294.85 25.7 T
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 R
+7 X
+V
+2 12 Q
+0 X
+-0.12 (According to [GHJV94] the example shows a poor situation since everyone has full direct read/write) 56.5 777.36 P
+0.03 (access to this global variable from everywhere. \0501\051 During maintenance of a big system nothing pre-) 56.5 762.36 P
+-0.41 (vents a \050freshman\051 programmer from accidently deleting a course, inserting an inconsistent course, or) 56.5 747.36 P
+0.33 (from destroying the whole map just by assigning it a new value via. \0502\051 Due to the full access to all) 56.5 732.36 P
+0.24 (map operations it is not trivial to replace later on the hash table implementation e.g. by a sorted tree) 56.5 717.36 P
+(for support of ordered listings.) 56.5 702.36 T
+0.36 (Such global variables should be replaced by a Singleton pattern, cf. Figure) 56.5 681.36 P
+0.36 (3. The global variable is) 421.03 681.36 P
+-0.05 (changed into a private data member within a \050new\051 class) 56.5 666.36 P
+0 10 Q
+-0.05 (Course_Program) 329.89 666.36 P
+2 12 Q
+-0.05 (. \050This private data member) 406.02 666.36 P
+0.53 (closely corresponds to a qualified association shown in grey/green color.\051 The private access to the) 56.5 651.36 P
+0.3 (constructor prevents clients from creating instances accidently. The provided static) 56.5 636.36 P
+2 9.6 Q
+0.24 (2) 457.13 641.17 P
+2 12 Q
+0.3 (, public) 461.93 636.36 P
+0 10 Q
+0.28 (instance) 501.53 636.36 P
+2 12 Q
+-0.51 (method \0501\051 creates the sole instance on demand and \0502\051 provides easy access to this sole instance from) 56.5 621.36 P
+(everywhere, e.g.:) 56.5 606.36 T
+0 10 Q
+(c = \050* Course_Program::instance\050\051\051[ \322Reengineering\323 ]) 142.13 606.36 T
+2 12 Q
+(.) 380.26 606.36 T
+0.7 (For all methods that have been used directly on the global variable, class) 56.5 296.82 P
+0 10 Q
+0.65 (Course_Program) 417.61 296.82 P
+2 12 Q
+0.7 ( provides) 493.74 296.82 P
+0.72 (encapsulating methods, that by dedault call the corresponding method on the private data member.) 56.5 281.82 P
+-0.22 (This enables later extension e.g. by consistency checks. In addition, this shows the cutout of methods) 56.5 266.82 P
+-0.26 (of class) 56.5 251.82 P
+0 10 Q
+-0.24 (map) 95.3 251.82 P
+2 12 Q
+-0.26 ( that is actually used for) 114.75 251.82 P
+0 10 Q
+-0.24 (course_program) 231.16 251.82 P
+2 12 Q
+-0.26 ( within the application. Encapsulation of this cut-) 303.96 251.82 P
+0.14 (out facilitates to switch to other implementations. Making the used methods visible helps to identify) 56.5 236.82 P
+(potential misusage, e.g. accidental writes.) 56.5 221.82 T
+-0.45 (Replacing the global variable by a Singleton pattern includes replacing all applied occurences like the) 56.5 200.82 P
+-0.59 (direct method invocations by invocations of appropriate methods of the new Singleton class. Obsolete) 56.5 185.82 P
+0 10 Q
+0.34 (extern) 56.5 170.82 P
+2 12 Q
+0.37 ( declarations or includes should be removed and include statements for the \050h-file of the\051 new) 84.29 170.82 P
+-0.73 (Singleton class have to be inserted. Altogether this enhances the design and implementation of the leg-) 56.5 155.82 P
+-0.72 (acy system utilizing the advantages of the introduced \050good\051 design pattern \050hopefully\051 without affect-) 56.5 140.82 P
+(ing the applications execution semantics.) 56.5 125.82 T
+56.5 62.67 538.77 76.84 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+56.5 62.67 538.77 76.84 R
+7 X
+0 0 0 1 0 0 0 K
+V
+57.33 69.75 201.07 69.75 2 L
+V
+0.5 H
+2 Z
+0 X
+N
+-0.01 -0 595.29 841.89 C
+0 0 0 1 0 0 0 K
+2 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(2.) 56.5 56 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Static class members are indicated by underlining.) 73.51 56 T
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 C
+0 0 0 1 0 0 0 K
+59.74 313.82 535.54 602.36 C
+1 0 1 0 0 1 0 K
+268.68 454.76 268.68 392.66 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+4 10 Q
+(a_string : string) 238.36 461.02 T
+J
+231.54 454.99 302.41 472 R
+N
+(course_program) 205.89 435.61 T
+0 0 0 1 0 0 0 K
+234.38 361.97 302.41 412.06 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 0 0 1 0 0 0 K
+234.38 394.98 302.41 397.06 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+234.38 396.05 702.38 396.05 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 313.82 535.54 602.36 C
+5 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(Course) 254.27 400.39 T
+0 0 0 1 0 0 0 K
+4 F
+(+title : string) 241.38 382.32 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(. . .) 241.38 368.32 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+234.38 361.97 302.41 412.06 R
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+106.82 378.04 234.38 378.04 2 L
+2 Z
+N
+(attends) 162.55 383.71 T
+(n) 133.44 368.77 T
+(n) 224.15 368.77 T
+191.86 390.85 191.86 382.12 197.53 386.49 3 Y
+V
+N
+3 F
+(F) 222.16 326.41 T
+(igur) 227.82 326.41 T
+(e) 244.12 326.41 T
+(3: A sound Singleton pattern instance) 251.06 326.41 T
+J
+[3.546 4.559] 0 I
+120.67 547.42 M
+ 120.66 558.38 107.66 567.26 91.61 567.26 D
+ 75.56 567.26 62.56 558.38 62.56 547.42 D
+ 62.56 536.46 75.56 527.58 91.61 527.58 D
+ 107.66 527.58 120.67 536.46 120.67 547.42 D
+O
+N
+1 1 1 0 0 0 0 K
+J
+0 11 Q
+1 1 1 0 0 0 0 K
+(Singleton) 68.68 543.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+186.34 471.97 351.48 589.86 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 0 0 1 0 0 0 K
+186.34 572.79 351.48 574.86 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+186.34 573.85 654.34 573.85 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 313.82 535.54 602.36 C
+5 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(Course_Program) 235.64 578.2 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+315.03 559.12 193.34 559.12 2 L
+V
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+4 F
+(-the_instance : Course_Program*) 193.34 560.12 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(-_course_program : map<string, Course*>) 193.34 548.12 T
+0 0 0 1 0 0 0 K
+186.34 538.72 351.48 540.79 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+186.34 539.78 654.34 539.78 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 313.82 535.54 602.36 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+4 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(-Course_Program\050\051) 193.34 526.05 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+308.87 511.05 193.34 511.05 2 L
+V
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(+instance\050\051 : Course_Program*) 193.34 512.05 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(+operator[] \050 a_string : string \051 : Course*) 193.34 498.05 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(+print\050 \051) 193.34 484.05 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+186.34 471.97 351.48 589.86 R
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+J
+174.33 542.84 184.95 542.84 2 L
+N
+174.58 545.81 184.95 542.84 174.58 539.86 3 L
+N
+J
+120.67 542.84 174.33 542.84 2 L
+J
+120.67 542.84 122.42 542.84 2 L
+2 Z
+N
+[3.344 4.3] 3.344 I
+122.42 542.84 172.58 542.84 2 L
+N
+J
+172.58 542.84 174.33 542.84 2 L
+N
+J
+180 513.51 190.62 513.51 2 L
+0 Z
+N
+180.25 516.49 190.62 513.51 180.25 510.54 3 L
+N
+J
+112.16 533.24 149.01 513.51 180 513.51 3 L
+J
+112.16 533.24 113.7 532.42 2 L
+2 Z
+N
+[3.673 4.722] 3.673 I
+113.7 532.42 147.47 514.34 2 L
+N
+J
+147.47 514.34 149.01 513.51 150.76 513.51 3 L
+N
+[3.375 4.34] 3.375 I
+150.76 513.51 178.24 513.51 2 L
+N
+J
+178.24 513.51 180 513.51 2 L
+N
+0 0 0 1 0 0 0 K
+J
+(class) 140.8 533.57 T
+(access_op) 134.47 485.7 T
+62.57 361.97 130.6 412.06 R
+7 X
+V
+0 0 0 1 0 0 0 K
+62.57 394.98 130.6 397.06 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+62.57 396.05 530.57 396.05 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 313.82 535.54 602.36 C
+5 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(Student) 81.33 400.39 T
+0 0 0 1 0 0 0 K
+4 F
+(+name : string) 69.58 382.32 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(. . .) 69.58 368.32 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+62.57 361.97 130.6 412.06 R
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+J
+180 562.68 190.62 562.68 2 L
+N
+180.25 565.66 190.62 562.68 180.25 559.71 3 L
+N
+J
+117.83 557.01 134.84 562.68 180 562.68 3 L
+J
+117.83 557.01 119.49 557.56 2 L
+2 Z
+N
+[4.04 5.194] 4.04 I
+119.49 557.56 133.18 562.13 2 L
+N
+J
+133.18 562.13 134.84 562.68 136.59 562.68 3 L
+N
+[3.276 4.213] 3.276 I
+136.59 562.68 178.24 562.68 2 L
+N
+J
+178.24 562.68 180 562.68 2 L
+N
+0 0 0 1 0 0 0 K
+J
+(storage) 138.01 566.84 T
+380.05 489.07 533.12 591.03 R
+7 X
+V
+0 X
+(if \050 the_instance == NULL \051 {) 387.06 570.36 T
+(the_instance =) 395.64 556.36 T
+(new map<string, Course*>\0501000\051;) 408.4 542.36 T
+(read_courses\050 the_instance \051;) 408.4 528.36 T
+(}) 387.06 514.36 T
+(return the_instance;) 387.06 500.36 T
+380.05 489.07 533.12 591.03 R
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+532.71 500.87 524.09 488.98 2 L
+2 Z
+N
+524.09 500.87 524.09 488.98 2 L
+N
+524.09 500.87 532.71 500.87 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+320.53 514.49 380.05 514.49 2 L
+N
+0 0 0 1 0 0 0 K
+380.05 440.82 533.12 477.64 R
+7 X
+V
+0 X
+(return _course_program[ astring ];) 387.06 456.98 T
+380.05 440.82 533.12 477.64 R
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+532.71 449.3 524.09 440.79 2 L
+2 Z
+N
+524.09 449.3 524.09 440.79 2 L
+N
+524.09 449.3 532.71 449.3 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+343.2 500.32 363.05 500.32 363.05 457.8 380.05 457.8 4 L
+N
+0 0 0 1 0 0 0 K
+380.05 392.64 533.12 429.45 R
+7 X
+V
+0 X
+(_course_program.print\050 \051;) 387.06 408.79 T
+380.05 392.64 533.12 429.45 R
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+532.71 401.11 524.09 392.6 2 L
+2 Z
+N
+524.09 401.11 524.09 392.6 2 L
+N
+524.09 401.11 532.71 401.11 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+232.65 486.15 339.5 486.15 339.5 409.61 380.05 409.61 4 L
+N
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 C
+-0.01 -0 595.29 841.89 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "3" 3
+%%Page: "4" 4
+595.28 841.89 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 1 1 0 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 0 0 1 0 0 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(4) 294.85 25.7 T
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 R
+7 X
+V
+1 14 Q
+0 X
+(3) 56.5 776.03 T
+(Detection of \050poor\051 patterns) 87.68 776.03 T
+2 12 Q
+0.15 (The general problem in detecting \050poor\051 design patterns in a legacy OO program is that they seldom) 56.5 747.36 P
+0.67 (appear in their pure, strict form. The fairly simple example of a global variable should consist of a) 56.5 732.36 P
+0.2 (definition of the variable on file scope within a certain cc-file and a\050n extern\051 declaration in the cor-) 56.5 717.36 P
+-0.55 (responding h-file making it available to clients, cf. Figure) 56.5 702.36 P
+-0.55 (1. A slight variation is a client unit that con-) 331.73 702.36 P
+0.69 (tains the \050extern\051 declaration itself, instead of including the corresponding h-file. Another case is a) 56.5 687.36 P
+0.56 (static class member variable with public access rights. There may exist also inconsistent situations,) 56.5 672.36 P
+(e.g. a public global variable that is used locally only.) 56.5 657.36 T
+0.56 (Figure) 56.5 636.36 P
+0.56 (4 shows a cutout of a GFRN \050Generic Fuzzy Reasoning Net\051 modelling simple rules for the) 90.83 636.36 P
+0.03 (identification of a poor Singleton pattern. A GFRN consists of states \050grey/green ovals\051 representing) 56.5 621.36 P
+0.37 (certain pieces of knowledge and fuzzy implications \050grey/green rectangles\051 representing knowledge) 56.5 606.36 P
+0.51 (inference rules. For example, implication) 56.5 591.36 P
+0 10 Q
+0.47 (i2) 260 591.36 P
+2 12 Q
+0.51 ( represents the fuzzy rule that an item declared within a) 267.78 591.36 P
+-0.23 (class and with) 56.5 576.36 P
+0 10 Q
+-0.21 (public:) 126.81 576.36 P
+2 12 Q
+-0.23 ( access is globally visible \050) 155.71 576.36 P
+0 10 Q
+-0.21 (+ ...) 286.55 576.36 P
+2 12 Q
+-0.23 (\051 with a certainty of) 306.3 576.36 P
+0 10 Q
+-0.21 (1.0) 402.8 576.36 P
+2 12 Q
+-0.23 (. Negation is indicated by) 416.7 576.36 P
+0.03 (solid arrowheads, e.g. rule) 56.5 561.36 P
+0 10 Q
+0.03 (i1) 186.26 561.36 P
+2 12 Q
+0.03 ( says that a file-scope item wich is NOT declared static is a global item,) 194.04 561.36 P
+-0.16 (too. Rule) 56.5 546.36 P
+0 10 Q
+-0.15 (i3) 103.18 546.36 P
+2 12 Q
+-0.16 ( concludes that an item) 110.96 546.36 P
+0 10 Q
+-0.15 (v) 223.79 546.36 P
+2 12 Q
+-0.16 ( that is globally visible and represents a variable \050) 228.79 546.36 P
+0 10 Q
+-0.15 (... : T) 468.45 546.36 P
+2 12 Q
+-0.16 ( \051 and that) 490.94 546.36 P
+0.3 (has storage class) 56.5 531.36 P
+0 10 Q
+0.28 (static) 140.37 531.36 P
+2 12 Q
+0.3 ( \050) 163.71 531.36 P
+182.65 530.36 174.3 530.36 2 L
+V
+0.5 H
+0 Z
+N
+0 10 Q
+0.28 (...) 174.3 531.36 P
+2 12 Q
+0.3 ( \051 represents a global variable with a certainty of 0.8. Together with some) 182.65 531.36 P
+(other facts rule) 56.5 516.36 T
+0 10 Q
+(i4) 131.48 516.36 T
+2 12 Q
+( identifies an instance of a poor Singleton pattern.) 139.26 516.36 T
+0.24 (Due to our experiences in analysing relational databases, during reverse engineering one has to deal) 56.5 285.23 P
+-0.53 (with inconsistent and incomplete knowledge and with certain very resource demanding analysis oper-) 56.5 270.23 P
+-0.38 (ations. Since we consider reverse engineering as an interactive desgin task and plan only a semi-auto-) 56.5 255.23 P
+-0.43 (matic tool support we have to deal with uncertain user assumptions, too. GFRNs allow us to deal with) 56.5 240.23 P
+(these problems using fuzzy inference mechanisms and demand driven analysis.) 56.5 225.23 T
+-0.3 (Due to limitted space we can not show the full power of this mechanism here, one may have a look in) 56.5 204.23 P
+0.51 ([JSZ97a]. To give an impression how the GFRN of Figure) 56.5 189.23 P
+0.51 (4 is used for the identification of a poor) 344.73 189.23 P
+-0.25 (Singleton, we could start the inference with a user assumption that the variable) 56.5 174.23 P
+0 10 Q
+-0.23 (course_program) 434.58 174.23 P
+2 12 Q
+-0.25 ( repre-) 507.38 174.23 P
+0.31 (sents a poor Singleton. To validate this assumption, our inference mechanism tries to instantiate the) 56.5 159.23 P
+-0.41 (incomming implications \050) 56.5 144.23 P
+0 10 Q
+-0.38 (i4) 179.69 144.23 P
+2 12 Q
+-0.41 (\051 together with their prerequisites. Thus a fuzzy place for a global variable) 187.47 144.23 P
+1.37 (and at least one applied occurrence) 56.5 129.23 P
+2 9.6 Q
+1.1 (3) 231.63 134.03 P
+2 12 Q
+1.37 ( is created where the formal parameter) 236.43 129.23 P
+0 10 Q
+1.27 (v) 433.63 129.23 P
+2 12 Q
+1.37 ( is already bound to) 438.63 129.23 P
+0 10 Q
+1.27 (course_program) 56.5 114.23 P
+2 12 Q
+1.37 (. Further analysis checks, whether) 129.3 114.23 P
+0 10 Q
+1.27 (course_program) 302.45 114.23 P
+2 12 Q
+1.37 ( is actually a variable \050and binds) 375.25 114.23 P
+-0.02 (parameter) 56.5 99.23 P
+0 10 Q
+-0.02 (T) 107.46 99.23 P
+2 12 Q
+-0.02 ( to) 113.57 99.23 P
+0 10 Q
+-0.02 (map<string, Course*>) 128.86 99.23 P
+2 12 Q
+-0.02 (\051 with public access rights and storage class static. If one of these) 226.1 99.23 P
+56.5 74.67 538.77 88.84 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+56.5 74.67 538.77 88.84 R
+7 X
+0 0 0 1 0 0 0 K
+V
+57.33 81.75 201.07 81.75 2 L
+V
+0.5 H
+2 Z
+0 X
+N
+-0.01 -0 595.29 841.89 C
+0 0 0 1 0 0 0 K
+2 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(3.) 56.5 68 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.02 (The inference mechanism searches for all applied occurences of) 73.51 68 P
+0 0 0 1 0 0 0 K
+0 9 Q
+-0.02 (course_program) 331.82 68 P
+0 0 0 1 0 0 0 K
+2 10 Q
+-0.02 (. It generates a fuzzy place for each) 397.34 68 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(occurrence where the formal parameters) 73.51 56 T
+0 0 0 1 0 0 0 K
+0 9 Q
+(v) 237.05 56 T
+0 0 0 1 0 0 0 K
+2 10 Q
+( and) 241.55 56 T
+0 0 0 1 0 0 0 K
+0 9 Q
+(m) 260.99 56 T
+0 0 0 1 0 0 0 K
+2 10 Q
+( are bound appropriate each time.) 268.48 56 T
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 C
+0 0 0 1 0 0 0 K
+56.5 302.23 538.77 512.36 C
+1 0 1 0 0 1 0 K
+0 X
+1 0 1 0 0 1 0 K
+90 450 22.68 11.27 87.56 435.9 G
+0.5 H
+2 Z
+90 450 22.68 11.27 87.56 435.9 A
+0 0 0 1 0 0 0 K
+5 10 Q
+0 0 0 1 0 0 0 K
+(static ...) 72.29 432.31 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+131.32 359.92 129.99 362.58 140.6 364.56 132.65 357.26 4 Y
+0 Z
+N
+107.4 347.96 131.1 359.81 2 L
+2 Z
+N
+1 0 1 0 0 1 0 K
+1 0 1 0 0 1 0 K
+90 450 22.68 11.27 88.97 478.28 G
+90 450 22.68 11.27 88.97 478.28 A
+90 450 29.76 12.69 88.97 386.3 G
+90 450 29.76 12.69 88.97 386.3 A
+90 450 12.76 8.43 222.12 354.07 G
+90 450 12.76 8.43 222.12 354.07 A
+90 450 15.59 9.85 222.12 386.67 G
+90 450 15.59 9.85 222.12 386.67 A
+90 450 12.76 8.43 222.12 458.95 G
+90 450 12.76 8.43 222.12 458.95 A
+90 450 12.76 8.43 222.12 424.94 G
+90 450 12.76 8.43 222.12 424.94 A
+90 450 25.09 16.59 368.6 464.14 G
+90 450 25.09 16.59 368.6 464.14 A
+90 450 34.77 32.6 500.98 385.93 G
+90 450 34.77 32.6 500.98 385.93 A
+0 0 0 1 0 0 0 K
+[3.554 4.57] 0 I
+527.91 385.93 M
+ 527.91 398.31 515.85 408.34 500.98 408.34 D
+ 486.11 408.34 474.05 398.31 474.05 385.93 D
+ 474.05 373.55 486.11 363.52 500.98 363.52 D
+ 515.85 363.52 527.91 373.55 527.91 385.93 D
+O
+7 X
+0 0 0 1 0 0 0 K
+V
+0 X
+N
+1 0 1 0 0 1 0 K
+J
+1 0 1 0 0 1 0 K
+90 450 25.09 16.59 368.6 405.44 G
+90 450 25.09 16.59 368.6 405.44 A
+0 0 0 1 0 0 0 K
+3 F
+0 0 0 1 0 0 0 K
+(F) 163.8 312.94 T
+(igur) 169.46 312.94 T
+(e) 185.76 312.94 T
+(4: Re) 192.7 312.94 T
+(ver) 213.93 312.94 T
+(se engineering knowledg) 226.6 312.94 T
+(ebase for poor Singleton patterns) 325.93 312.94 T
+J
+0 0 0 1 0 0 0 K
+J
+353.01 396.02 384.19 415.87 R
+7 X
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+379.43 403.2 357.78 403.2 2 L
+0 X
+V
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+5 F
+(+v : T) 357.78 404.2 T
+0 0 0 1 0 0 0 K
+353.01 396.02 384.19 415.87 R
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(v.m\050...\051) 355.39 460.55 T
+(+...) 216.3 421.35 T
+(... : T) 211.41 383.08 T
+(class C { ... }) 64.58 382.71 T
+(v) 219.84 455.37 T
+225.54 349.48 218.7 349.48 2 L
+V
+N
+(...) 218.7 350.48 T
+(poor) 491.87 393.16 T
+(Singleton) 482.3 384.41 T
+(file-scope) 69.83 474.69 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+1 0 1 0 0 1 0 K
+90 450 22.68 11.27 88.97 342.5 G
+2 Z
+90 450 22.68 11.27 88.97 342.5 A
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(public: ...) 70.97 338.91 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+144.29 438.67 172.64 455.67 R
+1 0 1 0 0 1 0 K
+V
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(i1: 1.0) 146.84 444.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+134.5 458.52 136 461.09 143.46 453.3 133 455.95 4 Y
+0 Z
+N
+110.23 472.68 134.28 458.65 2 L
+2 Z
+N
+1 0 1 0 0 1 0 K
+144.29 364.96 172.64 381.97 R
+1 0 1 0 0 1 0 K
+V
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(i2: 1.0) 146.84 370.63 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+133.23 378.75 133.88 381.66 143.36 376.5 132.59 375.85 4 Y
+0 Z
+N
+118.74 381.97 132.99 378.81 2 L
+2 Z
+N
+131.56 442.03 131.03 444.95 141.77 443.88 132.09 439.1 4 Y
+0 Z
+N
+131.56 442.03 131.03 444.95 141.77 443.88 132.09 439.1 4 Y
+V
+111.48 438.37 131.31 441.98 2 L
+2 Z
+N
+1 0 1 0 0 1 0 K
+274.64 397.86 302.99 414.86 R
+1 0 1 0 0 1 0 K
+V
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(i3: 0.8) 277.19 403.52 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+204.18 412.59 202.11 414.73 211.63 419.82 206.25 410.46 4 Y
+0 Z
+N
+172.59 381.97 204 412.42 2 L
+2 Z
+N
+199.33 433.95 200.65 436.62 208.63 429.36 198.01 431.29 4 Y
+0 Z
+N
+172.59 447.17 199.1 434.06 2 L
+2 Z
+N
+263.79 413.8 264.61 416.66 273.77 410.94 262.97 410.93 4 Y
+0 Z
+N
+234.96 422.03 263.55 413.86 2 L
+2 Z
+N
+266.11 423.76 268.06 426 273.96 416.96 264.17 421.51 4 Y
+0 Z
+N
+232.12 453.22 265.92 423.92 2 L
+2 Z
+N
+263.86 398.87 262.98 401.72 273.77 401.92 264.73 396.03 4 Y
+0 Z
+N
+237.79 390.85 263.62 398.8 2 L
+2 Z
+N
+266.11 389.8 264.17 392.05 273.96 396.6 268.06 387.55 4 Y
+0 Z
+N
+232.12 360.34 265.92 389.63 2 L
+2 Z
+N
+331.39 405.03 331.39 408 341.77 405.03 331.39 402.05 4 Y
+0 Z
+N
+302.99 405.03 331.14 405.03 2 L
+2 Z
+N
+1 0 1 0 0 1 0 K
+419.21 376.68 447.55 393.69 R
+1 0 1 0 0 1 0 K
+V
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(i4: 0.9) 421.76 382.35 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+409.34 396.33 410.79 398.93 418.42 391.29 407.9 393.73 4 Y
+0 Z
+N
+393.7 405.03 409.12 396.45 2 L
+2 Z
+N
+408.73 375.32 407.62 378.09 418.37 379.18 409.84 372.56 4 Y
+0 Z
+N
+376.69 362.51 408.5 375.23 2 L
+2 Z
+N
+456.11 385.18 456.11 388.16 466.49 385.18 456.11 382.21 4 Y
+0 Z
+N
+447.55 385.18 455.86 385.18 2 L
+2 Z
+N
+1 0 1 0 0 1 0 K
+6 F
+1 0 1 0 0 1 0 K
+(l) 0 -90 304.39 457.28 TF
+(l) 0 -90 304.39 467.2 TF
+(l) 0 -90 304.33 477.12 TF
+0 0 0 1 0 0 0 K
+334.7 472.63 335.55 475.48 344.64 469.65 333.84 469.78 4 Y
+0 Z
+0 0 0 1 0 0 0 K
+N
+317.16 477.89 334.46 472.7 2 L
+2 Z
+N
+1 0 1 0 0 1 0 K
+1 0 1 0 0 1 0 K
+(l) 0 -90 365.91 355.29 TF
+(l) 0 -90 365.91 365.21 TF
+(l) 0 -90 365.85 375.13 TF
+0 0 0 1 0 0 0 K
+331.86 454.81 331.01 457.66 341.8 457.79 332.72 451.96 4 Y
+0 Z
+0 0 0 1 0 0 0 K
+N
+314.33 449.55 331.62 454.74 2 L
+2 Z
+N
+415.57 402.93 418.01 404.64 421.52 394.43 413.13 401.23 4 Y
+0 Z
+N
+382.36 450.38 415.43 403.14 2 L
+2 Z
+N
+5 F
+(v) 498.7 374.41 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+202.59 365.42 204.95 367.23 208.89 357.18 200.23 363.62 4 Y
+0 Z
+N
+172.59 404.65 202.44 365.62 2 L
+2 Z
+N
+1 0 1 0 0 1 0 K
+144.25 401.81 172.59 418.82 R
+1 0 1 0 0 1 0 K
+V
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(i5: 1.0) 146.8 407.48 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+133.71 417.2 134.78 419.98 143.4 413.48 132.65 414.43 4 Y
+0 Z
+N
+107.4 427.33 133.48 417.29 2 L
+2 Z
+N
+206.87 369.2 209.48 370.62 211.85 360.09 204.26 367.77 4 Y
+0 Z
+N
+169.76 437.08 206.75 369.42 2 L
+2 Z
+N
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 C
+-0.01 -0 595.29 841.89 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "4" 4
+%%Page: "5" 5
+595.28 841.89 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 1 1 0 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 0 0 1 0 0 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(5) 294.85 25.7 T
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 R
+7 X
+V
+2 12 Q
+0 X
+-0.14 (facts can not be proved the fuzzy belief of the \322poor Singleton\323 assumption will evaluate to 0, reject-) 56.5 777.36 P
+(ing the interactive hint.) 56.5 762.36 T
+0.07 (Basic facts \050like) 56.5 741.36 P
+0 10 Q
+0.06 (course_program) 137.01 741.36 P
+2 12 Q
+0.07 ( represents a variable\051 are derived via source code analysis tools and) 209.81 741.36 P
+-0.31 (get a fuzzy belief of) 56.5 726.36 P
+0 10 Q
+-0.29 (1) 153.92 726.36 P
+2 12 Q
+-0.31 (. A fuzzy implication combines the fuzzy beliefs of its input places with its own) 159.48 726.36 P
+2.03 (certainty using a fuzzy AND \050i.e. a minimum function\051. The fuzzy belief of derived facts \050like) 56.5 711.36 P
+132.08 695.36 56.5 695.36 2 L
+V
+0.5 H
+0 Z
+N
+0 10 Q
+0.76 (course_program) 56.5 696.36 P
+137.64 695.36 132.08 695.36 2 L
+V
+N
+0.76 (:) 132.08 696.36 P
+235.66 695.36 137.64 695.36 2 L
+V
+N
+0.76 (map<string, Course*>) 137.64 696.36 P
+2 12 Q
+0.82 (\051 is computed by a fuzzy OR \050i.e. the maximum\051 of the fuzzy) 235.66 696.36 P
+1.6 (beliefs computed by its incomming implications.) 56.5 681.36 P
+2 9.6 Q
+1.28 (4) 299.15 686.17 P
+2 12 Q
+1.6 ( This shows how GFRNs handle uncertain and) 303.95 681.36 P
+(inconsistent facts and how expensive source code analysis is triggered on demand.) 56.5 666.36 T
+0.46 (To summarize, we use GFRNs for the combination of basic facts \050derived from the source code\051 to) 56.5 645.36 P
+0.5 (logical items on a conceptual level. These logical items will serve as input for the pattern rewriting) 56.5 630.36 P
+(process.) 56.5 615.36 T
+1 14 Q
+(4) 56.5 575.03 T
+(Pattern rewriting) 87.68 575.03 T
+2 12 Q
+-0.13 (Beyond detecting poor design situations we plan tool support for the replacement of poor patterns by) 56.5 546.36 P
+1.53 (their corresponding good patterns. Therefore, we need an extensible pattern knowledge base that) 56.5 531.36 P
+-0.13 (describes not only the available good patterns but also the corresponding poor patterns and how poor) 56.5 516.36 P
+-0.37 (patterns \050and its various parts\051 are to be replaced by \050the parts of\051 good patterns. To set up this knowl-) 56.5 501.37 P
+-0.04 (edge base we again use a very high level, graphical specification language that provides a formal yet) 56.5 486.37 P
+1.81 (intuitive pattern description. The idea is to specify the poor pattern and the corresponding good) 56.5 471.37 P
+(replacements in an extended UML-class-diagram-like notation.) 56.5 456.37 T
+4.82 (Figure) 56.5 435.37 P
+4.82 (5 shows how pattern rewrite rules for the Singleton example look like. The LHS) 90.83 435.37 P
+0.36 (\050Left-Hand-Side\051 of rule 1 refers to elements of the GFRN of Figure) 56.5 420.37 P
+0.36 (4. It contains a global variable) 391.68 420.37 P
+64.28 404.37 56.5 404.37 2 L
+V
+N
+0 10 Q
+0.03 (v) 56.5 405.37 P
+69.84 404.37 64.28 404.37 2 L
+V
+N
+0.03 (:) 64.28 405.37 P
+75.95 404.37 69.84 404.37 2 L
+V
+N
+0.03 (T) 69.84 405.37 P
+2 12 Q
+0.03 ( \050with formal parameters) 75.95 405.37 P
+0 10 Q
+0.03 (v) 198.04 405.37 P
+2 12 Q
+0.03 ( \050variable name\051 and) 203.04 405.37 P
+0 10 Q
+0.03 (T) 305.13 405.37 P
+2 12 Q
+0.03 ( \050variable Type\051 that are bound within the anal-) 311.24 405.37 P
+0.33 (ysis phase. In addition the global variable has been classified as a \322) 56.5 390.37 P
+0 10 Q
+0.3 (poor Singleton) 382.7 390.37 P
+2 12 Q
+0.33 (\323 \050with a sufficient) 447.48 390.37 P
+3.57 (certainty\051. By applying rule 1, an occurence of its LHS is replaced by a copy of its RHS) 56.5 375.37 P
+0.93 (\050Right-Hand-Side\051. Thus, the global variable is deleted and an new Singleton Class with the same) 56.5 360.37 P
+-0.27 (name is inserted instead. This new class contains the former variable as a private data member) 56.5 345.37 P
+0 10 Q
+-0.25 (_v) 507.69 345.37 P
+2 9.6 Q
+-0.22 (5) 518.25 350.17 P
+2 12 Q
+-0.27 (. In) 523.05 345.37 P
+0.23 (addition it contains static data members for holding the one sole instance of the new Singleton class) 56.5 330.37 P
+(and providing access to this sole instance.) 56.5 315.36 T
+0.07 (Rule 1.1 is a subrule of rule 1. The \322*\323 indicates that an application of rule 1 triggers the application) 56.5 294.36 P
+-0.17 (of rule 1.1 as often as possible. The LHS of rule 1.1 refers to elements of rule 1 \050shown in grey/green) 56.5 279.36 P
+0.4 (color\051 and to \050new\051 elements of the GFRN. Rule 1.1 looks for methods invocations on v \050) 56.5 264.36 P
+0 10 Q
+0.37 (v.m\050) 495.11 264.36 P
+0.37 (...) 517.33 264.36 P
+0.37 (\051) 528.45 264.36 P
+2 12 Q
+0.4 (\051) 534.78 264.36 P
+-0.13 (where the corresponding method is not yet incorporated in the Singleton class \050a crossed out element) 56.5 249.36 P
+-0.11 (says \322not yet existing\323\051. For each such occurence \050i.e. for each used method\051 rule 1.1 creates the cor-) 56.5 234.36 P
+-0.08 (responding member function. In addition, rule 1.1 creates a default implementation that forwards the) 56.5 219.36 P
+(method call to the private data member) 56.5 204.36 T
+0 10 Q
+(_v) 247.47 204.36 T
+2 12 Q
+(.) 258.03 204.36 T
+0.35 (Rule 1.1.1 is a subrule of rule 1.1. Again, the \322*\323 indicates that each application of rule 1.1 triggers) 56.5 183.36 P
+0.28 (the application of rule 1.1.1 as often as possible. Thus, rule 1.1.1 replaces all direct invocations of a) 56.5 168.36 P
+0.97 (certain method by calls to the corresponding new Singleton member function where the Singleton) 56.5 153.36 P
+(object is retrieved via) 56.5 138.36 T
+0 10 Q
+(v::instance\050\051) 163.15 138.36 T
+2 12 Q
+(.) 217.6 138.36 T
+56.5 88.67 538.77 102.84 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+56.5 88.67 538.77 102.84 R
+7 X
+0 0 0 1 0 0 0 K
+V
+57.33 95.75 201.07 95.75 2 L
+V
+0.5 H
+2 Z
+0 X
+N
+-0.01 -0 595.29 841.89 C
+0 0 0 1 0 0 0 K
+2 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(4.) 56.5 82 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(See [JSZ97a] for the handling of negations.) 73.51 82 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(5.) 56.5 68 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.14 (The) 73.51 68 P
+0 0 0 1 0 0 0 K
+0 9 Q
+-0.14 (_\307+\310v) 91.41 68 P
+0 0 0 1 0 0 0 K
+2 10 Q
+-0.14 ( indicates that the name of the private data member is computed as the concatenation of an) 116.18 68 P
+0 0 0 1 0 0 0 K
+0 9 Q
+-0.14 (_) 478.38 68 P
+0 0 0 1 0 0 0 K
+2 10 Q
+-0.14 ( and the name) 483.39 68 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(bound to) 73.51 56 T
+0 0 0 1 0 0 0 K
+0 9 Q
+(v) 111.29 56 T
+0 0 0 1 0 0 0 K
+2 10 Q
+(.) 115.79 56 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "5" 5
+%%Page: "6" 6
+595.28 841.89 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 1 1 0 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 0 0 1 0 0 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(6) 294.85 25.7 T
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 R
+7 X
+V
+2 12 Q
+0 X
+0.46 (Note that these rewrite rules are defined in terms of high level logical concepts. Thus introducing a) 56.5 377.52 P
+-0.02 (new class actually results in the creation of the corresponding h- and cc-file containing the class def-) 56.5 362.52 P
+0.12 (nition as well as the usual #ifndef ... #define ... #endif directives ensuring single inclusion as well as) 56.5 347.52 P
+-0.41 (standard constructor and destructor declarations with default implementations as well as other default) 56.5 332.52 P
+1.45 (elements of a C++ class implementation like a header comment template. Creating the Singleton) 56.5 317.52 P
+0.42 (access operation not only declares this function as a public, static member function in the h-file but) 56.5 302.52 P
+0.07 (also provides its default implementation in the cc-file. Removing a method invocation) 56.5 287.52 P
+0 10 Q
+0.06 (v.m) 473.6 287.52 P
+2 12 Q
+0.07 ( automati-) 489.71 287.52 P
+-0.21 (cally removes no longer used external declarations or include directives, too. Adding the logical con-) 56.5 272.52 P
+2.24 (cept \050v::instance\050\051->m\051 also adds necessary include directives, etc.. To summarize, each logical) 56.5 257.52 P
+0.87 (element of the pattern rewrite rules represents a rather complex analysis, deletion or insertion of a) 56.5 242.52 P
+-0.62 (design level concept that may cause complex text analysis and change operations on many files within) 56.5 227.52 P
+(the underlying implementation code.) 56.5 212.52 T
+0.43 (In general, there are multiple ways to fix a certain design problem. In our approach this is reflected) 56.5 191.52 P
+-0.11 (by multiple rule sets and rule variants that apply to the same poor pattern. The different rule sets rep-) 56.5 176.52 P
+2.67 (resent alternative choices for good patterns or alternative implementations of one pattern. The) 56.5 161.52 P
+0.12 (FUCABA environment will be able to identify applicable rewrite rules and to execute rules choosen) 56.5 146.52 P
+(by the reengineer.) 56.5 131.52 T
+56.5 48.67 538.77 785.36 C
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+0 0 0 1 0 0 0 K
+3 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(F) 215.15 401.69 T
+(igur) 220.81 401.69 T
+(e) 237.11 401.69 T
+(5: Re) 244.05 401.69 T
+(write rules for the Singleton pattern) 265.28 401.69 T
+J
+0 0 0 1 0 0 0 K
+J
+323.74 680.48 403.11 768.36 R
+7 X
+V
+0 0 0 1 0 0 0 K
+323.74 751.29 403.11 753.36 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+323.74 752.35 791.74 752.35 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 385.52 535.54 785.36 C
+5 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(v) 361.14 756.69 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+394.1 737.62 330.74 737.62 2 L
+V
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+4 F
+(-the_instance : v*) 330.74 738.62 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(-_\307+\310v : T) 330.74 726.62 T
+0 0 0 1 0 0 0 K
+323.74 717.22 403.11 719.29 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+323.74 718.28 791.74 718.28 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+59.74 385.52 535.54 785.36 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+4 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(-v\050\051) 330.74 704.55 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+387.94 689.55 330.74 689.55 2 L
+V
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(+instance\050\051 : v*) 330.74 690.55 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+323.74 680.48 403.11 768.36 R
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[3.546 4.559] 0 I
+525.46 725.92 M
+ 525.46 736.87 512.45 745.76 496.4 745.76 D
+ 480.36 745.76 467.35 736.87 467.35 725.92 D
+ 467.35 714.96 480.36 706.07 496.4 706.07 D
+ 512.45 706.07 525.46 714.96 525.46 725.92 D
+O
+2 Z
+N
+1 1 1 0 0 0 0 K
+J
+0 11 Q
+1 1 1 0 0 0 0 K
+(Singleton) 473.47 722.2 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+J
+413.69 721.33 403.06 721.33 2 L
+0 Z
+0 0 0 1 0 0 0 K
+N
+413.44 718.36 403.06 721.33 413.44 724.31 3 L
+N
+J
+467.35 721.33 413.69 721.33 2 L
+J
+467.35 721.33 465.6 721.33 2 L
+2 Z
+N
+[3.344 4.3] 3.344 I
+465.6 721.33 415.44 721.33 2 L
+N
+J
+415.44 721.33 413.69 721.33 2 L
+N
+J
+408.02 692.01 397.39 692.01 2 L
+0 Z
+N
+407.77 689.03 397.39 692.01 407.77 694.99 3 L
+N
+J
+475.85 711.74 439 692.01 408.02 692.01 3 L
+J
+475.85 711.74 474.31 710.92 2 L
+2 Z
+N
+[3.673 4.722] 3.673 I
+474.31 710.92 440.54 692.84 2 L
+N
+J
+440.54 692.84 439 692.01 437.25 692.01 3 L
+N
+[3.375 4.34] 3.375 I
+437.25 692.01 409.77 692.01 2 L
+N
+J
+409.77 692.01 408.02 692.01 2 L
+N
+0 0 0 1 0 0 0 K
+J
+4 10 Q
+(class) 428.54 712.07 T
+(access_op) 414.35 682.32 T
+0 0 0 1 0 0 0 K
+J
+408.02 741.18 397.39 741.18 2 L
+0 Z
+N
+407.77 738.2 397.39 741.18 407.77 744.15 3 L
+N
+J
+470.18 735.51 453.17 741.18 408.02 741.18 3 L
+J
+470.18 735.51 468.52 736.06 2 L
+2 Z
+N
+[4.04 5.194] 4.04 I
+468.52 736.06 454.83 740.62 2 L
+N
+J
+454.83 740.62 453.17 741.18 451.42 741.18 3 L
+N
+[3.276 4.213] 3.276 I
+451.42 741.18 409.77 741.18 2 L
+N
+J
+409.77 741.18 408.02 741.18 2 L
+N
+0 0 0 1 0 0 0 K
+J
+(storage) 422.65 745.34 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+187.3 717.33 221.32 737.18 R
+7 X
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+215.13 724.51 193.48 724.51 2 L
+0 X
+V
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+5 F
+(+v : T) 193.48 725.51 T
+0 0 0 1 0 0 0 K
+187.3 717.33 221.32 737.18 R
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[3.555 4.571] 0 I
+123.52 728.67 M
+ 123.52 738.07 110.51 745.68 94.46 745.68 D
+ 78.42 745.68 65.41 738.07 65.41 728.67 D
+ 65.41 719.28 78.42 711.67 94.46 711.67 D
+ 110.51 711.67 123.52 719.28 123.52 728.67 D
+O
+2 Z
+N
+1 1 1 0 0 0 0 K
+J
+0 11 Q
+1 1 1 0 0 0 0 K
+(Singleton) 71.53 722.45 T
+(poor) 83 733.36 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+4 10 Q
+0 0 0 1 0 0 0 K
+(definition) 136.27 713.73 T
+J
+175.76 725.84 186.39 725.84 2 L
+0 Z
+N
+176.01 728.81 186.39 725.84 176.01 722.86 3 L
+N
+J
+122.1 725.84 175.76 725.84 2 L
+J
+122.1 725.84 123.85 725.84 2 L
+2 Z
+N
+[3.344 4.3] 3.344 I
+123.85 725.84 174.01 725.84 2 L
+N
+J
+174.01 725.84 175.76 725.84 2 L
+N
+1 0 1 0 0 1 0 K
+J
+296.43 726.04 280.84 740.01 280.84 730.7 249.66 730.7 249.66 719.05 282.26 719.05 282.26 708.83 7 Y
+1 0 1 0 0 1 0 K
+V
+1 H
+N
+62.57 669.15 530.29 782.53 R
+0.5 H
+N
+5 F
+(rule 1) 66.08 773.4 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+156.12 584.11 209.98 654.97 R
+7 X
+V
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+156.12 637.14 209.98 639.97 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+156.12 637.14 209.98 639.97 R
+7 X
+0 0 0 1 0 0 0 K
+V
+1 0 1 0 0 1 0 K
+156.12 638.39 624.12 638.39 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+1 0 1 0 0 1 0 K
+5 10 Q
+0 X
+1 0 1 0 0 1 0 K
+(v) 180.77 643.3 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+4 F
+(...) 163.12 624.47 T
+0 0 0 1 0 0 0 K
+156.12 614.3 209.98 617.14 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+156.12 614.3 209.98 617.14 R
+7 X
+0 0 0 1 0 0 0 K
+V
+1 0 1 0 0 1 0 K
+156.12 615.55 624.12 615.55 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+4 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(m\050 ... \051) 171.71 601.64 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+156.12 584.11 209.98 654.97 R
+0.5 H
+0 Z
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+79.58 626.63 113.6 646.47 R
+7 X
+V
+107.42 633.8 85.76 633.8 2 L
+0 X
+V
+N
+5 F
+(+v : T) 85.76 634.8 T
+79.58 626.63 113.6 646.47 R
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+296.43 621.16 280.84 635.13 280.84 625.82 249.66 625.82 249.66 614.17 282.26 614.17 282.26 603.95 7 Y
+V
+1 H
+2 Z
+N
+62.57 530.25 530.29 669.15 R
+0.5 H
+N
+(rule 1.1) 66.08 660.02 T
+5 11.2 Q
+(*) 94.8 656.52 T
+0 0 0 1 0 0 0 K
+5 10 Q
+0 0 0 1 0 0 0 K
+(v.m\050 ... \051) 85.44 593.93 T
+167.46 611.74 195.8 595.44 2 L
+N
+167.46 597.48 195.8 609.7 2 L
+N
+1 0 1 0 0 1 0 K
+391.39 584.11 450.92 654.97 R
+7 X
+1 0 1 0 0 1 0 K
+V
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+391.39 637.14 450.92 639.97 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+391.39 637.14 450.92 639.97 R
+7 X
+0 0 0 1 0 0 0 K
+V
+1 0 1 0 0 1 0 K
+391.39 638.39 859.39 638.39 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+1 0 1 0 0 1 0 K
+5 10 Q
+0 X
+1 0 1 0 0 1 0 K
+(v) 418.88 643.3 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+4 F
+(...) 398.39 624.47 T
+0 0 0 1 0 0 0 K
+391.39 614.3 450.92 617.14 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+391.39 614.3 450.92 617.14 R
+7 X
+0 0 0 1 0 0 0 K
+V
+1 0 1 0 0 1 0 K
+391.39 615.55 859.39 615.55 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+4 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(m\050 ... \051) 406.98 601.64 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+391.39 584.11 450.92 654.97 R
+0.5 H
+0 Z
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+312.02 623.79 346.04 643.63 R
+7 X
+V
+339.86 630.97 318.21 630.97 2 L
+0 X
+V
+N
+5 F
+(+v : T) 318.21 631.97 T
+312.02 623.79 346.04 643.63 R
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(v.m\050 ... \051) 317.88 591.1 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+414.07 538.78 527.46 572.77 R
+7 X
+V
+4 F
+0 X
+(return _\307+\310v.m\050 ... \051;) 421.07 552.1 T
+414.07 538.78 527.46 572.77 R
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+527.15 546.6 520.76 538.75 2 L
+2 Z
+N
+520.76 546.6 520.76 538.75 2 L
+N
+520.76 546.6 527.15 546.6 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+436.75 603.95 473.6 603.95 473.6 572.77 3 L
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+156.12 445.21 209.98 516.07 R
+7 X
+1 0 1 0 0 1 0 K
+V
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+156.12 498.24 209.98 501.08 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+156.12 498.24 209.98 501.08 R
+7 X
+0 0 0 1 0 0 0 K
+V
+1 0 1 0 0 1 0 K
+156.12 499.49 624.12 499.49 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+1 0 1 0 0 1 0 K
+5 10 Q
+0 X
+1 0 1 0 0 1 0 K
+(v) 180.77 504.41 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+4 F
+(...) 163.12 485.57 T
+0 0 0 1 0 0 0 K
+156.12 475.41 209.98 478.24 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+156.12 475.41 209.98 478.24 R
+7 X
+0 0 0 1 0 0 0 K
+V
+1 0 1 0 0 1 0 K
+156.12 476.66 624.12 476.66 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+4 10 Q
+0 X
+1 0 1 0 0 1 0 K
+(m\050 ... \051) 171.71 462.74 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+156.12 445.21 209.98 516.07 R
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+79.58 487.73 113.6 507.57 R
+7 X
+V
+107.42 494.9 85.76 494.9 2 L
+0 X
+V
+N
+5 F
+(+v : T) 85.76 495.9 T
+79.58 487.73 113.6 507.57 R
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+296.43 482.26 280.84 496.23 280.84 486.92 249.66 486.92 249.66 475.28 282.26 475.28 282.26 465.05 7 Y
+V
+1 H
+2 Z
+N
+62.57 422.53 530.29 530.25 R
+0.5 H
+N
+(rule 1.1.1) 66.08 521.12 T
+5 11.2 Q
+(*) 101.64 517.62 T
+0 0 0 1 0 0 0 K
+5 10 Q
+0 0 0 1 0 0 0 K
+(v.m\050 ... \051) 85.44 455.04 T
+1 0 1 0 0 1 0 K
+416.9 445.21 476.43 516.07 R
+7 X
+1 0 1 0 0 1 0 K
+V
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+416.9 498.24 476.43 501.08 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+416.9 498.24 476.43 501.08 R
+7 X
+0 0 0 1 0 0 0 K
+V
+1 0 1 0 0 1 0 K
+416.9 499.49 884.9 499.49 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+1 0 1 0 0 1 0 K
+5 10 Q
+0 X
+1 0 1 0 0 1 0 K
+(v) 444.39 504.41 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+4 F
+(...) 423.91 485.57 T
+0 0 0 1 0 0 0 K
+416.9 475.41 476.43 478.24 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+416.9 475.41 476.43 478.24 R
+7 X
+0 0 0 1 0 0 0 K
+V
+1 0 1 0 0 1 0 K
+416.9 476.66 884.9 476.66 2 L
+0.5 H
+2 Z
+0 X
+1 0 1 0 0 1 0 K
+N
+0 0 0 1 0 0 0 K
+59.74 385.52 535.54 785.36 C
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+4 10 Q
+0 X
+1 0 1 0 0 1 0 K
+(m\050 ... \051) 432.49 462.74 T
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+416.9 445.21 476.43 516.07 R
+0.5 H
+0 Z
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+331.86 484.89 365.88 504.74 R
+7 X
+V
+359.7 492.07 338.05 492.07 2 L
+0 X
+V
+N
+5 F
+(+v : T) 338.05 493.07 T
+331.86 484.89 365.88 504.74 R
+N
+0 0 0 1 0 0 0 K
+1 0 1 0 0 1 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(\050v::instance\050\051->m\050 ... \051\051) 307.26 452.2 T
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 C
+-0.01 -0 595.29 841.89 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "6" 6
+%%Page: "7" 7
+595.28 841.89 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 1 1 0 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 0 0 1 0 0 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 10 Q
+0 X
+0 0 0 1 0 0 0 K
+(7) 294.85 25.7 T
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+56.5 48.67 538.77 785.36 R
+7 X
+V
+1 14 Q
+0 X
+(5) 56.5 776.03 T
+(Conclusions) 87.68 776.03 T
+2 12 Q
+-0.31 (This paper proposes a semi-automatic tool support for reengineering OO legacy systems by rewriting) 56.5 747.36 P
+-0.47 (poor design patterns by good design patterns. The code analysis and reverse engineering phase is sup-) 56.5 732.36 P
+0.12 (ported by GFRNs \050Generic Fuzzy Reasoning Nets\051 offering a general means for dealing with uncer-) 56.5 717.36 P
+4.1 (tain, inconsistent and incomplete reengineering knowledge. The forward engineering task is) 56.5 702.36 P
+-0.39 (supported by a knowledge base of design pattern rewrite rules that specify on a design level how poor) 56.5 687.36 P
+(code should be replaced by a well designed implementation.) 56.5 672.36 T
+-0.33 (The reverse and the forward engineering tasks are attacked using very high level, graphical specifica-) 56.5 651.36 P
+0.48 (tion languages. The authors have a strong background in the definition and implementation of such) 56.5 636.36 P
+-0.08 (graphical specification languages. Jens Jahnke is developing and implementing the GFRNs as a gen-) 56.5 621.36 P
+0.19 (eral means for complex \050program\051 analysis and reverse engineering tasks as a major part of his PhD) 56.5 606.36 P
+-0.12 (thesis. Albert Z\237ndorf partly developed and fully implemented a general purpose pattern rewrite lan-) 56.5 591.36 P
+0.13 (guage called PROGRES [Sch\237rr91] during his PhD thesis [Z\237ndorf96]. Using this experiences he is) 56.5 576.36 P
+(going to realize the design pattern rewriting approach as part of his postdoctoral qualification.) 56.5 561.36 T
+1 14 Q
+(References) 56.5 521.03 T
+0 0 0 1 0 0 0 K
+2 10 Q
+([AM97]) 56.5 493.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.45 (M. Aksit, S. Matsuoka \050Eds.\051: ECOOP\32597 - Object-Oriented Programming; Proc. 11th European Conf.) 121.7 493.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Jyv\212skyl\212, Finnland, June 1997, LNCS1241 Springer \0501997\051) 121.7 481.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+([FMW97]) 56.5 463.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.87 (G. Florijn, M. Meijers, P. Winsen: Tool Support for Object-Oriented Pattern; [in AM97] pp. 472-495) 121.7 463.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(\0501997\051) 121.7 451.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+([GHJV94]) 56.5 433.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.5 (E. Gamma, R. Helm, R. Johnson, J. Vlissides: Design Patterns \050Elements of Reusable Object-Oriented) 121.7 433.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Software\051; Addison Wesley, ISBN 0-201-63361-2 \0501994\051) 121.7 421.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+([JSZ97a]) 56.5 403.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.31 (J.-H. Jahnke, W. Sch\212fer, and A. Z\237ndorf: Generic Fuzzy Reasoning Nets as a basis for reverse engineer-) 121.7 403.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(ing relational database applications; to appear in: Proc. of ESEC\32597 \050to appear\051) 121.7 391.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+([Rose97]) 56.5 373.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.36 (J. Rose: An Integrated Design Environment for UML and C++; Master Thesis University of Paderborn) 121.7 373.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(\050In German\051 \0501997\051) 121.7 361.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+([Sch\237rr91]) 56.5 343.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.18 (A. Sch\237rr: Operational Specification with PROgrammed GraphREwritingSystems; PhD Thesis \050in Ger-) 121.7 343.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(man\051, RWTH Aachen 1991, Deutscher Universit\212ts Verlag, Vieweg, ISBN 3-8244-2021-X \0501991\051) 121.7 331.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+([Strous91]) 56.5 313.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(B. Stroustrup: The C++ Programming Language; Addison-Wesley, New York \0501991\051) 121.7 313.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+([UML97a]) 56.5 295.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.56 (The UML Notation Guide; Technical Report, Version 1.0, Rational Software, Santa Clara, http://www.ra-) 121.7 295.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(tional.com \0501997\051) 121.7 283.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+([Z\237ndorf96]) 56.5 265.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.39 (A. Z\237ndorf: An Development Environment for PROgrammed GraphREwritingSystems - Specification,) 121.7 265.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.26 (Implementation and Application; PhD Thesis \050in German\051, RWTH Aachen 1995; Deutscher Universit\212ts) 121.7 253.7 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Verlag, Vieweg, ISBN 3-8244-2075-9 \0501996\051) 121.7 241.7 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "7" 7
+%%Trailer
+%%BoundingBox: 0 0 595.28 841.89
+%%PageOrder: Ascend
+%%Pages: 7
+%%DocumentFonts: Helvetica
+%%+ Times-Bold
+%%+ Times-Roman
+%%+ Times-Italic
+%%+ Helvetica-Narrow
+%%+ Helvetica-Narrow-Bold
+%%+ ZapfDingbats
+%%EOF

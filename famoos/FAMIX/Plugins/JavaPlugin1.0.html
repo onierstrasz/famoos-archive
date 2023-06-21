@@ -1,0 +1,583 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>1 C++ language plugin</TITLE>
+</HEAD>
+<BODY LINK="#0000ff">
+<DIR>
+
+<H1><A NAME="_Ref459188685"><A NAME="title"><A NAME="_Toc460243238">FAMIX Java language plug-in 1.0</A> </A></A></H1>
+<P>&nbsp;</P></DIR>
+
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=420>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Author</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>Sander Tichelaar (<A HREF="mailto:tichel@iam.unibe.ch">tichel@iam.unibe.ch</A>)</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Version</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>1.0</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Last modified</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>1999-09-07</TD>
+</TR>
+</TABLE>
+
+<OL>
+
+<LI><A NAME="_Ref460140264"><A NAME="_Toc460243239"><B><FONT SIZE=5>Abstract</A></A></LI>
+</B></FONT><P><A NAME="abstract">This document describes the language  plug-in to the FAMIX 2.0 model [Deme99] for the Java programming language [Gosl96]. It handles interpretation issues concerning Java in FAMIX and the extension of the FAMIX model for Java specific features.</A> </P>
+<B><LI><A NAME="_Toc460243240"><FONT SIZE=5>Notation</A></LI></OL>
+
+</B></FONT><P>The basic FAMIX model is modified in three different ways to handle Java sources:</P>
+
+<UL>
+<LI>New classes are added to the common exchange model to model entities and associations unique to Java. These classes are marked as new entities resp. associations.</LI>
+<LI>New attributes are added to existing classes of the basic FAMIX model. In this case the class is marked "extended" and only the new and modified (see below) attributes are listed in the definition of the modified class.</LI>
+<LI>The definition of attributes of existing classes are modified or are made more specific. In this case the corresponding class is marked "interpreted" and the interpreted attributes are listed in the definition of the modified class. To discriminate new from interpreted attributes, new attributes are explicitly tagged as being new and interpreted attributes are listed without any type information since that information hasn't changed anyway.</LI></UL>
+
+<OL>
+
+<LI><A NAME="_Toc460243241"><B><FONT SIZE=5>Modified classes</A></LI>
+<OL>
+
+<LI><A NAME="_Toc460243242"></FONT><FONT SIZE=4>Model (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Model</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>SourceLanguage</P>
+<P>SourceDialect</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243269">Figure 1: Model</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>SourceLanguage<BR>
+For Java models this attribute always contains the string &quot;Java&quot;.</LI>
+<LI>SourceDialect<BR>
+The Java language doesn’t really have dialects, but it has versions. If known, this version can be stored in this attribute. The possibly interesting issues for FAMIX on the language-feature-and-syntax level (as opposed to added libraries) between the different versions are:<BR>
+1.0.x -&gt; 1.1.x: &#9;- Addition of inner classes (including anonymous ones)<BR>
+&#9;&#9;&#9;- Final method parameters and local variables<BR>
+1.1.x -&gt; 1.2.x:&#9;- Addition of a new keyword (strictfp)</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243243"></CODE><B><FONT SIZE=4>Package (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Package</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243270">Figure 2: Package</A></P>
+</B><P>A Package maps in Java to the Java package construct. Packages in Java have the following properties:</P>
+
+<UL>
+<LI>packages contain classes and packages. Both classes and packages can belong to only one package. </LI>
+<LI>package names should be unique within their encapsulating package.</LI></UL>
+
+<P>Normally packages in Java map directly to the directory structure of source code, i.e. the source code for a certain class in a certain package appears in a directory with the same name as the package. Nested packages appear as subdirectories of the directory with the source code of the encapsulating package.</P>
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243244"><B><FONT SIZE=4>Class (interpreted and extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Class</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>isInterface (): Boolean&#9;# new</P>
+<P>isPublic (): Boolean&#9;# new</P>
+<P>isFinal (): Boolean&#9;# new</P>
+<P>isAbstract</P>
+<P>belongsToPackage</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243271">Figure 3: Class</A></P>
+</B><P>Both classes and interfaces in Java are mapped to the FAMIX entity Class. Interfaces differ from classes in that they can only define abstract methods and final static variables. Interfaces     cannot inherit from classes (for a full discussion, see InheritanceDefinition, p.<A HREF="#_Ref459188657">*</A>).</P>
+<P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>isInterface: Boolean; optional<BR>
+Is a predicate telling if the entity is an interface as opposed to a normal class.</LI>
+<LI>isPublic: Boolean; optional<BR>
+Is a predicate telling if the class is defined public or not. Public (as opposed to default) visibility means the class is visible outside its containing package.</LI>
+<LI>isFinal: Boolean; optional<BR>
+Is a predicate telling if the class is defined final or not. Final classes cannot be subclassed (and subsequently its methods cannot be overridden). Interfaces cannot be final.</LI>
+<LI>isAbstract<BR>
+In Java a class is abstract if the class is declared abstract. This is obligoraty if one or more of its methods are abstract. Even if the class does not contain any abstract methods, it can be declared abstract, implying that  the class is not allowed to be instantiated. Interfaces are always abstract, but don’t have to be declared as such (although you may if you want to).</LI>
+<LI>belongsToPackage<BR>
+</CODE>The package to which a class belongs is defined by the package statement at the beginning of a Java source file that also contains the class definition.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243245"><B><FONT SIZE=4>BehaviouralEntity (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">BehaviouralEntity</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>declaredReturnType</P>
+<P>declaredReturnClass</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243272">Figure 4: BehaviouralEntity</A></P>
+</B><P>The following attributes are interpreted as follows:</P>
+
+<UL>
+<CODE><LI>declaredReturnType<BR>
+In Java this attribute can contain any primitive types, array types or classes (and interfaces).</LI>
+<LI>declaredReturnClass<BR>
+This attribute contains the unique name of the FAMIX class entity (which is a Java class or interface) if the declaredReturnType denotes such an entity.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243246"></CODE><B><FONT SIZE=4>Method (interpreted and extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Method</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>isFinal (): Boolean&#9;&#9;# new</P>
+<P>isSynchronized (): Boolean&#9;# new</P>
+<P>isNative (): Boolean&#9;&#9;# new</P>
+<P>accessControlQualifier</P>
+<P>signature</P>
+<P>isPureAccessor</P>
+<P>hasClassScope</P>
+<P>isAbstract</P>
+<P>isConstructor</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243273">Figure 5: Method</A></P>
+</B><P>Each definition of a method in source code constitutes this entity. </P>
+<P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>isFinal: Boolean; optional<BR>
+Is a predicate telling if the method is defined final or not. Final methods cannot be overridden.</LI>
+<LI>isSynchronized: Boolean; optional<BR>
+Is a predicate telling if the method is defined synchronized or not. Only one of the synchronized methods of an instance of a class can be accessed  at once at runtime.</LI>
+<LI>isNative: Boolean; optional<BR>
+Is a predicate telling if the method is defined native or not. Native methods are implemented in an external language (for instance, C++) and therefore do not have an implementation in the Java side of the code.</LI>
+<LI>accessControlQualifier<BR>
+</CODE>The allowed access specifiers for methods are: <CODE>public, protected, private. </CODE>An empty specifier means default visibility, which denotes that the method is visible for all classes within the same package.</LI>
+<CODE><LI>signature<BR>
+</CODE>In Java is a method is uniquely distinguished by its name and  the number, the types and the position of its formal parameters. Therefore, the signature string takes the form<CODE> methodname(T1, ...,Tn) </CODE>where T<SUB>1..n</SUB> are the types of the formal parameters of the method (see also the section about unique naming conventions in the FAMIX 2.0 Specification [Deme99]). Note that parameters can be declared <CODE>final</CODE>, but that this finalness is <I>not</I> part of the method signature. A subclass can override a method and add or drop any final parameter modifiers you wish. You can also add or drop final modifiers in a method's parameters without causing any harm to existing compiled code that uses that method[Gosl96]. </LI>
+<CODE><LI>isPureAccessor<BR>
+</CODE>A pure reader accessor in Java normally looks like (accessing a variable <CODE>name</CODE>):<BR>
+&#9;<CODE>String getName {<BR>
+&#9;&#9;return name;<BR>
+&#9;}<BR>
+</CODE>A pure writer accessor normally looks like:<CODE> <BR>
+&#9;void setName(String name) {<BR>
+&#9;&#9;this.name = name;<BR>
+&#9;}</LI>
+<LI>hasClassScope<BR>
+</CODE>A method in Java has class scope if it is defined static.</LI>
+<CODE><LI>isAbstract<BR>
+</CODE>A method is abstract, if it is declared abstract with the abstract keyword. An abstract method in Java doesn’t have an implementation.</LI>
+<CODE><LI>isConstructor<BR>
+</CODE>A constructor in Java has the form of a method with no declared return type and a name identical to the name of the class it belongs to.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243247"><B><FONT SIZE=4>StructuralEntity (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">StructuralEntity</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>declaredType</P>
+<P>declaredClass</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243274">Figure 7: StructuralEntity</A></P>
+</B><P>The following attributes are interpreted as follows:</P>
+
+<UL>
+<CODE><LI>declaredType<BR>
+In Java this attribute can contain any primitive types, array types or classes (and interfaces).</LI>
+<LI>declaredClass<BR>
+This attribute contains the unique name of the FAMIX class entity (which is a Java class or interface) if the declaredType denotes such an entity.</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><B><FONT SIZE=4><LI></LI>
+<LI><A NAME="_Toc460243248">Attribute (interpreted and extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Attribute</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>isFinal (): Boolean&#9;&#9;# new</P>
+<P>isTransient (): Boolean&#9;# new</P>
+<P>isVolatile (): Boolean&#9;&#9;# new</P>
+<P>hasClassScope</P>
+<P>accessControlQualifier</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243275">Figure 8: Attribute</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>isFinal: Boolean; optional<BR>
+Is a predicate telling if the attribute is defined final or not. Final attributes are set only once and cannot be changed afterwards.</LI>
+<LI>isTransient: Boolean; optional<BR>
+Is a predicate telling if the (non-static) attribute is defined transient or not. Transient indicates that an attribute is not part of an object’s persistent state and thus needs not to be serialized with the object.</LI>
+<LI>isVolatile: Boolean; optional<BR>
+Is a predicate telling if the attribute is defined volatile or not. Volatile specifies that an attribute is used by synchronized threads and that the compiler should not attempt to  perform optimizations with it.</LI>
+<LI>hasClassScope<BR>
+</CODE>An attribute in Java has class scope if it is defined static.</LI>
+<CODE><LI>accessControlQualifier<BR>
+</CODE>The allowed access specifiers are: <CODE>public, protected, private. </CODE>An empty specifier means default visibility, which denotes that the attribute is visible for all classes within the same package.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243249"><B><FONT SIZE=4>ImplicitVariable (interpreted)</A></LI></B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">ImplicitVariable</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243276">Figure 9: ImplicitVariable</A></P>
+</B><P>Implicit variables in Java are <CODE>this</CODE>, <CODE>super</CODE> and <CODE>class</CODE>. <CODE>this</CODE> is an  implicit instance variable which refers the current object a method is executing in. <CODE>super</CODE> refers to the superclass of the current object. <CODE>class</CODE> is not an implicit   variable in the strict sense of the word (as it is also a keyword in Java). An expression like <CODE>String.class</CODE> evaluates to a reference to the String class object. This works for all types, including the primitive types. It is close enough, however,  to an implicit static variable to be modelled as an implicit variable.<BR>
+Normally implicit variables will only appear in a transfer when they are explicitly referenced by other entities.</P>
+<B><FONT SIZE=4><LI></LI>
+<LI><A NAME="_Toc460243250">LocalVariable (extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">LocalVariable</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>isFinal (): Boolean&#9;# new</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243277">Figure 10: LocalVariable</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>isFinal: Boolean; optional<BR>
+Is a predicate telling if the attribute is defined final or not. Final local variables are set only once and cannot be changed afterwards.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243251"></CODE><B><FONT SIZE=4>FormalParameter (extended)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">FormalParameter</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>isFinal (): Boolean&#9;# new</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243278">Figure 11: Attribute</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>isFinal: Boolean; optional<BR>
+Is a predicate telling if the attribute is defined final or not. Final parameters cannot be changed within the methodbody of the method it is a parameter of. Note that </CODE>the finalness of a parameter is not part of the method signature - it is simply a detail of the implementation. A subclass can override a method and add or drop any final parameter modifiers you wish. You can also add or drop final modifiers in a method's parameters without causing any harm to existing compiled code that uses that method.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Ref459188657"><A NAME="_Toc460243252"><B><FONT SIZE=4>InheritanceDefinition</A> (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">InheritanceDefinition</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>accessControlQualifier</P>
+<P>index</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243279">Figure 12: InheritanceDefinition</A></P>
+</B><P>In Java classes always inherit from a single class (except the root class Object that doesn’t inherit from any class). A class can <I>implement</I> multiple interfaces, which simulates some kind of multiple inheritance, but as interfaces do not have any implementation, resolving which method needs to be executed, is not a problem. Interfaces can inherit from multiple interfaces. In FAMIX classes and interfaces are treated similarly, as shown by the fact that they are both represented as classes, therefore both class inheritance and interface implementation is represented by an InheritanceDefinition in FAMIX.</P>
+<P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>accessControlQualifier<BR>
+</CODE>The access control in Java is always "public". It means that all public and protected attributes and methods are inherited by the subclass and keep their declared visibility.</LI></UL>
+
+
+<UL>
+<CODE><LI>index<BR>
+</CODE>The index is always "null" as Java has single inheritance and therefore name collisions cannot appear. Java classes can implement multiple interfaces, but as interfaces do not implement any behaviour name collisions do not cause any problems. Interfaces can contain constants, but a class cannot implement multiple interfaces that contain constants with the same name with possibly different values.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243253"><B><FONT SIZE=4>Invocation (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Invocation</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>base</P>
+<P>candidatesAt</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243280">Figure 13: Invocation</A></P>
+</B><P>The new or modified attributes are:</P>
+
+<UL>
+<CODE><LI>base<BR>
+In Java this attribute contains t</CODE>he statically determinable class of the expression receiving the invocation. For example:<BR>
+&#9;<CODE>MyClass r = new MyClass();<BR>
+&#9;…<BR>
+&#9;r.m();<BR>
+Then MyClass is the receiving class (and thus the base) of this invocation. </LI>
+<LI>candidates<BR>
+For invocations the candidates attribute holds either all methods overriding the method base::invokes</CODE>, or if base is a Java interface it holds all methods with the same signature in classes that implement that interface</LI></UL>
+
+<OL>
+
+<LI><A NAME="_Ref460140167"><A NAME="_Toc460243254"><B><FONT SIZE=5>New classes</A></A></LI>
+<OL>
+
+<LI><A NAME="_Toc460148584"><A NAME="_Toc460243255"></FONT><FONT SIZE=4>TypeCast</A></A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">TypeCast</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>belongsToBehaviour (): Name</P>
+<P>fromType (): Name</P>
+<P>toType (): Name</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460148615"><A NAME="_Toc460243281">Figure 1: TypeCast</A></A></P>
+</B><P>This <B>new association</B> models type cast like <CODE>(MyClass)variable</CODE>.</P>
+<P>Type casts are interesting for reengineering as they often point to problems in the design of a system. There will be an instance of this class for every type cast occuring in the source code, even if the cast is between the same types, because we are interested in all the places where casts occur.</P>
+<P>The attributes of TypeCast are:</P>
+
+<UL>
+<CODE><LI>belongsToBehaviour: Name; mandatory<BR>
+</CODE>Refers to the BehaviouralEntity the cast appears in.</LI></UL>
+
+
+<UL>
+<CODE><LI>fromType: Name; optional<BR>
+</CODE>Refers to the unique name of the type the casted expression has. This is the declared type of <CODE>variable</CODE> in the above example.</LI></UL>
+
+
+<UL>
+<CODE><LI>toType: Name; optional<BR>
+</CODE>Refers to the unique name of the type the expression is casted to (<CODE>MyClass</CODE> in the above example).</LI></UL>
+
+<OL>
+
+<LI><A NAME="_Ref460140161"><A NAME="_Toc460243256"><B><FONT SIZE=5>Miscellaneous</A></A></LI>
+</B></FONT><P>Java does not have functions or global variables, thus those entities will never appear in a FAMIX model of a Java system. Next to that, arrays and primitive types are not handled explicitly in this FAMIX extension either.</P>
+<P>Then there is a minor issue about file visibility. Normally a class with  default visibility is visible within its  package. However, when such a class is defined in the same file of another class <I>and</I> the name of the file is the same as the name of the other with the .java extension <I>and</I> theses classes are not defined in the default package, then the class is <I>not</I> visible outside the file, even to classes in the same package that are defined in other files. This issue is not dealed with in this Java language plug-in, because it’s a minor issue and in model transfers we assume a compilable system anyway.</P>
+<LI><A NAME="_Ref460140083"><A NAME="_Toc460243257"><B><FONT SIZE=5>Pending issues</A></A></LI></OL>
+
+</B></FONT><P>Issues  not yet covered in this plug-in are:</P>
+
+<UL>
+<LI>Nested classes, inner classes, anonymous classes. A solution for this needs to be synchronized with other language plugins (most notably C++).</LI>
+<LI>Implicit methods. In Java there are certain methods defined implicitly. These are the default constructors and the methods this(..), super(..) (with or without parameters), which are some kind of aliases to constructors of either the current class or its superclass. If introduced in the plug-in, these implicit methods should only appear in a transfer when they are explicitly referenced by other entities. <BR>
+Implicit methods could be introduces with an isImplicit attribute for methods and interpreting this(..) and super(..) calls as calls to the respective constructors instead. But using an ImplicitMethod is consistent with the ImplicitVariable. However, this causes problems on the language independent level, as entities and associations on the language independent level  (such as in Invocations) may reference  this language specific entity. For that to work, ImplicitMethod should be defined on the FAMIX level rather than the Java Plug-in level.</LI>
+<LI>Static and instance initializers</LI></UL>
+
+<OL>
+
+<LI><A NAME="_Toc460243258"><B><FONT SIZE=5>References</A></LI></OL>
+
+</B></FONT><P>[<A NAME="Famix20">Deme99</A>] &#9;FAMIX 2.0, technical report, University of Berne, 1999.</P>
+<P>[<A NAME="JavaNutshell">Flan97</A>] &#9;David Flanagan, Java in Nutshell: 2nd edition, O'Reilly, 1997.</P>
+<P>[<A NAME="JavaSpecification">Gosl96</A>]&#9;James Gosling, Bill Joy and Guy Steele, The Java Language Specification, Addison Wesley, 1996.</P>
+<H1 ALIGN="CENTER">&nbsp;</H1><DIR>
+
+<FONT FACE="Arial" SIZE=5><H1 ALIGN="CENTER"><A NAME="_Toc460243259">Cover Pages</A></H1></DIR>
+
+</FONT><B><FONT FACE="Arial" SIZE=4><P ALIGN="CENTER">Achievement 2.4.1b</P>
+</B></FONT><H2 ALIGN="CENTER"><A NAME="_Toc460243260">FAMIX Java language plug-in 1.0 </A></H2>
+<H2><A NAME="_Toc460243261">1) Identification</A></H2>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Project Id:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>Esprit IV #21975 &quot;FAMOOS&quot;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Deliverable Id:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>D 2.2 – FINALFHB Final FAMOOS Methodology Handbook</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Date for delivery:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>31.08.99</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Planned date for delivery:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>31.08.99</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>WP(s) contributing to:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>1</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Author(s):</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>Sander Tichelaar</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460243262">2) Abstract</A></H2>
+<P>This document describes the language  plug-in to the FAMIX 2.0 model [Deme99] for the Java programming language [Gosl96]. It handles interpretation issues concerning Java in FAMIX and the extension of the FAMIX model for Java specific features.</P>
+<H2><A NAME="_Toc460243263">3) Keywords</A></H2>
+<P>Object-oriented, reengineering, reverse engineering, code repository, round-trip engineering, FAMOOS, FAMIX, Java.</P>
+<H2><A NAME="_Toc460243264">4) Version History</A></H2>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<STRONG><P>Ver</STRONG></TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<STRONG><P>Date</STRONG></TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<STRONG><P>Editor(s)</STRONG></TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<STRONG><P>Status &amp; Notes</STRONG></TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>0.3</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>24.08.99</TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>Sander Tichelaar</TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>First draft version released for public review. </TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">&nbsp;</TD>
+<TD WIDTH="13%" VALIGN="TOP">&nbsp;</TD>
+<TD WIDTH="24%" VALIGN="TOP">&nbsp;</TD>
+<TD WIDTH="51%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460243265">5) Issues for future releases</A></H2>
+<P>See  Pending issues, page <A HREF="#_Ref460140083">*</A>.</P>
+<H2><A NAME="_Toc460243266">6) Table of Contents</A></H2>
+<B><P>FAMIX Java language plug-in 1.0&#9;</B><A HREF="#_Toc460243238">*</A><DIR>
+
+<B><P>1&#9;Abstract&#9;</B><A HREF="#_Toc460243239">*</A></P>
+<B><P>2&#9;Notation&#9;</B><A HREF="#_Toc460243240">*</A></P>
+<B><P>3&#9;Modified classes&#9;</B><A HREF="#_Toc460243241">*</A></P><DIR>
+<DIR>
+
+<FONT FACE="Times"><P>3.1&#9;Model (interpreted)&#9;</FONT><A HREF="#_Toc460243242">*</A></P>
+<FONT FACE="Times"><P>3.2&#9;Package (interpreted)&#9;</FONT><A HREF="#_Toc460243243">*</A></P>
+<FONT FACE="Times"><P>3.3&#9;Class (interpreted and extended)&#9;</FONT><A HREF="#_Toc460243244">*</A></P>
+<FONT FACE="Times"><P>3.4&#9;BehaviouralEntity (interpreted)&#9;</FONT><A HREF="#_Toc460243245">*</A></P>
+<FONT FACE="Times"><P>3.5&#9;Method (interpreted and extended)&#9;</FONT><A HREF="#_Toc460243246">*</A></P>
+<FONT FACE="Times"><P>3.6&#9;StructuralEntity (interpreted)&#9;</FONT><A HREF="#_Toc460243247">*</A></P>
+<FONT FACE="Times"><P>3.7&#9;Attribute (interpreted and extended)&#9;</FONT><A HREF="#_Toc460243248">*</A></P>
+<FONT FACE="Times"><P>3.8&#9;ImplicitVariable (interpreted)&#9;</FONT><A HREF="#_Toc460243249">*</A></P>
+<FONT FACE="Times"><P>3.9&#9;LocalVariable (extended)&#9;</FONT><A HREF="#_Toc460243250">*</A></P>
+<FONT FACE="Times"><P>3.10&#9;FormalParameter (extended)&#9;</FONT><A HREF="#_Toc460243251">*</A></P>
+<FONT FACE="Times"><P>3.11&#9;InheritanceDefinition (interpreted)&#9;</FONT><A HREF="#_Toc460243252">*</A></P>
+<FONT FACE="Times"><P>3.12&#9;Invocation (interpreted)&#9;</FONT><A HREF="#_Toc460243253">*</A></P></DIR>
+</DIR>
+
+<B><P>4&#9;New classes&#9;</B><A HREF="#_Toc460243254">*</A></P><DIR>
+<DIR>
+
+<FONT FACE="Times"><P>4.1&#9;TypeCast&#9;</FONT><A HREF="#_Toc460243255">*</A></P></DIR>
+</DIR>
+
+<B><P>5&#9;Miscellaneous&#9;</B><A HREF="#_Toc460243256">*</A></P>
+<B><P>6&#9;Pending issues&#9;</B><A HREF="#_Toc460243257">*</A></P>
+<B><P>7&#9;References&#9;</B><A HREF="#_Toc460243258">*</A></P>
+<B><FONT FACE="Arial"><P>Cover Pages</FONT>&#9;</B><A HREF="#_Toc460243259">*</A></P><DIR>
+<DIR>
+
+<FONT FACE="Times"><P>FAMIX Java language plug-in 1.0&#9;</FONT><A HREF="#_Toc460243260">*</A></P>
+<FONT FACE="Times"><P>1) Identification&#9;</FONT><A HREF="#_Toc460243261">*</A></P>
+<FONT FACE="Times"><P>2) Abstract&#9;</FONT><A HREF="#_Toc460243262">*</A></P>
+<FONT FACE="Times"><P>3) Keywords&#9;</FONT><A HREF="#_Toc460243263">*</A></P>
+<FONT FACE="Times"><P>4) Version History&#9;</FONT><A HREF="#_Toc460243264">*</A></P>
+<FONT FACE="Times"><P>5) Issues for future releases&#9;</FONT><A HREF="#_Toc460243265">*</A></P>
+<FONT FACE="Times"><P>6) Table of Contents&#9;</FONT><A HREF="#_Toc460243266">*</A></P>
+<FONT FACE="Times"><P>7) List of Figures&#9;</FONT><A HREF="#_Toc460243267">*</A></P>
+<FONT FACE="Times"><P>8) List of Tables&#9;</FONT><A HREF="#_Toc460243268">*</A></P>
+<P>&nbsp;</P></DIR>
+</DIR>
+</DIR>
+</P>
+<H2><A NAME="_Toc460243267">7) List of Figures</A></H2>
+<H2>Figure 1: Model&#9;<A HREF="#_Toc460243269">*</A><DIR>
+
+<P>Figure 2: Package&#9;<A HREF="#_Toc460243270">*</A></P>
+<P>Figure 3: Class&#9;<A HREF="#_Toc460243271">*</A></P>
+<P>Figure 4: BehaviouralEntity&#9;<A HREF="#_Toc460243272">*</A></P>
+<P>Figure 5: Method&#9;<A HREF="#_Toc460243273">*</A></P>
+<P>Figure 7: StructuralEntity&#9;<A HREF="#_Toc460243274">*</A></P>
+<P>Figure 8: Attribute&#9;<A HREF="#_Toc460243275">*</A></P>
+<P>Figure 9: ImplicitVariable&#9;<A HREF="#_Toc460243276">*</A></P>
+<P>Figure 10: LocalVariable&#9;<A HREF="#_Toc460243277">*</A></P>
+<P>Figure 11: Attribute&#9;<A HREF="#_Toc460243278">*</A></P>
+<P>Figure 12: InheritanceDefinition&#9;<A HREF="#_Toc460243279">*</A></P>
+<P>Figure 13: Invocation&#9;<A HREF="#_Toc460243280">*</A></P>
+<P>Figure 1: TypeCast&#9;<A HREF="#_Toc460243281">*</A></P>
+<H2>&nbsp;</H2></DIR>
+<A NAME="_Toc460243268">8) List of Tables</A></H2>
+<P>&nbsp;</P></BODY>
+</HTML>

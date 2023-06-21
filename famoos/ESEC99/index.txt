@@ -1,0 +1,107 @@
+           ESEC/FSE'99 Workshop on Object-Oriented Reengineering
+               Toulouse (France), Monday September 6th, 1999
+
+                  http://www.iam.unibe.ch/~famoos/ESEC99/
+
+Important Dates
+
+   * Sunday, 12.07.99: Submission of position papers.
+   * Monday, 02.08.99: Notification of acceptance.
+   * Monday, 16.08.99: Final camera-ready papers and preliminary program
+   * Monday, 06.09.99: WOOR'99
+
+Objective
+
+The ability to reengineer object-oriented legacy systems has become a vital
+matter in today's software industry. Early adopters of the object-oriented
+programming paradigm are now facing the problem of transforming their
+object-oriented "legacy" systems into full-fledged frameworks. Dealing with
+programs exceeding 10,000 lines of poorly documented code definitely
+requires support from tools as well as methodologies.
+
+The Workshop on Object-Oriented Reengineering (WOOR) wants to gather people
+working on solutions for object-oriented legacy systems. We explicitly
+solicit experience reports from the software industry as well as
+contributions from tool producers and methodology providers. The workshop
+itself will be set up as a forum for exchanging experiences, discussing
+solutions, and exploring new ideas.
+
+Specific areas of interest include, but are not limited to:
+
+   * Experience reports from object-oriented reengineering projects
+   * Methods and techniques
+   * Tool-support
+   * Metrics and evaluation
+   * Migration to object-oriented frameworks
+   * Migration from procedural implementations
+   * Object-oriented schema integration
+   * Architectural issues
+   * Object-oriented analysis and design issues
+   * Design patterns in reengineering practices
+   * Reverse- and reengineering patterns
+
+Intended Audience
+
+The workshop is intended for software engineering professionals with
+experience in object-oriented reengineering; either people who are actively
+engaged in reengineering projects, or people who develop methodologies and
+tools. Similar workshops held at ESEC (ESEC'97) as well as other conferences
+(OOPSLA, ECOOP) show that it is possible to gather a group of about 15
+researchers and practitioners for a whole day of fruitful discussions.
+
+Submission of Position Papers
+
+In order to make efficient use of the one day we have at our disposal, we
+want to pay special attention to the preparation of the workshop. We request
+each participant to submit a position paper in advance (<= 10 pages), so
+that all participants can get acquinted with the ideas that exist within the
+group. Each participant is supposed to read all the submitted material, so
+that the workshop itself can be devoted to discussion instead of
+presentations. Submissions will be made electronically to facilitate the
+rapid exchange of information.
+
+Position papers will be collected in a technical report of TUV, so that
+references too the position papers will be possible.
+
+The upper limit for the number of participants is 20 and the particpants
+will be selected on the basis of the submitted material. The maximum number
+of particpants per position paper is limited to 2.
+
+To submit a position paper, send HTML, pdf of postcript to
+demeyer@iam.unibe.ch. Send a separate mail with the abstract and the e-mail
+addresses of the authors and URL's of their home pages in plain ASCII.
+Submission guidelines at
+http://www.iam.unibe.ch/~famoos/ESEC99/howtosubmit.html.
+
+About the Organizers
+
+Both organizers are participating in ESPRIT research projects concerning
+reengineering which are FAMOOS and ARES respectively.
+
+Serge Demeyer
+     Serge Demeyer is a post-doctoral researcher at Software Composition
+     Group (headed by Professor O. Nierstrasz and located in the University
+     of Berne - Switzerland) where he serves as the technical leader of the
+     ESPRIT project FAMOOS. He is active in the international
+     object-oriented and hypermedia research communities. Among others, he
+     is a member of a program committee (Webnet'99), he served twice as a
+     workshop chair (Hypertext'99, ECOOP'98), he is or was involved in the
+     organisation of several workshops (ECOOP'99 Workshop Object-Oriented
+     Architectural Evolution; ESEC/FSE'97 Workshop on Object-Oriented
+     Reengineering; 2nd Workshop on Open Hypermedia Systems) and he acted as
+     a reviewer for many hypermedia and software engineering related
+     conferences and journals. He completed his M.Sc. in 1987 and his Ph.D.
+     in 1996, both at the "Vrije Universiteit Brussel" (Belgium).
+                  e-mail: demeyer@iam.unibe.ch
+Harald Gall
+     Harald Gall is currently program committee member of the International
+     Conference on Software Engineering (ICSE 2000) and Program Co-Chair of
+     the International Workshop on Program Comprehension (IWPC 2000). His
+     research interests are reengineering, software architecture, software
+     maintenance and evolution, and object-oriented technologies. He was
+     involved in the architecture recovery tasks of the ESPRIT project ARES
+     and in the object-oriented re-architecturing project CORET. He holds an
+     M.Sc. and a Ph.D. in computer science from the Technical University of
+     Vienna, Austria, where he is currently assistant professor in the
+     Distributed Systems Group.
+                  e-mail: H.Gall@infosys.tuwien.ac.at

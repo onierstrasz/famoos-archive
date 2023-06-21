@@ -1,0 +1,500 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>1 C++ language plugin</TITLE>
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<H1><A NAME="title"><A NAME="_Toc460243549">FAMIX Ada language plug-in 2.2</A> </A></H1>
+<P>&nbsp;</P>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=420>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Author</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>Robb Nebbe (nebbe@iam.unibe.ch)</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Version</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>2.2</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>Last modified</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>1999-08-17</TD>
+</TR>
+</TABLE>
+
+<OL>
+
+<LI><A NAME="_Toc460243550"><B><FONT SIZE=5>Abstract</A></LI>
+</B></FONT><P><A NAME="abstract">This document defines a language plug-in for FAMIX, the FAMOOS information exchange model [Deme99]. It extends and interprets the FAMIX core model to cover the essential entities from the Ada programming language</A>.</P>
+<LI><A NAME="_Toc460243551"><B><FONT SIZE=5>Notation</A></LI></OL>
+
+</B></FONT><P>The common exchange model is modified in three different ways to handle Ada:</P>
+
+<UL>
+<LI>Attributes are generalised and moved higher into the classes comprising the FAMIX model.  In particular the class entity is extended with the method <I>enclosingEntity</I> and <I>isPrivate</I> in order to better handle nesting.  This replaces several attributes found lower in the class hierarchy which are retained (to not break tools that work at the language-independent level), but subsequently interpreted to correspond to the more general attributes.</LI>
+<LI>New attributes are added to existing classes of the common exchange model. In this case the class is marked "modified" and only the new and modified (see below) attributes are listed in the definition of the modified class.</LI>
+<LI>The definition of attributes of existing classes are modified or their syntax and semantics are interpreted with respect to Ada. To discriminate modified from new attributes, modified attributes are listed without any type information since that information isn't modified anyway.</LI></UL>
+
+<OL>
+
+<LI><A NAME="_Toc460243552"><B><FONT SIZE=5>Modified classes</A></LI>
+<OL>
+
+<LI><A NAME="_Toc460243553"></FONT><FONT SIZE=4>Model (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Model</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>SourceLanguage</P>
+<P>SourceDialect</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243577">Figure 1: Model</A></P>
+
+<UL>
+</B><CODE><LI>SourceLanguage<BR>
+</CODE>For all Ada models the attribute always contains the string "Ada"</LI></UL>
+
+
+<UL>
+<CODE><LI>SourceDialect</CODE><BR>
+This attribute should correspond to the standard defining the version of the language. In the case of the most recent version of Ada this should be "ANSI/ISO/IEC-8652:1995"</LI></UL>
+
+<OL>
+<OL>
+
+<B><FONT SIZE=4><LI></LI>
+<LI><A NAME="_Toc460243554">Entity (interpreted and extended)</A></LI></B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Entity</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>name</P>
+<P>uniqueName </P>
+<P>enclosingEntity (): Name&#9;# new</P>
+<P>isPrivate ():Boolean&#9;&#9;# new</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243578">Figure 2: Entity</A></P>
+</B><P>The name of an entity corresponds to its simple name in Ada. The unique name corresponds to the fully qualified name in Ada but may also require extra information such as the signature in the case of subprograms.</P>
+<P>The method <I>enclosingEntity</I> returns the unique name of the entity in which another is declared unless the entity is a library level compilation unit in which case it returns an empty string "".  The method isPrivate tells whether the entity in question is made public or private with respect to the enclosing entity.</P>
+<LI><A NAME="_Toc460243555"><B><FONT SIZE=4>Package (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Package</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>belongsToPackage</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243579">Figure 3: Package</A></P>
+
+<UL>
+</B><CODE><LI>belongsToPackage():Name;<BR>
+When a package is nested within another package or in the case of a child package this method returns the name of the enclosing package or the parent package.  If a package is nested inside another entity such as a subprogram then the method will return the empty string.  If both belongsToPackage and enclosingEntity are defined then they will return the same entity.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243556"></CODE><B><FONT SIZE=4>Class (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Class</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>isAbstract<BR>
+belongsToPackage</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243580">Figure 2: Class</A></P>
+</B><P>Ada types are all mapped to the class entity in FAMIX with the exception of access types and subtypes.  Neither access types or subtypes introduce a new abstraction in the problem domain.  Furthermore, pointers are conventionally implicit in traditional object-oriented languages and metrics would be skewed if access types were not eliminated in Ada.</P>
+<P>This means that enumeration, signed integer, modular, floating point, fixed point, decimal fixed point, unconstrained and constrained array, record and tagged record types as well as task and protected types are all mapped to the class entity. </P>
+
+<UL>
+<CODE><LI>isAbstract():Boolean</CODE><BR>
+True if the class corresponds to an abstract tagged record type.</LI></UL>
+
+
+<UL>
+<CODE><LI>belongsToPackage():Name;<BR>
+When a class is nested within a package this method returns the name of the enclosing package.  If a class is nested inside another entity than a package (such as a subprogram) then the method will return the empty string.  If both belongsToPackage and enclosingEntity are defined then they will return the same entity.</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><LI><A NAME="_Toc460243557"><B><FONT SIZE=4>Method (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Method</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>belongsToClass</P>
+<P>isAbstract</P>
+<P>signature </P>
+<P>declaredReturnClass</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243581">Figure 3: Method</A></P>
+</B><P>Methods correspond to Ada's primitive subprograms and class-wide subprograms.  This is because both primitive and class-wide subprograms are already defined for or will be derived for any derived types.  Task entries as well as the entries, functions and procedures defined for protected types are also considered as methods.    </P>
+
+<UL>
+<CODE><LI>belongsToClass():Name</CODE><BR>
+Returns the class for which the subprogram is either a primitive method or a class-wide subprogram.  Note that in Ada subprograms are not nested in a type so <CODE>enclosingEntity</CODE> is never the same as <CODE>belongsToClass</CODE>.</LI>
+<CODE><LI>isAbstract():Boolean</CODE><BR>
+True if the corresponding subprogram is abstract.</LI></UL>
+
+
+<UL>
+<CODE><LI>signature():Qualifier<BR>
+</CODE>The signature consists of the name of the method and the names and types of its parameters. If there, resulttypes are concatenated at the end of the signature as well. Contrary to other object-oriented languagues parameter names and resulttypes are part of the unique identification of a method in Ada<BR>
+The string should be formed by "methodname(parname:partype, …)[:returntype]" where parname is the formal parameter name and partype is the unique name of the class to which the type corresponds. Returntype only appears when available.<BR>
+Example:<BR>
+If we take the following Ada code:</LI></UL>
+
+<CODE><P>  package P is<BR>
+    type T is tagged private;<BR>
+    function Method_A( X:Integer; Y:Boolean ) return T;<BR>
+    procedure Method_B( A_T: in out T; Y: in Boolean );<BR>
+    procedure Method_B( A_T: in out T; X: in Integer );<BR>
+</P>
+<P>  private ...<BR>
+  end P;</P>
+<P><BR>
+</CODE>for Method_A the signature is:<BR>
+<CODE>  "Method_A(X:Integer,Y:Boolean):T"</P>
+<P><BR>
+</CODE>for the two methods Method_B the signatures are: <BR>
+<CODE>  "Method_B(A_T:T,Y:Boolean)"<BR>
+  "Method_B(A_T:T,X:Integer)"</P>
+</CODE><P>&nbsp;</P>
+
+<UL>
+<CODE><LI>declaredReturnClass():Name<BR>
+</CODE>The result of a method corresponding to a function in Ada is obtained through <CODE>declaredReturnClass, which returns the class corresponding to the Ada type returned by the function</CODE>.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243558"><B><FONT SIZE=4>Function (interpreted)</A></LI></B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Function</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>signature </P>
+<P>declaredReturnClass</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243582">Figure 4: Function</A></P>
+</B><P>A FAMIX function corresponds to any subprogram that does not qualify as a method.  In Ada terminology the choice of function is rather unfortunate but it is kept for compatibility.  It is essentially the same as a method except it does not have the method belongsToClass or the method isAbstract. </P>
+<LI><A NAME="_Toc460243559"><B><FONT SIZE=4>Attribute (extended and interpreted)</A></LI></B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Attribute</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>belongsToClass</P>
+<P>signature():Qualifier&#9;&#9;&#9;# new </P>
+<P>declaredReturnClass():Name&#9;&#9;# new</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243583">Figure 5: Attribute</A></P>
+</B><P>A FAMIX attribute corresponds to an Ada record component.  It is similar to a method except that an attribute may not be abstract.  In Ada a private type declaration leads to a situation where the type is not private but the attributes (record components) are private. An extension is that attributes are considered as having a signature consisting of a single parameter whose class is the class to which the attribute belongs.  Since record components are always nested in a type the enclosing entity will always be the same as the result of <CODE>belongsToClass</CODE>.</P>
+<P>&nbsp;</P>
+<LI><A NAME="_Toc460243560"><B><FONT SIZE=4>GlobalVariable (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">GlobalVariable</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>declaredClass </TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243584">Figure 6: GlobalVariable</A></P>
+</B><P>A global variable corresponds to any variable or constant declared in a package thus having a lifetime corresponding to that of the program.</P>
+
+<UL>
+<CODE><LI>declaredClass():Name<BR>
+The type of the variable or in the case of an access type the type accessed.</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><B><FONT SIZE=4><LI></LI>
+<LI><A NAME="_Toc460243561">LocalVariable (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">LocalVariable</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>declaredClass </TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243585">Figure 7: LocalVariable</A></P>
+</B><P>A global variable corresponds to any variable or constant declared local to a subprogram thus having a lifetime corresponding to an invocation of the subprogram.</P>
+
+<UL>
+<CODE><LI>declaredClass():Name<BR>
+The type of the variable or in the case of an access type the type accessed.</LI></UL>
+
+<OL>
+<OL>
+
+<LI><A NAME="_Toc460243562"></CODE><B><FONT SIZE=4>FormalParameter (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">FormalParameter</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>declaredClass</P>
+<P>position</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243586">Figure 8: FormalParameter</A></P>
+</B><P>A formal parameter means the same thing in both FAMIX and Ada.  The parameter modes as well as access parameters are not carried over into the FAMIX model.  A formal parameter is never private as it corresponds to an association formed between a visible entity and those defined by the parameter.  If the formal parameter is an access parameter, an access type or a subtype then <I>declaredClass</I> returns the type accessed or the base type of the subtype. </P>
+
+<UL>
+<CODE><LI>declaredClass <BR>
+The type of the formal parameter. Access parameters are contrued as being of the type accessed.</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><LI><A NAME="_Toc460243563"><B><FONT SIZE=4>InheritanceDefinition (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">InheritanceDefinition</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>subclass</P>
+<P>superclass</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243587">Figure 9: InheritanceDefinition</A></P>
+</B><P>An inheritance definition corresponds to a type derivation in Ada. The subclass corresponds to the derived type and the superclass to the base type.  All type derivations are considered as an inheritance definition even if the types involved are not tagged types. </P>
+
+<UL>
+<CODE><LI>subclass():Name<BR>
+Returns the uniqueName of the derived type.</LI>
+<LI>superclass():Name<BR>
+Returns the uniqueName of the base type.</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><LI><A NAME="_Toc460243564"><B><FONT SIZE=4>Access (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Access</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>accesses</P>
+<P>accessedIn</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243588">Figure 10: Access</A></P>
+</B><P>An access corresponds to any time that an attribute (record component)  is used in an expression or statement.  Accesses is the attribute being accessed and accessedIn is the entity from which the access is made.  </P>
+
+<UL>
+<CODE><LI>accesses():Name<BR>
+The uniqueName of the attribute.</LI>
+<LI>accessedIn():Name<BR>
+The uniqueName of the behavioural entity from which that attribute is accessed.</LI></UL>
+
+<OL>
+<OL>
+
+</CODE><LI><A NAME="_Toc460243565"><B><FONT SIZE=4>Invocation (interpreted)</A></LI></OL>
+</OL>
+</B></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH=378>
+<TR><TD VALIGN="TOP">
+<B><P ALIGN="CENTER">Invocation</B></TD>
+</TR>
+<TR><TD VALIGN="TOP">
+<P>invokes</P>
+<P>invokedBy</TD>
+</TR>
+</TABLE>
+
+<B><P><A NAME="_Toc460243589">Figure 11: Invocation</A></P>
+</B><P>An invocation corresponds to a subprogram call in Ada.  The method invokes is the name of the subprogram being called but not the unique name because this may be impossible due to polymorphism.  The method invokedBy is the unique name of the behavioural entity from which the subprogram is invoked. </P>
+
+<UL>
+<CODE><LI>invokes():Name<BR>
+The uniqueName of the subprogram that is being called.  In the case of polymorphism this subprogram may have been overridden by a derived type so another implementation may actually be executed.</LI>
+<LI>invokedBy():Name<BR>
+The uniqueName of the subprogram that calls the other subprogram.</LI></UL>
+
+<OL>
+
+</CODE><LI><A NAME="_Toc460243566"><B><FONT SIZE=5>Miscellaneous</A></LI>
+</B></FONT><P>Generic entities are not covered by this plug-in. Their instantiations are however, and they are treated as if they were written from scratch rather than instantiated from a generic.  Implicit declarations occurring in the case of type derivation should be handled the same as explicit declarations.</P>
+<LI><A NAME="_Toc460243567"><B><FONT SIZE=5>References</A></LI></OL>
+<DIR>
+
+</B></FONT><P>[<A NAME="FAMIX20">Deme99</A>] Serge Demeyer, Sander Tichelaar and Patrick Steyaert, FAMIX – The FAMOOS Information Exchange Model, version 2.0 alpha, July 1999. See <A HREF="http://www.iam.unibe.ch/~famoos/FAMIX/">http://www.iam.unibe.ch/~famoos/FAMIX/</A><FONT SIZE=2>.</P>
+</FONT><H1 ALIGN="CENTER">&nbsp;</H1></DIR>
+
+<FONT FACE="Arial" SIZE=5><H1 ALIGN="CENTER"><A NAME="_Toc460243568">Cover Pages</A></H1>
+</FONT><FONT FACE="Arial" SIZE=4><P ALIGN="CENTER">Achievement 2.4.1c</P>
+</FONT><P ALIGN="CENTER"><B><FONT SIZE=5>FAMIX Ada language plug-in 2.2 </P>
+</B></FONT><H2><A NAME="_Toc460243569">1) Identification</A></H2>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Project Id:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>Esprit IV #21975 &quot;FAMOOS&quot;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Deliverable Id:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>D 2.2 – FINALFHB Final FAMOOS Methodology Handbook</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Date for delivery:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>31.08.99</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Planned date for delivery:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>31.08.99</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>WP(s) contributing to:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>1</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Author(s):</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>Robb Nebbe</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460243570">2) Abstract</A></H2>
+<P>This document defines a language plug-in for FAMIX, the FAMOOS information exchange model [Deme99]. It extends and interprets the FAMIX core model to cover the essential entities from the Ada programming language</P>
+<H2><A NAME="_Toc460243571">3) Keywords</A></H2>
+<P>Object-oriented, reengineering, reverse engineering, code repository, round-trip engineering, FAMOOS, FAMIX, Ada.</P>
+<H2><A NAME="_Toc460243572">4) Version History</A></H2>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<STRONG><P>Ver</STRONG></TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<STRONG><P>Date</STRONG></TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<STRONG><P>Editor(s)</STRONG></TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<STRONG><P>Status &amp; Notes</STRONG></TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>2.2 alpha</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>24.08.99</TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>Robb Nebbe</TD>
+<TD WIDTH="51%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>2.2</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>25.08.99</TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>Sander Tichelaar</TD>
+<TD WIDTH="51%" VALIGN="TOP">&nbsp;</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460243573">5) Issues for future releases</A></H2>
+<H2><A NAME="_Toc460243574">6) Table of Contents</A></H2>
+<B><P>FAMIX Ada language plug-in 2.2&#9;</B><A HREF="#_Toc460243549">*</A><DIR>
+
+<B><P>1&#9;Abstract&#9;</B><A HREF="#_Toc460243550">*</A></P>
+<B><P>2&#9;Notation&#9;</B><A HREF="#_Toc460243551">*</A></P>
+<B><P>3&#9;Modified classes&#9;</B><A HREF="#_Toc460243552">*</A></P><DIR>
+
+<FONT FACE="Times"><P>3.1&#9;Model (interpreted)&#9;</FONT><A HREF="#_Toc460243553">*</A></P>
+<FONT FACE="Times"><P>3.2&#9;Entity (interpreted and extended)&#9;</FONT><A HREF="#_Toc460243554">*</A></P>
+<FONT FACE="Times"><P>3.3&#9;Package (interpreted)&#9;</FONT><A HREF="#_Toc460243555">*</A></P>
+<FONT FACE="Times"><P>3.4&#9;Class (interpreted)&#9;</FONT><A HREF="#_Toc460243556">*</A></P>
+<FONT FACE="Times"><P>3.5&#9;Method (interpreted)&#9;</FONT><A HREF="#_Toc460243557">*</A></P>
+<FONT FACE="Times"><P>3.6&#9;Function (interpreted)&#9;</FONT><A HREF="#_Toc460243558">*</A></P>
+<FONT FACE="Times"><P>3.7&#9;Attribute (extended and interpreted)&#9;</FONT><A HREF="#_Toc460243559">*</A></P>
+<FONT FACE="Times"><P>3.8&#9;GlobalVariable (interpreted)&#9;</FONT><A HREF="#_Toc460243560">*</A></P>
+<FONT FACE="Times"><P>3.9&#9;LocalVariable (interpreted)&#9;</FONT><A HREF="#_Toc460243561">*</A></P>
+<FONT FACE="Times"><P>3.10&#9;FormalParameter (interpreted)&#9;</FONT><A HREF="#_Toc460243562">*</A></P>
+<FONT FACE="Times"><P>3.11&#9;InheritanceDefinition (interpreted)&#9;</FONT><A HREF="#_Toc460243563">*</A></P>
+<FONT FACE="Times"><P>3.12&#9;Access (interpreted)&#9;</FONT><A HREF="#_Toc460243564">*</A></P>
+<FONT FACE="Times"><P>3.13&#9;Invocation (interpreted)&#9;</FONT><A HREF="#_Toc460243565">*</A></P></DIR>
+
+<B><P>4&#9;Miscellaneous&#9;</B><A HREF="#_Toc460243566">*</A></P>
+<B><P>5&#9;References&#9;</B><A HREF="#_Toc460243567">*</A></P>
+<FONT FACE="Arial"><P>Cover Pages</FONT><B>&#9;</B><A HREF="#_Toc460243568">*</A></P><DIR>
+
+<FONT FACE="Times"><P>1) Identification&#9;</FONT><A HREF="#_Toc460243569">*</A></P>
+<FONT FACE="Times"><P>2) Abstract&#9;</FONT><A HREF="#_Toc460243570">*</A></P>
+<FONT FACE="Times"><P>3) Keywords&#9;</FONT><A HREF="#_Toc460243571">*</A></P>
+<FONT FACE="Times"><P>4) Version History&#9;</FONT><A HREF="#_Toc460243572">*</A></P>
+<FONT FACE="Times"><P>5) Issues for future releases&#9;</FONT><A HREF="#_Toc460243573">*</A></P>
+<FONT FACE="Times"><P>6) Table of Contents&#9;</FONT><A HREF="#_Toc460243574">*</A></P>
+<FONT FACE="Times"><P>7) List of Figures&#9;</FONT><A HREF="#_Toc460243575">*</A></P>
+<FONT FACE="Times"><P>8) List of Tables&#9;</FONT><A HREF="#_Toc460243576">*</A></P>
+<P>&nbsp;</P></DIR>
+</DIR>
+</P>
+<H2><A NAME="_Toc460243575">7) List of Figures</A></H2>
+<H2>Figure 1: Model&#9;<A HREF="#_Toc460243577">*</A><DIR>
+
+<P>Figure 2: Entity&#9;<A HREF="#_Toc460243578">*</A></P>
+<P>Figure 3: Package&#9;<A HREF="#_Toc460243579">*</A></P>
+<P>Figure 2: Class&#9;<A HREF="#_Toc460243580">*</A></P>
+<P>Figure 3: Method&#9;<A HREF="#_Toc460243581">*</A></P>
+<P>Figure 4: Function&#9;<A HREF="#_Toc460243582">*</A></P>
+<P>Figure 5: Attribute&#9;<A HREF="#_Toc460243583">*</A></P>
+<P>Figure 6: GlobalVariable&#9;<A HREF="#_Toc460243584">*</A></P>
+<P>Figure 7: LocalVariable&#9;<A HREF="#_Toc460243585">*</A></P>
+<P>Figure 8: FormalParameter&#9;<A HREF="#_Toc460243586">*</A></P>
+<P>Figure 9: InheritanceDefinition&#9;<A HREF="#_Toc460243587">*</A></P>
+<P>Figure 10: Access&#9;<A HREF="#_Toc460243588">*</A></P>
+<P>Figure 11: Invocation&#9;<A HREF="#_Toc460243589">*</A></P>
+<H2>&nbsp;</H2></DIR>
+<A NAME="_Toc460243576">8) List of Tables</A></H2>
+<P>&nbsp;</P></BODY>
+</HTML>

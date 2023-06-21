@@ -1,0 +1,353 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Why FAMIX and not UML ?</TITLE>
+<META NAME="Version" CONTENT="8.0.3410">
+<META NAME="Date" CONTENT="10/11/96">
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" BGCOLOR="#ffffff">
+
+<H1 ALIGN="CENTER"><A NAME="Title"><A NAME="_Toc460127063">W<A NAME="_Ref456193698"></A>hy FAMIX and not UML ?</A></H1>
+<EM><P ALIGN="CENTER">UML Shortcomings for Coping with Round-trip Engineering</A></P>
+</EM><ADDRESS>Serge Demeyer, St&eacute;phane Ducasse, Sander Tichelaar</ADDRESS>
+<ADDRESS>Software Composition Group, University of Berne</ADDRESS>
+<ADDRESS>Neubr&uuml;ckstrasse 10, CH-3012 BERNE</ADDRESS>
+<ADDRESS>{demeyer,ducasse,tichel}@iam.unibe.ch&nbsp;---&nbsp;http://www.iam.unibe.ch/~scg/</ADDRESS>
+<P>&nbsp;</P>
+<EM><BLOCKQUOTE>[Note that this report will appear in the UML'99 Conference Proceedings, published by Springer-Verlag in the LNCS series.]</BLOCKQUOTE>
+</EM><P>&nbsp;</P>
+<STRONG><BLOCKQUOTE><A NAME="Abstract">Abstract: </STRONG>UML is currently embraced as 'the' standard in object-oriented modeling languages, the recent work of OMG on the Meta Object Facility (MOF) being the most noteworthy example. We welcome these standardisation efforts, yet warn against the tendency to use UML as the panacea for all exchange standards. In particular, we argue that UML is not sufficient to serve as a tool-interoperability standard for integrating round-trip engineering tools, because one is forced to rely on UML's built-in extension mechanisms to adequately model the reality in source-code. Consequently, we propose an alternative meta-model (named FAMIX), which serves as the tool interoperability standard within the FAMOOS project and which includes a number of constructive suggestions that we hope will influence future releases of the UML and MOF standards.</A></BLOCKQUOTE>
+<STRONG><P>Keywords: <A NAME="Keywords"></STRONG>meta model, unified modeling language (UML), meta-object facility (MOF), interoperability standard, famoos information exchange (FAMIX)</A></P>
+<H2><A NAME="_Toc460127064">1. Introduction</A></H2>
+<P>With the advent of UML, the progress in CASE technology has reached a next stage of maturity. Indeed, the consensus on a common notation helps both tool vendors and program designers to concentrate on more relevant issues than the direction in which arrows should be drawn, or the question whether to represent classes as rectangles or clouds.</P>
+<P>One of these more relevant issues is the notion of <EM>round-trip engineering</EM>: the seamless integration between design diagrams and source code, between modeling and implementation. With round-trip engineering a programmer generates code from a design diagram, changes that code in a separate development environment and recreates the adapted design diagram back from the source code. The object-oriented development processes with their emphasis on iterative development (see [Booc94a], [Gold95a], [Reen96a], [Jaco97a], [Jaco99a]) undoubtedly make round-trip engineering a relevant issue.</P>
+<P>A second related issue that has become quite relevant is the one of <EM>tool interoperability</EM>. While many of the early CASE tools tried to cover the whole development process, practice has shown that such a generic approach has trouble competing with a series of individual specialised tools. Consequently, CASE tools are becoming more and more open, permitting developers to assemble their favourite development environment from different tools purchased from different vendors yet co-operating via a single interoperability standard.</P>
+<P>The OMG has anticipated this tool interoperability evolution by encouraging and adopting the Meta Object Facility (MOF) as a standard. The goal of the MOF is "<EM>to provide the specification of a rich semantics to enable two systems or applications to meaningfully share information. This goal is achievable by providing domain specific metamodels (such as the OOAD metamodel - UML) that conform to the MOF metamodeling architecture.</EM>" ([MOF97a] - section 1.1.1.1 - Goals and Objectives).</P>
+<P>In its current form, the MOF is primarily intended to serve as an exchange standard between OOAD tools. Consequently, the first concrete exchange standard that has been specified using the MOF concerns exchange of UML models. Yet, the increasing demand for round-trip engineering features in OOAD tools will cause tool vendors to use the built-in extension mechanism of UML to cope with more implementation oriented data exchange.</P>
+<P>This report argues that UML <EM>in stricto sensu</EM> is not sufficient as a tool-interoperability standard for integrating round-trip engineering tools. Indeed, since UML is specifically targeted towards OOAD, it lacks some concepts that are necessary in order to adequately model source-code, in particular the concept of a <EM>'method invocation</EM>' and an '<EM>attribute access</EM>'. Of course it is possible to extend UML to incorporate these concepts, but then the protection of the standard is abandoned and with that the reliability necessary to achieve true interoperability.</P>
+<P>We start this report with the requirement extraction concerning round-trip engineering tools using a well-known technique of a scenario (section 2). Afterwards we proceed with an investigation of how to satisfy these requirements using extensions of the UML meta model (section 3). In the section thereafter, we argue that UML extensions cannot achieve tool interoperability (section 4) and consequently propose an alternative meta-model named FAMIX and relate that to the MOF (section 5). Finally, we summarise the results of this work in the conclusions (section 6).</P>
+<H2><A NAME="_Toc460127065">2. A Round-trip Engineering Scenario</A></H2>
+<P>Since we claim that UML is not sufficient to serve as a tool-interoperability standard for integrating round-trip engineering tools, it is necessary to be precise about what exactly is a round-trip engineering tool and what kind of requirements it imposes on an interoperability standard. As commonly accepted in today's analysis practices, we define a round-trip engineering tool and its requirements by means of a <EM>scenario</EM>.</P>
+<P>The driving force underlying the scenario is the observation that round-trip engineering tools should at least support a smooth transition between implementation and design. Thus, it is not that we neglect analysis; it is just that most tools on the market cover design and implementation. Note as well that at first glance the scenario may seem a bit naive to serve in practice. Yet we have successfully applied the described tool prototypes on a number of industrial case studies<SUP>(1)</SUP>. As such we assure that the scenario is both <EM>characteristic</EM> for what practitioners expect from round-trip engineering tools and <EM>realistic</EM> in the sense that it is applicable in the context of industrial development processes.</P>
+<H3><A NAME="_Toc460127066">2.1. Scene 1: Detecting Design Anomalies via Metrics</A></H3>
+<EM><P>Carmen is part of a team developing a Geographical Information System called GEOS. The kind of functionality required in GEOS is quite domain specific, so the project adopted an iterative development style with C++ as the implementation language. The development of GEOS started some eight years ago and the system is currently in its 3.7.1 release. Lately, developers have been complaining that it becomes difficult to add functionality.</P>
+<P>Carmen is asked to do some code reviewing to see if it is possible to improve the GEOS class structure. Unfortunately, the source code has grown quite large (± 1 million lines of code - 2837 classes) and Carmen would like some tool support to help her identifying potential design anomalies. Therefore, she selects a metrics tool that allows her to measure various aspects of classes (size, inheritance, cohesion, ,...) and focus her attention on those classes where the measurements exceed certain threshold values.</P>
+</EM><B><P>Character.</B> Carmen is the code reviewer of the team. Like all good code reviewers she relies mainly on reading the code to form her opinion. Yet, she appreciates all tools that help her filtering out potential problems.</P>
+<B><P>Goal(s) of this Scene.</B> This scene introduces a metric tool as one possible element of a round-trip engineering environment. The tool depicted in this scene fits the definition of a round-trip engineering tool because the metrics are interpreted on the design level yet are collected from the implementation. Such metric tools are very important in an iterative development process, because they help to control and steer this process. (See [Lore94a] for a practical treatment on how to incorporate object-oriented metrics in a development process and [Hend96a] for an overview of the state-of-the-art in object-oriented metrics.)</P>
+<B><P>Data Model Requirements.</B> Metric tools need to access the <EM>complete </EM>source code model, as they must collect data about the whole system. As such, the schema of the model must take special precautions concerning the memory footprint of the entities and especially the associations in the source code model, as the sheer number of them may be very large.<SUP>(2)</P>
+</SUP><P>To measure object-oriented source code, a metrics tool requires knowledge about inheritance associations between classes and the containment associations between classes, methods and attributes. Moreover, for some of the size metrics and all of the cohesion metrics, a tool requires knowledge about method invocations and attribute accesses.</P>
+<H3><A NAME="_Toc460127067">2.2. Scene 2: Assessing disjoint Classes via Program Visualisation</A></H3>
+<EM><P>Carmen has identified one suspicious class which appears quite big, yet has very low cohesion and a large number of subclasses. Moreover, the class is a core part of GEOS as it is part of a bridge pattern that is used to make the GEOS objects persistent. She believes that this class has too many responsibilities and she wants to check whether it is possible to split the class in two separate classes. She assumes that distributing the responsibilities over two smaller classes will make subclassing easier and thus improve the inheritance hierarchy of the GEOS system.</P>
+<P>To check whether the class can indeed be split, Carmen applies a special visualisation tool. The tool displays a graph containing attributes and methods as nodes plus attribute accesses and method invocations as edges. The tool has the special feature to incorporate a graph layout heuristic that minimises the number of crossings between edges (See Figure 1). With such a visualisation, Carmen observes two clusters in the methods and attributes and concludes that the class may indeed be split.</P>
+</EM><B><P><IMG SRC="Image236.gif" WIDTH=571 HEIGHT=278></P>
+<P><A NAME="_Toc460127092">Figure 1: Visualisation of a class, i.e. the way the methods (in the bottom) access the attributes (on the top). The two clusters indicate that the class may be split.</A></P>
+<P>Character.</B> Being a good code reviewer, Carmen never relies on a single tool to help her assess the quality of the code. Rather, she has a whole suite of complementary tools that she applies when the situation calls for it.</P>
+<B><P>Goal(s) of this Scene.</B> This scene has two main purposes. First, it introduces another round-trip engineering tool, namely program visualisation. Visualising a program is often interesting because it allows the human brain to study multiple aspects of a complex structure in parallel and as such can be of great help in program understanding. Consequently, a program visualisation tool like depicted in this scene is a round-trip engineering tool because its output is interpreted at design level, yet it takes its input from the implementation (see [Pauw93a], [Lang95a], [Deme99c] for examples of program visualisation in reverse engineering in an object-oriented context).</P>
+<P>Second, and more importantly, this scene emphasises the need for various highly specialised tools within round-trip engineering. Because of this variety and specialisation, it is unlikely that all these tools will be purchased from the same tool vendor, hence the need for tool interoperability.</P>
+<B><P>Data Model Requirements.</B> Program visualisation tools are examples of the need for designated access to portions of the source code model. Flexible integration with the data model is crucial, as such a tool wants to visualise any kind of dependency that is present in the source code and needs to customise the lay-out depending on the type of dependency. Memory footprint is less an issue as only slices of the source code must be visualised. Therefore, program visualisation tools want to stay relatively close to a standard model, yet require minor extensions to represent additional information concerning the type of dependency.</P>
+<P>Program visualisation tools mainly serve to analyse dependencies between various parts of the implementation in order to obtain a better understanding of the inner workings of a system. Within object-oriented systems, dependencies stem from inheritance associations between classes; containment associations between classes, methods and attributes; invocation associations between methods; and access associations between methods and attributes.</P>
+<H3><A NAME="_Toc460127068">2.3. Scene 3: Redistributing Responsibilities via Refactoring</A></H3>
+<EM><P>Now that Carmen has identified a class that may be split to improve the class hierarchy of the GEOS system, she contacts Benedikt to explain him what she has discovered. After a short discussion, Benedikt is convinced of Carmen's proposal and he agrees to restructure the class hierarchy accordingly.</P>
+<P>To split the class, Benedikt uses his favourite coding tool which is able to apply a series of low-level refactorings (such as create new class, move attribute, move method) to accomplish the desired redistribution of responsibilities. Afterwards, Benedikt runs a series of regression tests to see whether the split of the class did not affect the working system.</P>
+</EM><B><P>Character. </B>Benedikt enters the scenario, playing the role of the code warrior. Since Benedikt is working with code daily, he uses sophisticated development tools (testing, refactoring, browsers) to make him highly productive.</P>
+<B><P>Goal(s) of this Scene.</B> In this scene, we illustrate the notion of refactoring. A single refactoring corresponds to a low-level semantic preserving restructuring, for instance moving an attribute inside the class hierarchy after checking all its references, or for instance renaming a method and patching all places where it is invoked. The idea is to combine several low-level refactorings to improve the design of a class hierarchy, thus refactorings fit our definition of a round-trip engineering. (See the Ph.D. work of Opdyke for the early definitions of refactoring [Opdy92b] and [Robe97a] for a description of a full-fledged refactoring tool. Refactorings are applicable in practice, as is illustrated by [Fowl99a]).</P>
+<B><P>Data Model Requirements.</B> A refactoring tool is an example of a tool that modifies the source code, thus should know about the exact source code location of data model entities. Since such a tool must update the corresponding data model items without breaking any other tool relying on it, refactoring tools want to stay as close as possible to a standard model of the source code.</P>
+<P>To apply refactorings --be it manually or with a tool-- it is necessary to check given preconditions and often patch existing references. For instance, before moving an attribute, one must check where this attribute is accessed. Or while renaming a method, one must patch all places where it is invoked. Thus any tool that supports refactorings must at least know about which methods invoke which other ones and which methods access which attributes.</P>
+<H3><A NAME="_Toc460127069">2.4. Consequences</A></H3>
+<P>Accepting the above scenario (sections 2.1 to 2.3) has some important consequences concerning what to expect from a round-trip engineering tool.</P>
+
+<UL>
+<LI>Round-trip engineering is more than a mere succession of reverse and forward engineering steps. Rather, it is a succession of activities, where each activity involves some reverse and some forward engineering aspects. <EM>Consequently, round-trip engineering tools should support a tight integration between reverse and forward engineering.</LI>
+</EM><LI>A round-trip engineering tool is never a monolithic application. Rather, it consists of a wide variety of specialised utilities that are applied when the situation calls for it. Because of this variety and specialisation<EM>, it is unlikely that all tools will be purchased from the same tool vendor, hence the need for tool interoperability standards.</LI>
+</EM><LI>Because round-trip engineering demands for a tight interaction between reverse and forward engineering, <EM>the supporting tools need an adequate representation of source code</EM>. At minimum they should incorporate the core object-oriented implementation model depicted in Figure 2. Thus they should know about (i) classes, methods and attributes; (ii) the belongs-to relation between classes, methods and attributes; (iii) the invocation relation between methods<SUP>(3)</SUP>; (iv) the access relation between methods and attributes.</LI></UL>
+
+<P><IMG SRC="Image232.gif" WIDTH=356 HEIGHT=143></P>
+<B><P><A NAME="_Ref457835155"><A NAME="_Toc460127093">Figure 2</A>: The Core Object-Oriented Implementation Model</A></P>
+</B><H2><A NAME="_Toc460127070">3. Embedding Implementation Concepts into UML</A></H2>
+<P>Given the core object-oriented implementation model depicted in Figure 2, the question is whether this can be embedded into UML. Comparing the core implementation model with the UML meta model [UML97a], [UML97b] we make the following observations (summarised in Figure 3).</P>
+<P><IMG SRC="Image233.gif" WIDTH=451 HEIGHT=162></P>
+<B><P><A NAME="_Toc460127094">Figure 3: Comparing the UML meta model with the Core Object-Oriented Implementation Model</A></P>
+<OL TYPE="a">
+
+</B><LI>The UML meta model defines a large number of concepts that do not appear in the implementation model. 'Aggregation' and 'Constraint' are two examples but there are many more.</LI>
+<LI>There is a substantial overlap between the core object-oriented implementation model and the UML meta model. With some flexibility it is possible to map 'Inheritance' onto 'Generalisation' and 'Class', 'Method' and 'Attribute' on their respective counterparts bearing the same name.</LI>
+<LI>The implementation model includes two concepts that do not map directly onto UML equivalents. These two are '(method) Invocation' and '(attribute) Access'.</LI></OL>
+
+<P>Given observations (a) and (b), it should be possible to embed the core implementation model within the UML meta model, if only we find a solution for observation (c). That is, we must find a way to represent the concepts of a method invocation and an attribute access in UML. In the following subsections we will analyse some possibilities to extend the UML meta model to incorporate these two concepts.</P>
+<H3><A NAME="_Toc460127071">3.1. The Behavioural Elements Approach</A></H3>
+<P>There are a number of UML concepts in the Behavioural Elements package (see [UML97b], part 3) that come close to the 'Invocation' and 'Access' concepts of the implementation model (see Figure 2). It is out of the scope of this report to describe all possibilities in detail, so we restrict ourselves to an analysis of the most plausible concept, namely 'Action'. This concept is characteristic for other suitable behavioural elements like 'Message', 'MessageInstance', and 'AttributeLink'.</P>
+<P>Most notably, the class 'Action' has one subclass that is attractive for our purposes, namely 'CallAction'. Checking the UML semantics, we read that "an action is a specification of an executable statement (...), realised by sending a message to an object or modifying a value of an attribute" ([UML97b], p. 68). And then "a call action is an action resulting in an invocation of an operation on an instance" ([UML97b], p. 68). Knowing that an attribute access can always be mimicked by an invocation of some special purpose accessor method, a 'CallAction' seems a suitable candidate for modeling the implementation concepts 'Invocation' and 'Access'. So lets examine these a bit further to see whether it fulfils our requirements, in particular how to retrieve both origin and target of an invocation and an access.</P>
+<P><IMG SRC="Image234.gif" WIDTH=375 HEIGHT=164></P>
+<B><P><A NAME="_Toc460127095">Figure 4: CallAction and how to navigate back to its origin</A></P>
+</B><P>First, to retrieve the possible targets of an instance of 'CallAction', we must interpret the 'target' attribute of the action which, citing the UML semantics "resolves into zero or more specific Instances which are the intended recipients of the dispatched Request" ([UML97b], 8.2 Abstract Syntax / Action - p. 68). Second, to retrieve the origin of an instance of 'CallAction', we must -as is depicted in Figure 4- navigate from an 'Action' over a 'Message', over an 'Interaction', over a 'Collaboration' to finally arrive at the originating 'Operation' ([UML97b], Figure 15: Collaborations). Note that, "in a collaboration it is specified what properties instances should have" ([UML97b], 9.4 Semantics / Collaboration - p. 86), thus the operation retrieved that way is associated with an 'Instance' as well. Therefore, we infer that the 'CallAction' is representing a dynamic association between instances, not a static association between methods.</P>
+<P>Consequently, choosing 'CallAction' as a representation for the implementation concepts 'Invocation' and 'Access' has the following implications.</P>
+
+<UL>
+<EM><LI>Verbose Construct. </EM>To express a single method invocation we need to build a quite complicated construct (a chain of instances from the classes 'Operation', 'Collaboration', 'Interaction', 'Message' and 'Action') which consumes a considerable amount of  memory and is slow in processing. Remember our metric tools (see scenario 2.1) which must store and analyse thousands of these invocation dependencies and it is clear that this construct is not always optimal.</LI>
+<EM><LI>Interpretation Issues. </EM>Using 'CallAction' as a representation of an 'Invocation' leaves room for interpretation. Indeed, since the 'CallAction' is a dynamic association between operations invoked on instances and 'Invocation' is supposed to be a static association between methods, we must supply an instance and interpret it as a representative of its class. There are several possibilities to do such: one is choosing a distinct object for each originating and target method, a second is optimising the former by sharing objects representing the most common superclass for a given method, the third is to have one object for each class. Depending on the tool requirements, one choice is better than the other, so there is no best interpretation that suits all purposes.</LI>
+<EM><LI>(Minor) UML extension. </EM>Using the 'CallAction' as a representation of an attribute access implies a minor UML interpretation as we must mimic the attribute access by means of an invocation of an accessor method (i.e., a set or a get method). To cope with this problem, tools might consider to create a special purpose subclass of Action that represents an attribute access.</LI></UL>
+
+<H3><A NAME="_Toc460127072">3.2. The Stereotyped Association Approach</A></H3>
+<P>Another possibility for embedding the 'Invocation' and 'Access' concepts of the implementation model (see Figure 2) in UML is to use stereotypes to extend an existing UML concept. The concept of 'Association' is particularly interesting for our purpose, because it declares the presence of a relationship between classes and as such may serve to represent the static relationships between items contained in that class.</P>
+<P>Stereotyping an Association to represent an invocation or access mainly involves the specification of a number of tags that are automatically attached to instances of the stereotyped association. These tags will then maintain (a) a reference to the location in source code, (b) the name of the actual method that is initiating the invocation or access (c) the name of the actual attribute being accessed or (d) the name of the actual method being invoked plus the arguments that are passed, plus all that is necessary to deal with polymorphism.</P>
+<P>Consequently, using a stereotyped association to represent associations and accesses has the following implications.</P>
+
+<UL>
+<EM><LI>Large Amount of Associations. </EM>A stereotyped association remains an association and will be stored as such in the underlying UML model. The sheer amount of invocations and accesses is likely to cause problems when other tools try to visualise such a model. Consequently, this approach should only be used when a small number of associations will be created, thus when we represent small slices of an implementation.</LI>
+<EM><LI>(Minor) UML extension. </EM>Stereotypes represent one of the built-in extensibility mechanisms in UML. Thus, by stereotyping we abandon the protection of the UML standard, but then stereotypes are so common that this should not cause major difficulties.</LI>
+<EM><LI> (Minor) Interpretation Issues. </EM>There is a minor interpretation issue because an association is supposed to connect classes, while our stereotyped associations connect items contained within classes. Using the appropriate tagged values it is possible to deal with this issue, however it requires careful naming conventions especially when dealing with polymorphism.</LI></UL>
+
+<H3><A NAME="_Toc460127073">3.3. The Special Purpose Extension Approach</A></H3>
+<P>The final possibility presented in this report is the usage of the meta meta model underneath UML to add the special purpose 'Invocation' and 'Access' concepts to the meta model (see [UML97b] Table 1: Four Layer Metamodeling Architecture).</P>
+<P>As mentioned in the UML standard "This capability depends on unique features of certain UML-compatible modeling tools, or direct use of a meta-metamodel facility, such as the CORBA Meta Object Facility." ([UML97b], p. 51). Although the operation in itself is not so difficult --it boils down to the definition of two classes with all the necessary attributes to hold whatever is required, much in the same way as with stereotypes-- the fact that not all tools will be able to deal with the extension is a major obstacle.</P>
+<P>Thus, using the special purpose extensions has the following implications.</P>
+
+<UL>
+<EM><LI>(Major) UML extension. </EM>Using the four layer meta modeling architecture to extend the UML meta model is a major UML extension. Consequently, it should be used sparingly, as not all tools will be able to benefit from the extensions.</LI>
+<EM><LI>No overhead. </EM>Special purpose extensions are not shared with other tools, hence do not involve any memory overhead for representing information required by other tools.</LI>
+<EM><LI>Displaying the Extensions. </EM>One possible drawback of this approach might be that such special purpose extensions of the meta model cannot be displayed in a tool. However, by adding two special compartments in the graphical representation of a class one can deal with this problem. One compartment would then list all invocations per method, the other compartment would show all accesses per method.</LI></UL>
+
+<H3><A NAME="_Toc460127074">3.4. Consequences</A></H3>
+<P>The solutions described in sections 3.1 to 3.3 are probably not the only possibilities to embed the concepts of an 'Invocation' or an 'Access' into the UML meta model. However, they are characteristic for the kind of solutions we may expect when round-trip engineering tools choose UML for their underlying representation. Hence, from these three solutions we can derive some important implications.</P>
+
+<UL>
+<LI>There are several solutions for embedding implementation concepts into the UML meta model. Thus, <EM>it is feasible to use UML as an underlying representation</EM> for the round-trip engineering tools described in section 2.</LI>
+<LI>Between the several possibilities, there is no optimal solution for all purposes. Thus, without formal agreement, <EM>tools will adopt the solution that is best suited to their needs</EM>.</LI>
+<LI>Each solution involves either non-standard interpretations of the UML meta model, or some extensions of the UML standard or both. Thus, <EM>none of the solutions is based on the UML standard in stricto sensu</EM>.</LI></UL>
+
+<H2><A NAME="_Toc460127075">4. Tool Interoperability</A></H2>
+<P>Let us now revise our round-trip engineering scenario (sections 2.1 to 2.3) from a tool oriented perspective, assuming that each of the three tools are supplied by different vendors. Moreover, let us assume that each tool retrieves and stores its knowledge about the software system using a common repository. Finally, let us assume that this repository has an API that is specified according to the MOF standard, thus uses the CORBA/IDL description of the UML meta model.</P>
+<P>As you remember, Carmen first applies the metrics tool to measure various aspects of the classes in the GEOS system and identify suspicious classes. This metrics tool makes use of the repository's API to enumerate all classes, methods and attributes and calculate the corresponding measurements. However, to compute the coupling and cohesion metrics the tool needs to know about the (method) invocations and (attribute) accesses, and these cannot be supplied by the repository. Therefore, the tool instructs a special purpose propriety utility to parse the method bodies and return the required invocations and accesses. Of course the tool wants to save this information for later use, hence uses the "The Special Purpose Extension Approach" (section 3.3) to store this into the repository. The choice of the extension mechanism is best suited for a metrics tool because it needs to construct all invocation and access associations that occur in the system, hence need a representation that has very little memory overhead.</P>
+<P>Next, Carmen visualises the access patterns between methods and attributes to check whether the class can be split. The visualisation tool retrieves the necessary methods and attributes from the repository, but the attribute accesses are obtained via a propriety utility that parses method bodies on the fly. Again, the tool wants to save this extra information into the repository. However, this time the "The Stereotyped Association Approach" (section 3.2) is best suited, because it stays quite close to the standard yet allows to represent additional information concerning the type of dependency.</P>
+<P>Then, Benedikt splits the class with his refactoring tool. Retrieving the methods and attributes of the class to be split is of course done via the repository. But then a third special purpose propriety utility is necessary to collect the invocations and accesses from the source code. Here as well, the refactoring tool will save this extra information in the repository. However, since the refactorings modify the internal UML model, a refactoring tool favours a model that is as close as possible to the UML standard, hence uses the "The Behavioural Elements Approach" (section 3.1). Unfortunately, after the class has been split, the refactoring tool cannot instruct the repository how to update the extra information that is stored there by the metrics and visualisation tool, due to the fact that these are non-standard UML extensions. Thus, the repository is now in an inconsistent state and Carmen cannot trust that her tools will function properly.</P>
+<H3><A NAME="_Toc460127076">4.1. Consequences</A></H3>
+<P>The revision of the scenario from a tool-oriented perspective reveals why the UML meta model is not sufficient to serve as an interoperability standard between round-trip engineering tools. To summarise, the fact that UML lacks the concepts of an 'Invocation' and an 'Access', has the following drawbacks.</P>
+
+<UL>
+<LI>Each tool is forced to have its propriety parsing utility that extracts the lacking data from source code. Anyone who has tried to build a reliable C++ parser will confirm that this is a highly specialised and difficult task that should be done once and then reused by others.</LI>
+<LI>Each tool is forced to extend UML to express the insufficiencies. Worse, each tool will define its own extensions that are not understood by others.</LI>
+<LI>Once a tool modifies the implementation, the repository risks to be out of synch causing malfunctioning of tools.</LI></UL>
+
+<P>From these drawbacks we conclude that, to achieve true interoperability between round-trip engineering tools, it is necessary to build a special purpose meta model that closely reflects the reality in source code, yet is independent of the implementation language. The following section briefly introduces such a meta model.</P>
+<H2><A NAME="_Toc460127077">5. An Alternative: FAMIX</A></H2>
+<P><A NAME="_Ref456193736">Within the FAMOOS project, a number of geographically dispersed programming teams experimented with various tool prototypes to support reengineering activities. Almost immediately, we encountered the kind of problems described in section "4.Tool Interoperability" and have been looking for a satisfactory solution ever since. Because UML had clear shortcomings, we defined a language independent meta model named FAMIX (<A HREF="http://www.iam.unibe.ch/ ~famoos/FAMIX/">http://www.iam.unibe.ch/ ~famoos/FAMIX/</A>), which we present here as one possible alternative to UML.</P>
+<P>The core of the FAMIX model corresponds to the one in Figure 2. However, this is too simplistic to serve in practice and we include concepts to represent crucial source code items like functions, global and local variables, formal parameters, packages, etc. The complete FAMIX model is depicted in Figure 5.</P>
+<P><A NAME="_Ref457835694"><IMG SRC="Image235.gif" WIDTH=538 HEIGHT=289></A></P>
+<B><P><A NAME="_Ref460125707"><A NAME="_Ref460125712"><A NAME="_Toc460127096">Figure 5</A>: The Complete FAMIX Meta Model</A></A></P>
+</B><P>At the time of writing, parsing technology exists to generate FAMIX models from C++, Java, Smalltalk and Ada. The generated information has been successfully employed in metric and program visualisation experiments [Deme99a], [Deme99c], [Rich99a] and we are currently investigating how well it could support refactorings. Thus, we are fairly confident that the FAMIX model may support the scenario presented in Section 2.</P>
+<P>Yet, the scenario is only there to show that there is more to round-trip engineering than obtaining UML models from source code. Of course, tools for UML extraction are considered quite important in industry and this position has been reflected by the FAMOOS partners. Therefore, we conducted an experiment to implement a mapping from FAMIX to UML [Tich99m].</A> Based on this experience, we are convinced that it is advantageous to have a separate source code meta-model instead of embedding source-code information into the UML meta model (see [MOF97a], Table 1: Four Layer Metamodeling Architecture). The reason is that with two clearly separated meta-models, it is feasible to explore different mappings from the one into the other, which is relevant when generating code as well as when extracting UML from source code. We consider this insight important and hope that it will influence the development of other MOF meta models and standards.</P>
+<H2><A NAME="_Toc460127078">6. Conclusions</A></H2>
+<P>In this report, we have supplied a proof-of-concept of the feasibility to use UML as the underlying representation for a round-trip engineering tool. This proof-of-concept follows from the three solutions we have presented for embedding the concepts of a '<EM>method invocation</EM>' and an '<EM>attribute access</EM>' into the UML meta model. While these three solutions are probably not the only possible ones, they are characteristic for the kind of solutions we may expect when representing implementation constructs in UML.</P>
+<P>However, the fact that one must extend UML to represent implementation concepts, together with the fact that there are several possibilities to do so has dire consequences on tool interoperability. First of all, it implies that different tool vendors can and will choose different extensions for modeling the same implementation construct. But more importantly, it implies that UML <EM>in stricto sensu </EM>cannot serve as an interoperability standard between round-trip engineering tools.</P>
+<P>Does this imply that OMG's standardisation work on UML and MOF is wasted? On the contrary, it implies that the really interesting work is just about to begin. Indeed, the fact that UML is not the most adequate representation for implementation models suggests that we need a meta model besides UML. And since the MOF is actually a meta meta model, it can be used to explore and express various mappings between meta models to achieve what has been called a 'Universal Design Language'. We hope that the constructive suggestions in this report will contribute and influence future work on such a 'Universal Design Language'.</P>
+<H2><A NAME="_Toc460127079">6. Acknowledgements</A></H2>
+<P>This work has been funded by the Swiss Government under Project no. NFS-2000-46947.96 and BBW-96.0015 as well as by the European Union under the ESPRIT programme Project no. 21975. We thank the partners in the FAMOOS consortium for supporting our work on the FAMIX model and incorporating it in their tools. We also want to thank the members of the SSEL group in the University of Brussels for a fruitful discussion on the pros and contras of UML.</P>
+<H2><A NAME="_Toc460127080">7. Glossary</A></H2>
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>API</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>Application Programmer's Interface</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>CASE</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>Computer Aided Software Engineering</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>CORBA</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>Common Request Broker Architecture</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>IDL</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>Interface Description Language</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>MOF</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>Meta Object Facility [MOF97a]</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>OMG</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>Object Management Group</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>OOAD</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>Object-Oriented Analysis and Design</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>UML</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>Unified Modeling Language [UML97a], [UML97b]</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460127081">8. References</A></H2>
+<P>[Booc94a]&#9;Grady Booch, Object Oriented Analysis and Design with Applications (2nd edition), The Benjamin Cummings Publishing Co. Inc., 1994. </P>
+<P>[Deme99a]&#9;Serge Demeyer and St&eacute;phane Ducasse, "Metrics, Do They Really Help ?," Proceedings LMO'99 (Languages et Mod&egrave;les &agrave; Objets), Jacques Malenfant (Ed.), HERMES Science Publications, Paris, 1999, pp. 69-82. </P>
+<P>[Deme99c]&#9;Serge Demeyer, St&eacute;phane Ducasse and Michele Lanza, "A Hybrid Reverse Engineering Platform Combining Metrics and Program Visualization," WCRE'99 Proceedings (6th Working Conference on Reverse Engineering), Francoise Balmas, Mike Blaha and Spencer Rugaber (Ed.), IEEE, October, 1999. </P>
+<P>[Fowl99a]&#9;Martin Fowler, Refactoring: Improving the Design of Existing Programs, Addison-Wesley, 1999. </P>
+<P>[Gold95a]&#9;Adele Goldberg and Kenneth S. Rubin, Succeeding With Objects: Decision Frameworks for Project Management, Addison-Wesley, 1995. </P>
+<P>[Hend96a]&#9;Brian Henderson-Sellers, Object-Oriented Metrics: Measures of Complexity, Prentice-Hall, 1996. </P>
+<P>[Jaco97a]&#9;Ivar Jacobson, Martin Griss and Patrik Jonsson, Software Reuse, Addison-Wesley/ACM Press, 1997. </P>
+<P>[Jaco99a]&#9;Ivar Jacobson, Grady Booch and James Rumbaugh, The Unified Software Development Process, Addison-Wesley, 1999. </P>
+<P>[Lang95a]&#9;Danny B. Lange and Yuichi Nakamura, "Interactive Visualization of Design Patterns can help in Framework Understanding," OOPSLA'95 Proceedings (Object-Oriented Programming Systems, Languages and Applications), ACM Press, 1995, pp. 342-357. </P>
+<P>[Lore94a]&#9;Mark Lorenz and Jeff Kidd, Object-Oriented Software Metrics: A Practical Approach, Prentice-Hall, 1994. </P>
+<P>[MOF97a]&#9;Object Management Group, Meta Object Facility (MOF) Specification, OMG Document ad/97-08-14, Object Management Group, September 1997. </P>
+<P>[Opdy92b]&#9;William F. Opdyke, Refactoring Object-Oriented Frameworks, University of Illinois, 1992, Ph.D. Thesis. </P>
+<P>[Pauw93a]&#9;Wim De Pauw, Richard Helm, Doug Kimelman and John Vlissides, "Visualizing the Behavior of Object-Oriented Systems," OOPSLA '93 Proceedings (Object-Oriented Programming Systems, Languages and Applications), ACM Press, 1993, pp. 326-337. </P>
+<P>[Reen96a]&#9;Trygve Reenskaug, Working with Objects: The OOram Software Engineering Method, Manning Publications, 1996. </P>
+<P>[Rich99a]&#9;Tamar Richner and St&eacute;phane Ducasse, "Recovering High-Level Views of Object-Oriented Applications from Static and Dynamic Information," Proceedings ICSM'99 (International Conference on Software Maintenance), Hongji Yang and Lee White (Ed.), IEEE, September, 1999. </P>
+<P>[Robe97a]&#9;Don Roberts, John Brant and Ralph E. Johnson, "A Refactoring Tool for Smalltalk," Journal of Theory and Practice of Object Systems (TAPOS), vol. 3, no. 4, 1997, pp. 253-263.</P>
+<P>[Tich99m]&#9;Sander Tichelaar and Serge Demeyer, "SNiFF+ Talks to Rational Rose -- Interoperability using a Common Exchange Model," SNiFF+ User's Conference, January, 1999.</P>
+<P>[UML97a]&#9;Rational Software, Microsoft, Hewlett-Packard, Oracle, Sterling Software, MCI Systemhouse, Unisys, ICON Computing, IntelliCorp, i-Logix, IBM, ObjecTime, Platinum Technology, Ptech, Taskon, Reich Technologies and Softeam, Unified Modeling Language (version 1.1), Rational Software Corporation, September 1997. </P>
+<P>[UML97b]&#9;Rational Software, Microsoft, Hewlett-Packard, Oracle, Sterling Software, MCI Systemhouse, Unisys, ICON Computing, IntelliCorp, i-Logix, IBM, ObjecTime, Platinum Technology, Ptech, Taskon, Reich Technologies and Softeam, Unified Modeling Language - UML Semantics (version 1.1), Rational Software Corporation, September 1997. </P>
+<H2><A NAME="_Toc460127082">9. Footnotes<A NAME="_Ref456193613"></A></H2>
+<OL>
+
+<LI>Both the tool prototypes and the case studies stem from the FAMOOS project, an ESPRIT project whose goal it is to produce a set of reengineering techniques and tools to support the development of object-oriented frameworks (<A HREF="http://www.iam.unibe.ch/~famoos/">http://www.iam.unibe.ch/~famoos/</A>).</A></LI>
+<LI><A NAME="_Ref456193703">We have made the following observation concerning the growth of the number of entities and associations in a source code model: (a) the number of methods and attributes is an order of magnitude larges than the number of classes; (b) the number of invocations and accesses grows allmost quadratically with the number of methods. Thus, a project with 150 classes has about 1200 methods and 4000 invocations while for 700 classes this increases untill 7000 methods and 30,000 invocations.</LI>
+<LI>Note that the (method) invocation association should take polymorphism into account. This implies that one invocation has several candidate target methods. The actual target can only be resolved at run-time.</A></LI></OL>
+
+<P ALIGN="CENTER"><hr><A NAME="_Toc460127083"><B><FONT FACE="Arial" SIZE=4>Cover Pages<BR>
+</B>Achievement A2.4.2 - WHYFAMIX</A></P>
+</FONT><B><FONT SIZE=6><P ALIGN="CENTER"><A NAME="_Toc460127084"></B></FONT>Why FAMIX and not UML ?
+<EM><P ALIGN="CENTER">UML Shortcomings for Coping with Round-trip Engineering</A></P></P>
+</EM><H2><A NAME="_Toc460127085">1) Identification</A></H2>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Project Id:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>Esprit IV #21975 &quot;FAMOOS&quot;</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Deliverable Id:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>D 2.2 – FINALFHB Final FAMOOS Methodology Handbook</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Date for delivery:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>15.08.99</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Planned date for delivery:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>07.07.99</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>WP(s) contributing to:</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>2</TD>
+</TR>
+<TR><TD WIDTH="35%" VALIGN="TOP">
+<STRONG><P>Author(s):</STRONG></TD>
+<TD WIDTH="65%" VALIGN="TOP">
+<P>S. Demeyer, S. Ducasse, T. Richner, M. Rieger, S. Tichelaar</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460127086">2) Abstract</A></H2>
+<P><STRONG>Abstract: </STRONG>UML is currently embraced as 'the' standard in object-oriented modeling languages, the recent work of OMG on the Meta Object Facility (MOF) being the most noteworthy example. We welcome these standardisation efforts, yet warn against the tendency to use UML as the panacea for all exchange standards. In particular, we argue that UML is not sufficient to serve as a tool-interoperability standard for integrating round-trip engineering tools, because one is forced to rely on UML's built-in extension mechanisms to adequately model the reality in source-code. Consequently, we propose an alternative meta-model (named FAMIX), which serves as the tool interoperability standard within the FAMOOS project and which includes a number of constructive suggestions that we hope will influence future releases of the UML and MOF standards.</P>
+<H2><A NAME="_Toc460127087">3) Keywords</A></H2>
+<P>meta model, unified modeling language (UML), meta-object facility (MOF), interoperability standard, famoos information exchange (FAMIX)</P>
+<H2><A NAME="_Toc460127088">4) Version History</A></H2>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=590>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<STRONG><P>Ver</STRONG></TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<STRONG><P>Date</STRONG></TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<STRONG><P>Editor(s)</STRONG></TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<STRONG><P>Status &amp; Notes</STRONG></TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>0.1</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>17.11.97</TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>S. Demeyer; S. Ducasse, S. Tichelaar</TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>First draft. Submitted to UML'99 Conference</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>1.0 alpha</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>30.07.99</TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>S. Demeyer; S. Ducasse, S. Tichelaar</TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>Revised based on comments from SEMA (Anne-Marie) and Daimler-Chrysler (Udo and Roland)</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>1.0</TD>
+<TD WIDTH="13%" VALIGN="TOP">
+<P>30.07.99</TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>S. Demeyer; S. Ducasse, S. Tichelaar</TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>Revised based on comments from Robb Nebbe</TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="_Toc460127089">5) Issues for future releases</A></H2>
+<P>Some issues couldn't be incorporated in the 1.0 alpha release due to time constraints:</P>
+
+<UL>
+<LI>Roland mentioned that we should refer to the new approved releases of both the UML and MOF standards. </LI></UL>
+
+<H2><A NAME="_Toc460127090">6) Table of Contents</A></H2>
+<B><FONT FACE="Times"><P>Why FAMIX and not UML ?&#9;</B></FONT><A HREF="#_Toc460127063">*</A><DIR>
+<DIR>
+
+<FONT FACE="Times"><P>1. Introduction&#9;</FONT><A HREF="#_Toc460127064">*</A></P>
+<FONT FACE="Times"><P>2. A Round-trip Engineering Scenario&#9;</FONT><A HREF="#_Toc460127065">*</A></P>
+<FONT FACE="Times"><P>2.1. Scene 1: Detecting Design Anomalies via Metrics&#9;</FONT><A HREF="#_Toc460127066">*</A></P>
+<FONT FACE="Times"><P>2.2. Scene 2: Assessing disjoint Classes via Program Visualisation&#9;</FONT><A HREF="#_Toc460127067">*</A></P>
+<FONT FACE="Times"><P>2.3. Scene 3: Redistributing Responsibilities via Refactoring&#9;</FONT><A HREF="#_Toc460127068">*</A></P>
+<FONT FACE="Times"><P>2.4. Consequences&#9;</FONT><A HREF="#_Toc460127069">*</A></P>
+<FONT FACE="Times"><P>3. Embedding Implementation Concepts into UML&#9;</FONT><A HREF="#_Toc460127070">*</A></P>
+<FONT FACE="Times"><P>3.1. The Behavioural Elements Approach&#9;</FONT><A HREF="#_Toc460127071">*</A></P>
+<FONT FACE="Times"><P>3.2. The Stereotyped Association Approach&#9;</FONT><A HREF="#_Toc460127072">*</A></P>
+<FONT FACE="Times"><P>3.3. The Special Purpose Extension Approach&#9;</FONT><A HREF="#_Toc460127073">*</A></P>
+<FONT FACE="Times"><P>3.4. Consequences&#9;</FONT><A HREF="#_Toc460127074">*</A></P>
+<FONT FACE="Times"><P>4. Tool Interoperability&#9;</FONT><A HREF="#_Toc460127075">*</A></P>
+<FONT FACE="Times"><P>4.1. Consequences&#9;</FONT><A HREF="#_Toc460127076">*</A></P>
+<FONT FACE="Times"><P>5. An Alternative: FAMIX&#9;</FONT><A HREF="#_Toc460127077">*</A></P>
+<FONT FACE="Times"><P>6. Conclusions&#9;</FONT><A HREF="#_Toc460127078">*</A></P>
+<FONT FACE="Times"><P>6. Acknowledgements&#9;</FONT><A HREF="#_Toc460127079">*</A></P>
+<FONT FACE="Times"><P>7. Glossary&#9;</FONT><A HREF="#_Toc460127080">*</A></P>
+<FONT FACE="Times"><P>8. References&#9;</FONT><A HREF="#_Toc460127081">*</A></P>
+<FONT FACE="Times"><P>9. Footnotes&#9;</FONT><A HREF="#_Toc460127082">*</A></P></DIR>
+
+<B><FONT FACE="Times"><P>Cover Pages </B>Achievement A2.4.2 - WHYFAMIX<B>&#9;</B></FONT><A HREF="#_Toc460127083">*</A></P>
+<B><FONT FACE="Times"><P>Why FAMIX and not UML ?&#9;</B></FONT><A HREF="#_Toc460127084">*</A></P><DIR>
+
+<FONT FACE="Times"><P>1) Identification&#9;</FONT><A HREF="#_Toc460127085">*</A></P>
+<FONT FACE="Times"><P>2) Abstract&#9;</FONT><A HREF="#_Toc460127086">*</A></P>
+<FONT FACE="Times"><P>3) Keywords&#9;</FONT><A HREF="#_Toc460127087">*</A></P>
+<FONT FACE="Times"><P>4) Version History&#9;</FONT><A HREF="#_Toc460127088">*</A></P>
+<FONT FACE="Times"><P>5) Issues for future releases&#9;</FONT><A HREF="#_Toc460127089">*</A></P>
+<FONT FACE="Times"><P>6) Table of Contents&#9;</FONT><A HREF="#_Toc460127090">*</A></P>
+<FONT FACE="Times"><P>7) List of Figures&#9;</FONT><A HREF="#_Toc460127091">*</A></P>
+<P>&nbsp;</P></DIR>
+</DIR>
+</P>
+<H2><A NAME="_Toc460127091">7) List of Figures</A></H2><DIR>
+<DIR>
+
+<FONT FACE="Times"><P>Figure 1: Visualisation of a class, i.e. the way the methods (in the bottom) access the attributes (on the top). The two clusters indicate that the class may be split.&#9;</FONT><A HREF="#_Toc460127092">*</A>
+<FONT FACE="Times"><P>Figure 2: The Core Object-Oriented Implementation Model&#9;</FONT><A HREF="#_Toc460127093">*</A></P>
+<FONT FACE="Times"><P>Figure 3: Comparing the UML meta model with the Core Object-Oriented Implementation Model&#9;</FONT><A HREF="#_Toc460127094">*</A></P>
+<FONT FACE="Times"><P>Figure 4: CallAction and how to navigate back to its origin&#9;</FONT><A HREF="#_Toc460127095">*</A></P>
+<FONT FACE="Times"><P>Figure 5: The Complete FAMIX Meta Model&#9;</FONT><A HREF="#_Toc460127096">*</A></P>
+<FONT FACE="Times"><P>&nbsp;</P></DIR>
+</DIR>
+</P></FONT></BODY>
+</HTML>

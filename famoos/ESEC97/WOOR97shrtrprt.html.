@@ -1,0 +1,30 @@
+   Report: Workshop on Object-Oriented Re-engineering (WOOR'97)
+   ============================================================
+
+The ability to reengineer object-oriented systems has become a vital matter in
+today's software industry. Early adopters of the object-oriented programming
+paradigm are now facing the problem of transforming their object-oriented
+'legacy' systems into full-fledged frameworks. Dealing with programs exceeding
+10,000 lines of badly documented code definitely requires support from
+methodologies as well as tools.
+
+During the ESEC/FSE'97 conference, a workshop was organised with the explicit
+goal to gather people working on solutions for object-oriented legacy
+systems. The following topics were covered: code analysis and visualization,
+repositories, metrics, design patterns, cluster analysis, meta models,
+restructuring, testing, and architecture.
+
+The workshop showed that the need for object-oriented re-engineering can be
+seen from at least two perspectives: (1) re-engineering procedural systems to
+object-oriented; and (2) re-engineering object-oriented systems to improve
+their quality. The amount of problems that have to be adressed in each of these
+approaches showed that more practical research is required. ESPRIT projects
+such as FAMOOS and ARES, that concentrate on several parts of the problem, can
+contribute a lot to solve at least some of the research issues.
+
+More information on the workshop can be found on
+	http://iamwww.unibe.ch/~famoos/ESEC97/
+
+(by Serge Demeyer and Harald Gall)
+
+

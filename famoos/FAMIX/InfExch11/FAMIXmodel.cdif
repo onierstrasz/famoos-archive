@@ -1,0 +1,962 @@
+CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
+#| The above line identifies this file as being a CDIF transfer
+   followed by syntax and encoding used in this transfer.
+|#
+
+
+#| *******************************************************************
+
+   This document contains CDIF definition of the FAMOOS Information
+   Exchange (FAMIX) Model version 1.1 as defined in "Definition of a
+   Common Exchange Model" by Serge Demeyer, Sander Tichelaar and
+   Patrick Steyaert. Available on the WWW at:
+     http://www.iam.unibe.ch/~famoos/InfoExchFormat/
+
+   For information about the CDIF industrial standard, see:
+     http://www.cdif.org/
+
+   The FAMOOS Information Exchange Model is encoded using the CDIF
+   syntax SYNTAX.1 version "02.00.00" and the CDIF encoding ENCODING.1
+   version "02.00.00". See
+   - CDIF Technical Committee, "CDIF Transfer Format Syntax SYNTAX.1",
+     Electronic Industries Association, EIA/IS-109, January 1994.
+   - CDIF Technical Committee, "CDIF Transfer Format Encoding
+     ENCODING.1", Electronic Industries Association, EIA/IS-110,
+     January 1994.
+
+   This model is part of the work done within the FAMOOS ESPRIT IV
+   Project no. 21975 (see http://www.iam.unibe.ch/~famoos/).
+
+   Author: Sander Tichelaar, tichel@iam.unibe.ch
+
+   Version history:
+     16.06.98: first version based om the example of Thomas Kohler in
+               "Evaluation of the CDIF Transfer-Format", an internal
+               FAMOOS document.
+     17.06.98: changed CDIFMetaIdentifiers of MetaEntities to the CDIF
+	       unique name within Working Metamodel, which is just the
+	       name of the meta entity ("CDIF - Framework for
+	       Modelling...", section 7.4.2)
+     18.06.98: invokedMethod -> invokesMethod
+               Property.value now TextValue instead of StringValue 
+     02.07.98: version 1.1 frozen
+     11.01.99: - made CDIF signature first line (as it should be)
+	       - added closing bracket for :META-MODEL section
+	       
+   *******************************************************************
+|#
+
+
+#| As CDIFMetaIdentifiers we use the unique names of the entities as
+   defined in secion 7.4.2 of "CDIF - Framework for Modeling and
+   Extensibility" (see www.cdif.org). This section states that
+
+   - name of each subject area must be unique within the Working
+     Meta-model (which is the combined set of subject areas and
+     extensions in a transfer).
+   - name of each meta-entity must be unique withing the Working
+     Meta-model.
+   - full name of meta-relationship (i.e. concatenation of sourcename,
+     relationshipname and destinationname) must be unique withing the
+     Working Meta-model.
+   - concatenation of attributename and the name of the object it
+     defines must be unique within the Working Meta-model
+
+   The only problem is that a CDIFMetaIdentifier can only be 32
+   characters (section 3.2.2 of the same document), where there is no
+   limit to unique names. In cases that the unique name is longer than
+   32 characters, the identifier has been shortened.
+|#
+
+#| ****  START OF THE CDIF ENCODING ****
+
+#| HEADER SECTION |#
+
+#| The information in the header (in this example: "...") has to be
+   produced by the tool that produces information using CDIF. In CDIF
+   terminology, this tool is called the exporter |#
+
+(:HEADER
+    (:SUMMARY
+        (ExporterName	  "...")
+        (ExporterVersion  "...")
+        (ExporterDate	  "...")
+        (ExporterTime	  "...")
+        (PublisherName	  "...")
+    )
+)
+
+#| META-MODEL SECTION |#
+
+(:META-MODEL
+
+    (:SUBJECTAREAREFERENCE Foundation
+        (:VERSIONNUMBER "01.00")
+    )
+
+#| definition of the FAMOOSInfExchMod SubjectArea |#
+
+    (SubjectArea FAMOOSInfExchMod
+        (Name		*FAMOOSInfExchMod*)
+	(VersionNumber	"1.1")
+	(Description	#[ This SubjectArea represents the FAMOOS
+			   Information Exchange Model, version 1.1]# )
+    )
+
+
+#|  **** FAMOOS INFORMATION EXCHANGE MODEL **** |#
+
+#| BEGIN Definition of the FAMOOS meta-class Object |#
+
+   (MetaEntity Object
+        (Name *Object*)
+	(Description #[...]#)
+    )
+
+    #| Object is a subtype of RootEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject  2  Object)
+
+    #| Attributes of Object |#
+
+    (MetaAttribute sourceAnchorObject
+        (Name *sourceAnchor* )
+	(Description #[...]#)
+	(DataType <TextValue>)
+	(isOptional -TRUE-)
+    )
+
+    (MetaAttribute commentsObject
+        (Name *comments* )
+	(Description #[...]#)
+	(DataType <TextValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Properties are connected to an Object via Property objects that
+       are related to the Object with a CDIF relationship |#
+
+    #| Connection between these meta attributes and Object |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject sourceAnchorObject Object)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject commentsObject Object)
+
+    #| add Object and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Object FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  sourceAnchorObject FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  commentsObject FAMOOSInfExchMod)
+
+
+#| END Definition of the FAMOOS meta-class Object |#
+
+
+#| BEGIN Definition of the FAMOOS meta-class Property |#
+
+   (MetaEntity Property
+        (Name *Property*)
+	(Description #[...]#)
+    )
+
+    #| Property is a subtype of RootEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject  2  Property)
+
+    #| Attributes of Property |#
+
+    (MetaAttribute nameProperty
+        (Name *name* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -TRUE-)
+    )
+
+    (MetaAttribute valueProperty
+        (Name *value* )
+	(Description #[...]#)
+	(DataType <TextValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Connection between these meta attributes and Property |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject nameProperty Property)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject valueProperty Property)
+
+    #| add Property and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Property FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  nameProperty FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  valueProperty FAMOOSInfExchMod)
+
+#| END Definition of the FAMOOS meta-class Property |#
+
+
+#| BEGIN Definition of HasProperty relationship |#
+
+   (MetaRelationship ObjectHasPropertyProperty
+       (Name *HasProperty* )
+       (Description #[...]#)
+
+       (MaxDestCard "0")
+       (MaxSourceCard "N")
+       (MinDestCard "1")
+       (MinSourceCard "1")
+   )
+
+   #| HasProperty is a subtype of RootEntity.isRelatedTo.RootEntity |#
+   (AttributableMetaObject.HasSubtype.AttributableMetaObject  3  HasProperty)
+
+   #| source is Object and destination is Property |# 
+   (MetaRelationship.HasSource.MetaEntity HasProperty Object)
+   (MetaRelationship.HasDestination.MetaEntity HasProperty Property)
+   
+   #| add HasProperty to the FAMOOSInfExchMod subject area |#
+   (CollectableMetaObject.IsUsedIn.SubjectArea HasProperty FAMOOSInfExchMod)
+
+#| END Definition of HasProperty relationship |#
+
+
+#| BEGIN Definition of the FAMOOS meta-class Entity |#
+
+    (MetaEntity Entity
+        (Name *Entity*)
+	(Description #[...]#)
+    )
+
+    #| Entity is a subtype of Object |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject  Object  Entity)
+
+    #| Meta-attributes of Entity |#
+
+    (MetaAttribute nameEntity
+        (Name *name* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute uniqueNameEntity
+        (Name *uniqueName* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    #| Connection between these meta attributes and Entity |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject nameEntity Entity)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject uniqueNameEntity Entity)
+
+    #| add Entity and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Entity FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  nameEntity FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  uniqueNameEntity FAMOOSInfExchMod)
+
+#| END Definition of the FAMOOS meta-class Entity |#
+
+
+#| BEGIN Definition of the FAMOOS meta-class BehaviouralEntity |#
+
+    (MetaEntity BehaviouralEntity
+        (Name *BehaviouralEntity*)
+	(Description #[...]#)
+    )
+
+    #| BehaviouralEntity is a subtype of Entity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject Entity BehaviouralEntity)
+
+    #| Meta-attributes of BehaviouralEntity |#
+
+    (MetaAttribute accessControlQualifierBehavEnt
+        (Name *accessControlQualifier* )
+        (Description #[...]#)
+        (DataType <StringValue>)
+        (isOptional -TRUE-)
+    )
+
+    (MetaAttribute signatureBehaviouralEntity
+        (Name *signature* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute isPureAccessorBehaviouralEntity
+        (Name *isPureAccessor* )
+	(Description #[...]#)
+	(DataType <BooleanValue>)
+	(isOptional -TRUE-)
+    )
+
+    (MetaAttribute declaredReturnTypeBehavEnt
+        (Name *declaredReturnType* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -TRUE-)
+    )
+
+    (MetaAttribute declaredReturnClassBehavEnt
+                   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        (Name *declaredReturnClass* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Connection between these meta attributes and MethodBehaviouralEntity |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject accessControlQualifierBehavEnt BehaviouralEntity)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject signatureBehaviouralEntity BehaviouralEntity)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject isPureAccessorBehaviouralEntity BehaviouralEntity)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject declaredReturnTypeBehavEnt BehaviouralEntity)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject declaredReturnClassBehavEnt BehaviouralEntity)
+
+    #| add BehaviouralEntity and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  BehaviouralEntity FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  accessControlQualifierBehavEnt FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  signatureBehaviouralEntity FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  isPureAccessorBehaviouralEntity FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  declaredReturnTypeBehavEnt FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  declaredReturnClassBehavEnt FAMOOSInfExchMod)
+
+#| END Definition of BehaviouralEntity |#
+
+
+#| BEGIN Definition of StructuralEntity |#
+
+   (MetaEntity StructuralEntity
+        (Name *StructuralEntity*)
+	(Description #[...]#)
+    )
+
+    #| StructuralEntity is an ABSTRACT subtype of Entity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject Entity StructuralEntity)
+    
+    #| Attributes of StructuralEntity |#
+
+    (MetaAttribute declaredTypeStructuralEntity
+        (Name *declaredType* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+
+    (MetaAttribute declaredClassStructuralEntity
+        (Name *declaredClass* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    #| Connection between these meta attributes and StructuralEntity |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject declaredTypeStructuralEntity StructuralEntity)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject declaredClassStructuralEntity StructuralEntity)
+
+    #| add StructuralEntity and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  StructuralEntity FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  declaredTypeVariable FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  declaredClassVariable FAMOOSInfExchMod)
+
+#| END Definition of StructuralEntity |#
+
+
+#| BEGIN Definition of the FAMOOS meta-class Association |#
+
+    (MetaEntity Association
+        (Name *Association*)
+	(Description #[...]#)
+    )
+
+    #| Association is a subtype of Object |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject Object Association)
+
+    #| Association has no attributes
+
+    #| add Association to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Association FAMOOSInfExchMod)
+
+#| END Definition of the FAMOOS meta-class Association |#
+
+
+#| **** FAMOOS Core Model definition **** |#
+
+#| BEGIN Definition of Class |#
+
+    (MetaEntity Class
+        (Name *Class*)
+	(Description #[...]#)
+    )
+
+    #| Class is a subtype of Entity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject Entity Class)
+    
+    #| Attributes of Class |#
+
+    (MetaAttribute isAbstractClass
+        (Name *isAbstract* )
+	(Description #[...]#)
+	(DataType <BooleanValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute scopeQualifierClass
+        (Name *scopeQualifier* )
+        (Description #[...]#)
+        (DataType <StringValue>)
+        (isOptional -TRUE-)
+    )
+
+    #| Connection between these meta attributes and Class |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject isAbstractClass Class)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject scopeQualifierClass Class)
+
+    #| add Class and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Class FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  isAbstractClass FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  scopeQualifierClass FAMOOSInfExchMod)
+
+#| END Definition of Class |#
+
+
+#| BEGIN Definition of Method |#
+
+    (MetaEntity Method
+        (Name *Method*)
+	(Description #[...]#)
+    )
+
+    #| Method is a subtype of BehaviouralEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject BehaviouralEntity Method)
+    
+    #| Attributes of Method |#
+
+    (MetaAttribute belongsToClassMethod
+        (Name *belongsToClass* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute hasClassScopeMethod
+        (Name *hasClassScope* )
+	(Description #[...]#)
+	(DataType <BooleanValue>)
+	(isOptional -TRUE-)
+    )
+
+    (MetaAttribute isAbstractMethod
+        (Name *isAbstract* )
+	(Description #[...]#)
+	(DataType <BooleanValue>)
+	(isOptional -TRUE-)
+    )
+
+    (MetaAttribute isContructorMethod
+        (Name *isContructor* )
+	(Description #[...]#)
+	(DataType <BooleanValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Connection between these meta attributes and Method |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject belongsToClassMethod Method)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject hasClassScopeMethod Method)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject isAbstractMethod Method)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject isContructorMethod Method)
+
+    #| add Method and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Method FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  belongsToClassMethod FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  hasClassScopeMethod FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  isAbstractMethod FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  isContructorMethod FAMOOSInfExchMod)
+
+#| END Definition of Method |#
+
+
+#| BEGIN Definition of Attribute |#
+
+    (MetaEntity Attribute
+        (Name *Attribute*)
+	(Description #[...]#)
+    )
+
+    #| Attribute is a subtype of StructuralEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject  StructuralEntity  Attribute)
+    
+    #| Attributes of Attribute |#
+
+    (MetaAttribute belongsToClassAttribute
+        (Name *belongsToClass* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute accessControlQualifierAttribute
+        (Name *accessControlQualifier* )
+        (Description #[...]#)
+        (DataType <StringValue>)
+        (isOptional -TRUE-)
+    )
+
+    (MetaAttribute hasClassScopeAttribute
+        (Name *hasClassScope* )
+	(Description #[...]#)
+	(DataType <BooleanValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Connection between these meta attributes and Attribute |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject belongsToClassAttribute Attribute)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject accessControlQualifierAttribute Attribute)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject hasClassScopeAttribute Attribute)
+
+    #| add Attribute and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Attribute FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  belongsToClassAttribute FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  accessControlQualifierAttribute FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  hasClassScopeAttribute FAMOOSInfExchMod)
+
+#| END Definition of Attribute |#
+
+
+#| BEGIN Definition of InheritanceDefinition |#
+
+    (MetaEntity InheritanceDefinition
+        (Name *InheritanceDefinition*)
+	(Description #[...]#)
+    )
+
+    #| InheritanceDefinition is a subtype of Association |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject Association InheritanceDefinition)
+    
+    #| Attributes of InheritanceDefinition |#
+
+    (MetaAttribute subclassInheritanceDefinition
+        (Name *subclass* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute superclassInheritanceDefinition
+        (Name *superclass* )
+        (Description #[...]#)
+        (DataType <StringValue>)
+        (isOptional -FALSE-)
+    )
+
+    (MetaAttribute accessControlQualifierInhDef
+        (Name *accessControlQualifier* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -TRUE-)
+    )
+
+    (MetaAttribute indexInheritanceDefinition
+        (Name *index* )
+	(Description #[...]#)
+	(DataType <IntegerValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Connection between these meta attributes and InheritanceDefinition |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject subclassInheritanceDefinition InheritanceDefinition)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject superclassInheritanceDefinition InheritanceDefinition)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject accessControlQualifierInhDef InheritanceDefinition)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject indexInheritanceDefinition InheritanceDefinition)
+
+    #| add InheritanceDefinition and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  InheritanceDefinition FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  subclassInheritanceDefinition FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  superclassInheritanceDefinition FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  accessControlQualifierInhDef FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  indexInheritanceDefinition FAMOOSInfExchMod)
+    
+#| END Definition of InheritanceDefinition |#
+
+
+#| BEGIN Definition of Access |#
+
+    (MetaEntity Access
+        (Name *Access*)
+	(Description #[...]#)
+    )
+
+    #|  Access is a subtype of Association |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject  Association  Access)
+    
+    #| Attributes of Access |#
+
+    (MetaAttribute accessesAccess
+        (Name *accessesVariable* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute accessedInAccess
+        (Name *accessedInMethod* )
+        (Description #[...]#)
+        (DataType <StringValue>)
+        (isOptional -FALSE-)
+    )
+
+    (MetaAttribute isAccessLValueAccess
+        (Name *isAccessLValue* )
+	(Description #[...]#)
+	(DataType <BooleanValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Connection between these meta attributes and Access |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject accessesAccess Access)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject accessedInAccess Access)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject isAccessLValueAccess Access)
+
+    #| add Access and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Access FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  accessesAccess FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  accessedInAccess FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  isAccessLValueAccess FAMOOSInfExchMod)
+
+#| END Definition of Access |#
+
+
+#| BEGIN Definition of Invocation |#
+
+    (MetaEntity Invocation
+        (Name *Invocation*)
+	(Description #[...]#)
+    )
+
+    #|  Invocation is a subtype of Association |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject Association Invocation)
+    
+    #| Attributes of Invocation |#
+
+    (MetaAttribute invokedByInvocation
+        (Name *invokedBy* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute invokesInvocation
+        (Name *invokes* )
+        (Description #[...]#)
+        (DataType <StringValue>)
+        (isOptional -FALSE-)
+    )
+
+    (MetaAttribute candidatesInvocation
+        (Name *candidates* )
+	(Description #[...]#)
+	(DataType <TextValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Arguments are connected to an Invocation via Argument
+       objects that are related to the Invocation with a CDIF
+       relationship |#
+
+    #| Connection between these meta attributes and Invocation |#
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject invokedByInvocation Invocation)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject invokesInvocation Invocation)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject candidatesInvocation Invocation)
+
+    #| add Invocation and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea  Invocation FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  invokedByInvocation FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  invokesInvocation FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  candidatesInvocation FAMOOSInfExchMod)
+
+#| END Definition of Invocation |#
+
+
+#| **** END FAMOOS Core Model definition **** |#
+
+
+
+#| BEGIN Definition of Function |#
+
+    (MetaEntity Function
+        (Name *Function*)
+	(Description #[...]#)
+    )
+
+    #| Function is a subtype of BehaviouralEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject BehaviouralEntity Function)
+    
+    #| Attributes of Function |#
+
+    (MetaAttribute scopeQualifierFunction
+        (Name *scopeQualifier* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    #| Connection between these meta attributes and Function |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject scopeQualifierFunction Function)
+
+    #| add Function and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea Function FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea scopeQualifierFunction FAMOOSInfExchMod)
+
+#| END Definition of Function |#
+
+
+#| BEGIN Definition of GlobalVariable |#
+
+   (MetaEntity GlobalVariable
+        (Name *GlobalVariable*)
+	(Description #[...]#)
+    )
+
+    #| GlobalVariable is an subtype of StructuralEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject StructuralEntity GlobalVariable)
+    
+    #| Attribute of GlobalVariable |#
+
+    (MetaAttribute scopeQualifierGlobalVariable
+        (Name *scopeQualifier* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Connection between this meta attribute and GlobalVariable |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject scopeQualifierGlobalVariable GlobalVariable)
+
+    #| add GlobalVariable and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea GlobalVariable FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea  scopeQualifierGlobalVariable FAMOOSInfExchMod)
+
+#| END Definition of GlobalVariable |#
+
+
+#| BEGIN Definition of ImplicitVariable |#
+
+   (MetaEntity ImplicitVariable
+        (Name *ImplicitVariable*)
+	(Description #[...]#)
+    )
+
+    #| ImplicitVariable is an subtype of StructuralEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject StructuralEntity ImplicitVariable)
+    
+    #| Attribute of ImplicitVariable |#
+
+    (MetaAttribute scopeQualifierImplicitVariable
+        (Name *scopeQualifier* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -TRUE-)
+    )
+
+    #| Connection between this meta attribute and ImplicitVariable |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject scopeQualifierImplicitVariable ImplicitVariable)
+
+    #| add ImplicitVariable and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea ImplicitVariable FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea scopeQualifierImplicitVariable FAMOOSInfExchMod)
+
+#| END Definition of ImplicitVariable |#
+
+
+#| BEGIN Definition of LocalVariable |#
+
+   (MetaEntity LocalVariable
+        (Name *LocalVariable*)
+	(Description #[...]#)
+    )
+
+    #| LocalVariable is an subtype of StructuralEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject StructuralEntity LocalVariable)
+    
+    #| Attribute of LocalVariable |#
+
+    (MetaAttribute belongsToLocalVariable
+        (Name *belongsTo* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    #| Connection between this meta attribute and LocalVariable |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject belongsToLocalVariable LocalVariable)
+
+    #| add LocalVariable and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea LocalVariable FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea belongsToLocalVariable FAMOOSInfExchMod)
+
+#| END Definition of LocalVariable |#
+
+
+#| BEGIN Definition of FormalParameter |#
+
+   (MetaEntity FormalParameter
+        (Name *FormalParameter*)
+	(Description #[...]#)
+    )
+
+    #| FormalParameter is a subtype of StructuralEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject StructuralEntity FormalParameter)
+    
+    #| Attributes of FormalParameter |#
+
+    (MetaAttribute belongsToFormalParameter
+        (Name *belongsTo* )
+	(Description #[...]#)
+	(DataType <StringValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute positionFormalParameter
+        (Name *position* )
+	(Description #[...]#)
+	(DataType <IntegerValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute isReceiverFormalParameter
+        (Name *isReceiver* )
+        (Description #[...]#)
+        (DataType <BooleanValue>)
+        (isOptional -TRUE-)
+    )
+
+    #| Connection between this meta attribute and FormalParameter |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject belongsToFormalParameter FormalParameter)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject positionFormalParameter FormalParameter)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject isReceiverFormalParameter FormalParameter)
+
+    #| add FormalParameter and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea FormalParameter FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea belongsToFormalParameter FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea positionFormalParameter FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea isReceiverFormalParameter FAMOOSInfExchMod)
+
+#| END Definition of FormalParameter |#
+
+
+#| BEGIN Definition of Argument |#
+
+    (MetaEntity Argument
+        (Name *Argument*)
+	(Description #[...]#)
+    )
+
+    #|  Argument is a subtype of Association |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject  Association Argument)
+
+    #| Attributes of Argument |#
+
+    (MetaAttribute positionArgument
+        (Name *position* )
+	(Description #[...]#)
+	(DataType <IntegerValue>)
+	(isOptional -FALSE-)
+    )
+
+    (MetaAttribute isReceiverArgument
+        (Name *isReceiver* )
+        (Description #[...]#)
+        (DataType <BooleanValue>)
+        (isOptional -TRUE-)
+    )
+
+    #| Connection between these meta attributes and Argument |# 
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject positionArgument Argument)
+    (MetaAttribute.IsLocalMetaAttributeOf.AttributableMetaObject isReceiverArgument Argument)
+
+    #| add Argument and its attributes to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea Argument FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea positionArgument FAMOOSInfExchMod)
+    (CollectableMetaObject.IsUsedIn.SubjectArea isReceiverArgument FAMOOSInfExchMod)
+
+#| END Definition of Argument |#
+
+
+#| BEGIN Definition of ComplexExpression |#
+
+    (MetaEntity ComplexExpression
+        (Name *ComplexExpression*)
+	(Description #[...]#)
+    )
+
+    #|  ComplexExpression is a subtype of Argument |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject  Argument  ComplexExpression)
+    
+    #| ComplexExpression has no attributes |#
+
+    #| add ComplexExpression to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea ComplexExpression FAMOOSInfExchMod)
+
+#| END Definition of ComplexExpression |#
+
+
+#| BEGIN Definition of SimpleAccess |#
+
+    (MetaEntity SimpleAccess
+        (Name *SimpleAccess*)
+	(Description #[...]#)
+    )
+
+    #| SimpleAccess is a subtype of Argument |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject Argument SimpleAccess)
+    
+    #| SimpleAccess has no attributes
+
+    Accesses are connected to a SimpleAccess via
+    Access objects that are related to the
+    SimpleAccess with the HasAccess relationship
+    
+    |#
+
+    #| add ComplexExpression to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea SimpleAccess FAMOOSInfExchMod)
+
+#| END Definition of SimpleAccess |#
+
+
+#| BEGIN Definition of HasAccess relationship |#
+
+    (MetaRelationship SimpleAccessHasAccessAccess
+       (Name *HasAccess* )
+       (Description #[...]#)
+
+       (MaxDestCard "1")
+       (MaxSourceCard "1")
+       (MinDestCard "1")
+       (MinSourceCard "1")
+    )
+
+    #| HasAccess is a subtype of RootEntity.isRelatedTo.RootEntity |#
+    (AttributableMetaObject.HasSubtype.AttributableMetaObject 3 SimpleAccessHasAccessAccess)
+
+    #| source is SimpleAccess and destination is Access |# 
+    (MetaRelationship.HasSource.MetaEntity HasAccess SimpleAccess)
+    (MetaRelationship.HasDestination.MetaEntity HasAccess Access)
+   
+    #| add ComplexExpression to the FAMOOSInfExchMod subject area |#
+    (CollectableMetaObject.IsUsedIn.SubjectArea SimpleAccessHasAccessAccess FAMOOSInfExchMod)
+
+#| END Definition of HasAccess relationship |#
+
+#| **** END OF DEFINITION OF THE FAMOOS INFORMATION EXCHANGE MODEL **** |#
+
+)
+
+#| MODEL SECTION |#
+
+#| This section typically contains the actual info of a certain system
+   expressed in the FAMOOS Information Exchange Model using the CDIF
+   transfer format. In case you only want to transfer the FAMOOS
+   Information Exchange Model, this section may be omitted (and is
+   therefore commented out here).
+|#
+
+#|
+
+(:MODEL
+
+)    
+
+|#

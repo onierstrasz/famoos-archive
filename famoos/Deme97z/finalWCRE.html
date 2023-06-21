@@ -1,0 +1,1058 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML Export Filter">
+<TITLE> Using Restructuring Transformations toReengineer Object-Oriented Systems </TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<H1 CLASS="Title">
+<A NAME="pgfId=14710">
+ </A>
+Using Restructuring Transformations to<BR>
+Reengineer Object-Oriented Systems </H1>
+<P CLASS="Author">
+<A NAME="pgfId=15080">
+ </A>
+A Position Paper on the FAMOOS Project</P>
+<P CLASS="Author">
+<A NAME="pgfId=14301">
+ </A>
+Serge Demeyer, St&eacute;phane Ducasse, Robb Nebbe, Oscar Nierstrasz, Tamar Richner<A HREF="#pgfId=14383" CLASS="footnote">
+1</A>
+</P>
+<DIV>
+<H4 CLASS="Inst">
+<A NAME="pgfId=14449">
+ </A>
+Software Composition Group, University of Berne</H4>
+<UL>
+<LI CLASS="Abstract">
+<A NAME="pgfId=14450">
+ </A>
+Applying object-oriented design methods and languages does not guarantee that the resulting software systems will be flexible and adaptable. The industrial partners in the FAMOOS project have learned this lesson the hard way: they are now faced with large and rigid software systems that hamper them in meeting a diverse and evolving set of customer requirements. Object-oriented frameworks are touted as a promising solution, but it is unclear how to transform object-oriented legacy systems into frameworks. This paper proposes an approach --i.e, a methodology and tools-- for re-engineering object-oriented systems towards frameworks by means of high-level and low-level restructuring transformations that detect and resolve architectural and detailed design anomalies, and improve application flexibility and adaptability.</LI>
+</UL>
+<DIV>
+<H5 CLASS="Section">
+<A NAME="pgfId=11468">
+ </A>
+Introduction</H5>
+<P CLASS="Body">
+<A NAME="pgfId=11469">
+ </A>
+Surprising as it may seem, many of the early adopters of the object-oriented paradigm already face a number of problems typically encountered in large-scale legacy systems. In the FAMOOS project we are confronted with millions of lines of industrial source code, developed using object-oriented design methods and languages of the late 80s. These systems exhibit a range of problems, effectively preventing them from satisfying the evolving requirements imposed by their customers.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=14544">
+ </A>
+Although object-oriented design methods and programming languages are considered valuable for building flexible and adaptable systems, experience has shown that applying these techniques in isolation is not sufficient. This is now well-accepted in the object-oriented community and the state-of-the-art encourages the construction of <EM CLASS="Emphasis">
+frameworks</EM>
+ <A HREF="#36074" CLASS="XRef">
+See Johnson, R., Foote, B., &quot;Designing Reusable Classes&quot;, Journal of Object-Oriented Programming, June/July, 1988</A>
+ to cope with the wide variety of customer needs and evolving requirements. A framework is a semi-finished application architecture together with a component library, which supports the construction of families of systems for a specific problem domain. The software industry has accepted the principle of frameworks but now demands an approach --i.e, a methodology and tools-- to transform their object-oriented legacy systems into object-oriented frameworks.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=14567">
+ </A>
+This paper reports on the FAMOOS approach for evolving object-oriented legacy systems into frameworks. This approach distinguishes between high-level problems in the application architecture, and low-level problems in the detailed object-oriented design. In both cases we are seeking to identify sets of useful restructuring transformations that resolve architectural and design problems, and can be used to gradually transform specific applications into more flexible, framework-based applications.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=14548">
+ </A>
+The following section presents the context of the FAMOOS project and the case studies on which we base our observations and against which we will validate our work. We then briefly introduce the readers to some terminology before describing the ideas behind the methodology and presenting the prototype tools we are developing to aid in re-engineering. Finally, we conclude with a discussion of related work and future directions.</P>
+</DIV>
+<DIV>
+<H5 CLASS="Section">
+<A NAME="pgfId=11476">
+ </A>
+<A NAME="13194">
+ </A>
+The Case Studies</H5>
+<P CLASS="Body">
+<A NAME="pgfId=11477">
+ </A>
+In the FAMOOS project, two industrial partners (Nokia, Finland and Daimler-Benz, Germany) provide real-world cases to be studied by two academic partners (University of Berne, Switzerland and Forschungs Zentrum Informatik, Germany) with the aid of tools supplied by the tool providers (SEMA Group, Spain and TakeFive, Austria).</P>
+<P CLASS="Body">
+<A NAME="pgfId=15117">
+ </A>
+The industrial partners have provided five legacy systems, as shown in Figure 1, written in C++ (four case studies) and Ada (one case study).</P>
+      <DIV></DIV>
+<P CLASS="Indented">
+<A NAME="pgfId=15240">
+ </A>
+The five case studies are described briefly below: </P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11481">
+ </A>
+pipeline planning: This software system supports the planning of liquid flow in a pipeline between many stations. The industrial partner wants to <EM CLASS="Emphasis">
+extract design</EM>
+ from source-code, in order to reduce the cost of implementing similar systems, probably in other languages.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11482">
+ </A>
+user interface: This software provides graphical representations of telecommunication networks to telecom operators. The industrial partner wants to improve portability, facilitate the addition of functionality and enhance tailorability to meet the needs of different customers, all to <EM CLASS="Emphasis">
+increase the flexibility</EM>
+ of the software.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11483">
+ </A>
+mail sorting: This is software to control machines which sort surface mail. The software is highly configurable, to deal with the different ways the customers handle letters. The software itself is based on an internally developed distributed architecture but the industrial partner want to improve the portability and scalability of the system, and is considering adopting new technology (e.g. CORBA, Java, HTML) to achieve this.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11484">
+ </A>
+cellular network management: This is a network management system for digital networks. The main goal of the re-engineering project is to <EM CLASS="Emphasis">
+unbundle the application</EM>
+, i.e. split the system into subproducts that can be developed and sold separately. </LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11485">
+ </A>
+space mission management: A set of applications that --in different combinations-- form systems to support the planning and execution of space missions. The industrial partner seeks to <EM CLASS="Emphasis">
+identify components</EM>
+ in order to improve reliability and facilitate system maintenance. </LI>
+</UL>
+<P CLASS="Indented">
+<A NAME="pgfId=11486">
+ </A>
+During the first six months of the project, the industrial partners made a thorough analysis of each of the case studies and the kinds of problems they face, resulting in a 60-page report  <A HREF="#22594" CLASS="XRef">
+See Riepula, M. et al. &quot;Industrial Requirements&quot;. FAMOOS Project Deliverable D1.1. Confidential.</A>
+. The document is an excellent source of material and we summarise here its main points as a starting point for developing our approach.</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=11490">
+ </A>
+Goals and Motivations</H3>
+<P CLASS="Body">
+<A NAME="pgfId=11491">
+ </A>
+A first observation is that the goals and motivations for re-engineering the software systems are quite diverse, yet some common themes emerge. Two case studies mention explicitly that they want to <EM CLASS="Emphasis">
+unbundle</EM>
+ the software system into subsystems that can be tested, delivered and marketed separately. <EM CLASS="Emphasis">
+Improving performance</EM>
+ is a goal of two case studies; two name it as a potential problem once the system is transformed into a framework. Two case studies state <EM CLASS="Emphasis">
+porting</EM>
+ to other user-interface platforms an explicit target; one case study mentions it as a desirable aim but hard to achieve with the current architecture. One case study states <EM CLASS="Emphasis">
+design extraction</EM>
+ as their primary goal, although all other case studies mention this as a required step in documenting the system. One case study specifies <EM CLASS="Emphasis">
+exploitation of new technology</EM>
+ as a solution to the problem of scalability and portability and this theme recurs with two other case studies where the industrial partner would like to exploit new features of the programming language. </P>
+<P CLASS="Indented">
+<A NAME="pgfId=11676">
+ </A>
+The industrial partners also specify the problems they see as obstacles to meeting these goals and to arriving at more flexible and maintainable code. Problems with the software system occur at different levels of granularity and we group these as high-level problems and low-level problems. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=11492">
+ </A>
+High-level Problems</H3>
+<P CLASS="Body">
+<A NAME="pgfId=11493">
+ </A>
+These problems are perceived as the central issues in achieving the re-engineering goals and the industrial partners accept that solving these problems will require significant human intervention. </P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11495">
+ </A>
+<EM CLASS="Emphasis">
+insufficient documentation</EM>
+<A NAME="15953">
+ </A>
+: All of the case studies face the problem of non-existent, unsatisfactory or inconsistent documentation. Tools are required which would help to generate module interfaces, maintain existing documentation and visualise the static structure and dynamic behaviour of their systems.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11496">
+ </A>
+<EM CLASS="Emphasis">
+lack of modularity</EM>
+: Four of the five case studies suffer from a high degree of coupling between classes / modules / subsystems that hampers further software development (compilation, maintenance, versioning, testing). A solution will involve metrics to help detect such dependencies and refactoring tools to help in resolving them.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11497">
+ </A>
+<EM CLASS="Emphasis">
+duplicated functionality</EM>
+: In three of the case studies several modules implement similar functionality in a slightly different way. This common functionality should be factored out in separate classes / components, but tools are missing which help in recognizing similarities and restructuring the source code.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11498">
+ </A>
+<EM CLASS="Emphasis">
+improper layering</EM>
+: In two case studies the user-interface code is mixed in with the &quot;basic&quot; functionality, creating problems in porting to other user-interface platforms. A general lack of separation, or layering, is observed with regard to other aspects (distribution, database, operating system) in other case studies. In contrast to a lack of layering, one case study suffers from unnecessary layers. Overly layered modules resulted from each successive developer encapsulating the module with a new concept instead of revising it. This problem needs tool support for recognising and correcting such design flaws.</LI>
+</UL>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=11499">
+ </A>
+Low-level Problems</H3>
+<P CLASS="Body">
+<A NAME="pgfId=11500">
+ </A>
+The code must also be &quot;cleaned up&quot; at a lower level, in order to improve its maintainability. The industrial partners perceive many of these problems as arising from the lack of familiarity of developers with the new object-oriented paradigm. Furthermore, several years of development with sometimes geographically dispersed programming teams that have changed over time have exacerbated these problems. Table 1 shows a summary of typical problems encountered in the case studies.</P>
+<TABLE BORDER="1">
+<CAPTION>
+<H6 CLASS="TableTitle">
+<A NAME="pgfId=11511">
+ </A>
+<A NAME="35403">
+ </A>
+Perceived problems with Object-Oriented Concepts</H6>
+</CAPTION>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11523">
+ </A>
+&nbsp;</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId=11525">
+ </A>
+pipeline</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId=11526">
+ </A>
+planning</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId=11528">
+ </A>
+mail</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId=11529">
+ </A>
+sorting</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId=11531">
+ </A>
+user</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId=11532">
+ </A>
+interface</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId=11534">
+ </A>
+cellular network</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId=11535">
+ </A>
+management</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="pgfId=11537">
+ </A>
+space mission</P>
+<P CLASS="CellHeading">
+<A NAME="pgfId=11538">
+ </A>
+management</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11540">
+ </A>
+misuse of inheritance</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11542">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11544">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11546">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11548">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11550">
+ </A>
+&nbsp;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11552">
+ </A>
+missing inheritance</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11554">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11556">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11558">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11560">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11562">
+ </A>
+&#183;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11564">
+ </A>
+misplaced operations</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11566">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11568">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11570">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11572">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11574">
+ </A>
+&#183;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11576">
+ </A>
+violation of encapsulation</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11578">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11580">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11582">
+ </A>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11584">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11586">
+ </A>
+&#183;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11588">
+ </A>
+missing encapsulation</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11590">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11592">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11594">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11596">
+ </A>
+&#183;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="pgfId=11598">
+ </A>
+&#183;</P>
+</TD>
+</TR>
+</TABLE>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11599">
+ </A>
+<EM CLASS="Emphasis">
+misuse of inheritance</EM>
+: Inheritance is used as a way to add missing behaviour to one superclass. This is a result of having a method in a subclass being a modified clone of the method in the superclass.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11719">
+ </A>
+<EM CLASS="Emphasis">
+missing inheritance</EM>
+: In some cases, software engineers had duplicated code instead of creating a subclass. In other parts, long case statements that discriminate on the value of a variable are used instead of method dispatching on a type.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=12375">
+ </A>
+<EM CLASS="Emphasis">
+misplaced operations</EM>
+: Operations on objects were defined outside the corresponding class. Sometimes this was necessary in order to patch &quot;frozen&quot; designs.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11602">
+ </A>
+<EM CLASS="Emphasis">
+violation of encapsulation</EM>
+: This was observed in extensive use of the C++ friend mechanism. Also, software engineers rely on the strong typing of the compiler to ensure certain constraints, leading in some cases to redundant type definitions which contaminate the name space.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11603">
+ </A>
+<EM CLASS="Emphasis">
+missing encapsulation</EM>
+: This problem has been named &quot;C style C++&quot;, although it was observed in Ada as well. It refers to the usage of the C++ classes as a structuring mechanism for namespaces. Sometimes this was necessary to interface with external systems.</LI>
+</UL>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=11604">
+ </A>
+Summary: Low-Level and High-Level Restructuring</H3>
+<P CLASS="Body">
+<A NAME="pgfId=11779">
+ </A>
+From the analysis of the FAMOOS case studies, we see that a re-engineering methodology for object-oriented legacy systems must support two conceptually separate activities. The low-level problems listed in Table 1 must be addressed by what we call <EM CLASS="Emphasis">
+low-level restructuring</EM>
+: the restructuring of the code to a new, functionally equivalent system, by repairing the system's implementation to facilitate subsequent maintenance. This kind of restructuring has to do with problems that can be identified quite mechanically. Many of these problems are also encountered when restructuring non-object-oriented systems to object-oriented systems <A HREF="#41820" CLASS="XRef">
+See Gall, H., Kl&ouml;sch, R., Mittermeir, R., &quot;Object-Oriented Re-Architecturing&quot;, In Proceedings ESEC `95, LNCS 989</A>
+. The second activity is what we call <EM CLASS="Emphasis">
+high-level restructuring</EM>
+, and addresses the technical challenges and architectural problems associated with the high-level problems. This kind of restructuring should also preserve the overall system behaviour, but requires changes to enhance the system architecture to better support future extensions. High-level structuring is an activity which requires human intervention.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=11834">
+ </A>
+In the remainder of this document, we elaborate on each of these activities to define a initial approach for transforming object-oriented legacy systems into framework-base applications. But first, we provide some insight in framework related techniques.</P>
+<DIV>
+<H5 CLASS="Section">
+<A NAME="pgfId=14928">
+ </A>
+From Legacy Systems to Frameworks</H5>
+<P CLASS="Body">
+<A NAME="pgfId=15260">
+ </A>
+Whereas a specific application is designed to meet specific application requirements, a framework provides a generic solution that can be easily adapted to different needs. In order to reengineer applications into frameworks, one must detect where application specific and generic aspects are intertwined, and attempt to separate them. This kind of work is often required in other kinds of re-engineering efforts: factoring out genericity from application specific aspects makes for better adaptability and maintainability of the software. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=15288">
+ </A>
+Frameworks</H3>
+<P CLASS="Body">
+<A NAME="pgfId=11620">
+ </A>
+A framework is a software structure which provides a skeletal software architecture and a library of components <A HREF="#36074" CLASS="XRef">
+See Johnson, R., Foote, B., &quot;Designing Reusable Classes&quot;, Journal of Object-Oriented Programming, June/July, 1988</A>
+, <A HREF="#22271" CLASS="XRef">
+See Meijler, T.D., Nierstrasz, O., &quot;Beyond Objects: Components&quot;. In Cooperative Information Systems, M. Papazoglou (ed.), Academic Press, London, to appear.</A>
+. The skeletal architecture factors out the commonalities of a family of applications and can be specialized for creating a specific application. The component library provides an extensible collection of software artefacts addressing a particular application domain. Successful frameworks are usually domain specific (as opposed to completely general), so that the framework architecture is in a sense an embodiment of requirement and design knowledge for a specific application domain. </P>
+<P CLASS="Indented">
+<A NAME="pgfId=14946">
+ </A>
+How does one acquire this application domain knowledge ? Framework development and application development are often parallel tasks. An initial framework can be used to create a new framework-based application. The specific application requirements may require an extension of the framework component library and a refinement of the skeletal software architecture. A good framework thus evolves iteratively with the acquisition of more domain knowledge and with experience in building new applications. Clearly, completed and running systems embody a great deal of domain-specific knowledge, which when recovered and coupled with experience and an understanding its problems can be used to build a framework. In FAMOOS we seek to re-engineer applications into framework-based applications, from which full-fledged frameworks can be derived. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=15302">
+ </A>
+Design Patterns</H3>
+<P CLASS="Body">
+<A NAME="pgfId=11624">
+ </A>
+A design pattern provides a general solution to common software design problems <A HREF="#24453" CLASS="XRef">
+See Buschmann, F., Meunier, R., Rohnert, H., Sommerland, P., Stad, M., Pattern-Oriented Software Architecture --A System of Patterns, Whiley, 1996.</A>
+, <A HREF="#10182" CLASS="XRef">
+See Gamma, E., Helm, R., Johnson, R., Vlissides, J. &quot;Design Patterns&quot;, Addison Wesley, Reading, MA, 1995.</A>
+. Design patterns provide design guidelines or rules of thumb. They are important in the context of re-engineering for two reasons. First the detection of design patterns  <A HREF="#10106" CLASS="XRef">
+See Brown, K. &quot;Design Reverse-Engineering and Automated Design Pattern Detection in Smalltalk&quot;, Master Thesis, North California State University, 1996.</A>
+, or near- design patterns in the code gives insight into the nature of the design problem faced. Second, design patterns provide flexible solutions to software design problems and can aid in improving the flexibility of the software <A HREF="#24453" CLASS="XRef">
+See Buschmann, F., Meunier, R., Rohnert, H., Sommerland, P., Stad, M., Pattern-Oriented Software Architecture --A System of Patterns, Whiley, 1996.</A>
+<A HREF="#10182" CLASS="XRef">
+See Gamma, E., Helm, R., Johnson, R., Vlissides, J. &quot;Design Patterns&quot;, Addison Wesley, Reading, MA, 1995.</A>
+.</P>
+<DIV>
+<H6 CLASS="SubSection">
+<A NAME="pgfId=9491">
+ </A>
+FAMOOS Approach </H6>
+<P CLASS="Body">
+<A NAME="pgfId=12159">
+ </A>
+In section 2 we saw that two kinds of restructuring are needed to support the re-engineering of the case studies: low-level restructuring and high-level restructuring. The former deals with repairing what is considered bad style (i.e., overuse of inheritance, missing inheritance, misplaced operations, misuse of encapsulation and missing encapsulation). The latter is concerned more with understanding and improving the architecture of a system (i.e., documentation, modularity, factoring out common functionality, proper layering). The methodological difference between the two kinds of activities relates to their automation. Low level problems can be detected mechanically, though their proper resolution may require some human intervention. High-level restructuring, on the other hand, requires a good deal of human expertise.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=11060">
+ </A>
+In the FAMOOS project, we defined a three-tiered model to support both kinds of restructuring activities. The three levels are defined as follows:</P>
+<UL>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=10473">
+ </A>
+<EM CLASS="Emphasis">
+Source View</EM>
+: A view of the system as expressed in terms of programming language mechanisms and represents a trivial interpretation of the source code.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=10474">
+ </A>
+<EM CLASS="Emphasis">
+Semantic View</EM>
+: A language-independent view of the system representing the concepts present in the source code rather than the language mechanisms used to express it.</LI>
+<LI CLASS="Bulleted">
+<A NAME="pgfId=11311">
+ </A>
+<EM CLASS="Emphasis">
+Pragmatic Views</EM>
+: Semantic views are based on the semantic view augmented with knowledge not present of inferable from the source code such as coding conventions, architectural styles <A HREF="#23120" CLASS="XRef">
+See Shaw, M., Garlan, D., &quot;Software Architecture: Perspective on an Emerging Discipline&quot;, Prentice-Hall, 1996</A>
+, design patterns and application or domain specific knowledge.</LI>
+</UL>
+<P CLASS="Indented">
+<A NAME="pgfId=11321">
+ </A>
+Having a layered model is not unusual in re-engineering. The model presented in <A HREF="#41820" CLASS="XRef">
+See Gall, H., Kl&ouml;sch, R., Mittermeir, R., &quot;Object-Oriented Re-Architecturing&quot;, In Proceedings ESEC `95, LNCS 989</A>
+ is similar to ours and reflects the need for both bottom-up (mapping from source to semantic concepts) and top-down (mapping application specific concepts to semantic concepts) recovery in program understanding.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15478">
+ </A>
+We now discuss how our model may help to restructure object-oriented systems.</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=15002">
+ </A>
+Low-Level Restructuring</H3>
+<P CLASS="Body">
+<A NAME="pgfId=15003">
+ </A>
+In the FAMOOS project, we see low-level restructuring as a normalisation process, corresponding to the one of relational databases <A HREF="#17906" CLASS="XRef">
+See Elmasri, R., Navathe, S. B. &quot;Fundamentals of Database Systems, Second Edition&quot;. Benjamin/Cummings, 1994.</A>
+. Normalizing a database schema improves the organization of the information but does not change the information content. Each normal form (in particular 2NF, 3NF and BCNF) formalizes certain desirable properties in terms of various kinds of dependencies. Moreover, after normalization the schema more clearly reflects the semantics of the problem domain.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15007">
+ </A>
+Correspondingly, our semantic view focuses on different kinds of dependencies between &quot;primitive&quot; object-oriented concepts (classes, methods and state). Once we detected certain patterns of dependencies (by defining the appropriate recognizers  <A HREF="#14376" CLASS="XRef">
+See Harris, D.R., Yeh, A.S., Reubenstein, H.B. &quot;Extracting Architectural Features from Source Code&quot;, In Automated Software Engineering. vol. 3, (1-2), 109-139, 1996.</A>
+) in the semantic view, we can apply some restructuring operation (typically class refactoring  <A HREF="#34954" CLASS="XRef">
+See Johnson, R., Opdyke, W., &quot;Refactoring and Aggregation&quot;. In Proceedings of ISOTAS '93 LNCS 742, Springer-Verlag, 264-278, 1993.</A>
+) to resolve the associated problem in the source, this way &quot;normalising&quot; the class hierarchy.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15008">
+ </A>
+<EM CLASS="Emphasis">
+Partial dependencies between parts of inheritance tree and clients</EM>
+ (i.e., different clients only use different parts of the inheritance tree) indicate misuse of inheritance. The solution is to analyse those dependencies to determine where the inheritance tree can be collapsed and where it must be refactored.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15596">
+ </A>
+<EM CLASS="Emphasis">
+A common pattern of dependencies between unrelated classes</EM>
+ <EM CLASS="Emphasis">
+or inside branches of controls statements</EM>
+ (<EM CLASS="Code">
+if</EM>
+, <EM CLASS="Code">
+case</EM>
+, ...) indicate missing inheritance. The solution is to factor the pattern out into another superclass.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15365">
+ </A>
+<EM CLASS="Emphasis">
+Circular dependencies between methods</EM>
+ indicate at least one misplaced method  <A HREF="#20148" CLASS="XRef">
+See Nebbe R., Richner, T., &quot;Understanding Dependencies&quot;, submitted to the ECOOP `97 Re-engineering Workshop</A>
+. The solution is to move the method to the correct class; however the dependencies of the clients on this method must also be updated.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15014">
+ </A>
+<EM CLASS="Emphasis">
+Circular dependencies between methods and state </EM>
+indicate violation of encapsulation. The solution is to analyse those dependencies to determine where the breaking of encapsulation is actually needed and what should be made public to eliminate this need.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15308">
+ </A>
+<EM CLASS="Emphasis">
+Partial dependencies between classes</EM>
+ (i.e., a client will only use part of the interface defined for the class) indicates missing encapsulation. The solution is to factor out each part of that class into different classes.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=15310">
+ </A>
+High-Level Restructuring</H3>
+<P CLASS="Body">
+<A NAME="pgfId=15311">
+ </A>
+In the FAMOOS project, we see high-level restructuring as a chain of design pattern transformations. That is, we want to detect and correct overly rigid architectural patterns that hinder flexibility.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15312">
+ </A>
+Our approach is based on the idea of anti patterns  <A HREF="#15325" CLASS="XRef">
+See Koenig, A. &quot;Patterns and antipatterns&quot;. Journal of Object-Oriented Programming, March-April 1995.</A>
+ linked with corresponding resolutions in design pattern form <A HREF="#10182" CLASS="XRef">
+See Gamma, E., Helm, R., Johnson, R., Vlissides, J. &quot;Design Patterns&quot;, Addison Wesley, Reading, MA, 1995.</A>
+. Once we detected a certain anti-patter n (using pattern detection techniques like described in <A HREF="#10106" CLASS="XRef">
+See Brown, K. &quot;Design Reverse-Engineering and Automated Design Pattern Detection in Smalltalk&quot;, Master Thesis, North California State University, 1996.</A>
+) and apply the corresponding pattern we can tackle aspects of the high-level problems.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15025">
+ </A>
+Design patterns are known to form a good basis for documenting frameworks <A HREF="#20636" CLASS="XRef">
+See Beck, K., Johnson, R. &quot;Patterns Generate  Architectures&quot;, In Proceedings of ECOOP'94, LNCS 821, 139-149, Springer Verlag, 1994.</A>
+<A HREF="#32662" CLASS="XRef">
+See Johnson, R.E., &quot;Documenting Frameworks using Patterns&quot;, In Proceedings of OOPSLA'92, ACM Press, 63-76, 1992.</A>
+, so once detected or applied a pattern we made a valuable contribution to the documentation problem.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15749">
+ </A>
+Most design patterns in <A HREF="#10182" CLASS="XRef">
+See Gamma, E., Helm, R., Johnson, R., Vlissides, J. &quot;Design Patterns&quot;, Addison Wesley, Reading, MA, 1995.</A>
+ decouple important aspects (creation, structure and behaviour) of object interaction. Thus, design pattern transformations can improve the modularity of a system and avoid duplicated functionality.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15811">
+ </A>
+Design patterns like Observer, Bridge, Strategy <A HREF="#10182" CLASS="XRef">
+See Gamma, E., Helm, R., Johnson, R., Vlissides, J. &quot;Design Patterns&quot;, Addison Wesley, Reading, MA, 1995.</A>
+, Layers, Pipes and Filters <A HREF="#24453" CLASS="XRef">
+See Buschmann, F., Meunier, R., Rohnert, H., Sommerland, P., Stad, M., Pattern-Oriented Software Architecture --A System of Patterns, Whiley, 1996.</A>
+ are especially well suited for layered designs. Applying the corresponding design pattern operations incorporate a layered architecture into a software system.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=12232">
+ </A>
+Current status</H3>
+<P CLASS="Body">
+<A NAME="pgfId=12233">
+ </A>
+At the time of writing, the FAMOOS project is still in its initial stages. The above ideas have been tested in smaller experiments <A HREF="#15810" CLASS="XRef">
+See Meijler, T.D., Demeyer, S., Engel, R. &quot;Making Design Patterns Explicit in FACE&quot;, to appear in ESEC FSE`97 Proceedings</A>
+<A HREF="#20148" CLASS="XRef">
+See Nebbe R., Richner, T., &quot;Understanding Dependencies&quot;, submitted to the ECOOP `97 Re-engineering Workshop</A>
+ but not yet on the industrial case studies.</P>
+<DIV>
+<H5 CLASS="Section">
+<A NAME="pgfId=9485">
+ </A>
+Tool Support</H5>
+<P CLASS="Body">
+<A NAME="pgfId=13751">
+ </A>
+In order to understand a software system we regard it as essential to be able to recover multiple views of the software and to combine information obtained from different views <A HREF="#40327" CLASS="XRef">
+See Lange, D.B., Nakamura, Y. &quot;Interactive Visualization of Design Patterns can help in Framework Understanding&quot;. In Proceedings of OPSLA'95, ACM Press 1995.</A>
+<A HREF="#14607" CLASS="XRef">
+See Koskimies, K., Mossenbock, H., &quot;Scene: Using Scenario Diagrams and Active Test for Illustrating Object-Oriented Programs&quot;, 366-375, In Proceedings of the 18th ICSE, 1996.</A>
+<A HREF="#14376" CLASS="XRef">
+See Harris, D.R., Yeh, A.S., Reubenstein, H.B. &quot;Extracting Architectural Features from Source Code&quot;, In Automated Software Engineering. vol. 3, (1-2), 109-139, 1996.</A>
+. Since none of the tools to which we currently have access allow a rich enough set of views to be generated, we are now developing a prototype tool called MOOSE as an environment to aid in the program understanding and problem detection. </P>
+<P CLASS="Indented">
+<A NAME="pgfId=15336">
+ </A>
+The architecture of MOOSE corresponds to the basic re-engineering tool architecture <A HREF="#30290" CLASS="XRef">
+See Chikofsky, E.J., Cross, J.H. II, &quot;Reverse Engineering and Design Recovery: A Taxonomy&quot;, In IEEE Software Engineering,13-17, January 1990.</A>
+: an information base is generated using parsers and semantic analysers and this information base is used to extract new views of the code using queries, graph viewers, etc. The MOOSE information base explicitly represents the concepts that are present in the code, e.g. classes, methods, instances, method invocation, etc. This explicit representation allows for manipulating the code at a higher level than textual editing and allows to formulate hypotheses based on queries about the concepts present in the code.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=13829">
+ </A>
+MOOSE is an attempt to integrates third-party tools into a coherent whole. As an example, we import information from the symbol tables maintained in the Sniff+2.2.1 <A HREF="#30396" CLASS="XRef">
+See Sniff+2.2.1, TakeFive Software GmbH,1996.</A>
+ and Concerto/Audit-CC++ <A HREF="#16520" CLASS="XRef">
+See Concerto2/Audit-CC++, User Manual, Sema Group, 1996.</A>
+ environments and export to public domain graph lay-out tools (XVCG). We are also experimenting with a wide range of analysis tools --perl-scripts, spreadsheets, query languages, prolog inference engines, graphical displayers-- to test their applicability in re-engineering. Furthermore, we consider that a dynamic view of the software is also important for code understanding and plan to integrate dynamic analysis tools into MOOSE.</P>
+      <DIV></DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId=14740">
+ </A>
+Mixing Static and Dynamic Information</H3>
+<P CLASS="Body">
+<A NAME="pgfId=13834">
+ </A>
+A static view of software is based on the source code and consists of the classes, methods and instances which describe the software. A dynamic view is based on the software as it exists during execution and is viewed in terms of instances. The two views overlap at those instances which exist both statically and dynamically.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=14747">
+ </A>
+The mixing of static and dynamic information is invaluable for understanding program structure <A HREF="#40327" CLASS="XRef">
+See Lange, D.B., Nakamura, Y. &quot;Interactive Visualization of Design Patterns can help in Framework Understanding&quot;. In Proceedings of OPSLA'95, ACM Press 1995.</A>
+. Dynamic information must evolve within the constraints expressed in the static information and static information can be understood at a coarser-grained level when coupled with dynamic information. Mixing both kinds of information can generate several new views of the application. For example, analysing the sequence of calls between objects can provide us with dependencies between classes and allows the detection of problems in the application <A HREF="#14607" CLASS="XRef">
+See Koskimies, K., Mossenbock, H., &quot;Scene: Using Scenario Diagrams and Active Test for Illustrating Object-Oriented Programs&quot;, 366-375, In Proceedings of the 18th ICSE, 1996.</A>
+. </P>
+<DIV>
+<H5 CLASS="Section">
+<A NAME="pgfId=14766">
+ </A>
+Related Work</H5>
+<P CLASS="Body">
+<A NAME="pgfId=14785">
+ </A>
+Though not much work is yet reported on the re-engineering of large-scale object-oriented systems, there is a growing literature on the evolution of reusable object-oriented software using refactoring transformations <A HREF="#34954" CLASS="XRef">
+See Johnson, R., Opdyke, W., &quot;Refactoring and Aggregation&quot;. In Proceedings of ISOTAS '93 LNCS 742, Springer-Verlag, 264-278, 1993.</A>
+ and on the use of design patterns in program understanding <A HREF="#10106" CLASS="XRef">
+See Brown, K. &quot;Design Reverse-Engineering and Automated Design Pattern Detection in Smalltalk&quot;, Master Thesis, North California State University, 1996.</A>
+. Also, since some of the typical problems of first generation object-oriented systems resulted from their lack of real `object-orientation', some of the approaches and techniques for migrating procedural applications to object-oriented languages <A HREF="#41820" CLASS="XRef">
+See Gall, H., Kl&ouml;sch, R., Mittermeir, R., &quot;Object-Oriented Re-Architecturing&quot;, In Proceedings ESEC `95, LNCS 989</A>
+, <A HREF="#31346" CLASS="XRef">
+See Jacobson, I and Lindstr&ouml;m, F., &quot;Re-engineering of old systems to an object-oriented architecture&quot;. In Proceedings of OOPSLA `91, 340-350, ACM Press, 1991.</A>
+ are also relevant to the FAMOOS case studies. </P>
+<P CLASS="Indented">
+<A NAME="pgfId=14913">
+ </A>
+Many of the problems faced in re-engineering object-oriented systems are common to any re-engineering effort. In particular, software understanding and design recovery. The ManSART tool developed at MITRE offers sophisticated source-code queries, called recognizers, used for understanding software structure and detecting architectural features<A HREF="#14376" CLASS="XRef">
+See Harris, D.R., Yeh, A.S., Reubenstein, H.B. &quot;Extracting Architectural Features from Source Code&quot;, In Automated Software Engineering. vol. 3, (1-2), 109-139, 1996.</A>
+. </P>
+<P CLASS="Indented">
+<A NAME="pgfId=14916">
+ </A>
+Several tools for understanding or analysing object-oriented applications exist. CIA++<A HREF="#34452" CLASS="XRef">
+See Grass, J.E. &quot;Object-Oriented Design Archeology with CIA++&quot;, In Computing Systems. vol. 5, (1), 5-67, 1992.</A>
+ and GraphLog <A HREF="#20118" CLASS="XRef">
+See Consens, M., Mendelzon, A., Ryman, A. &quot;Visualizing and Querying Software Structures&quot;. In Proceedings of the 14th International Conference on Software Engineering, 138-156, 1992.</A>
+ tools focus on static information. CIA++ builds a relational database of information extracted from C++ code and provides different views of this information. GraphLog is a visual tool for databases where queries are specified by drawing graph patterns with a graphical editor. IAPR <A HREF="#36135" CLASS="XRef">
+See Kazman, R., Burth, M.,&quot;Assessing Architectural Complexity&quot;, University of Waterloo,1995. http://www.cgl.uwaterloo.ca/~rnkazman/assessing.ps</A>
+ provides architectural style recognizers based on constraint programming and design pattern matching. These tools extract and manipulate static information. Several tools handle dynamic information: GraphTrace <A HREF="#32072" CLASS="XRef">
+See Kleyn, M.F., Ginrich, P.C. &quot;GraphTrace - Understanding Object-Oriented Systems Using Concurrently Animated Views&quot;. In Proceedings of OOPSLA'88,191--204, ACM Press, 1988.</A>
+ offers animated views of graphs method invocations. Object Visualizer <A HREF="#35947" CLASS="XRef">
+See De Pauw, W., Kimelman, D. and Vlissides, J., &quot;Modelling Object-Oriented Program Execution&quot;, In Proceedings of ECOOP'94, LNCS 821, 163-182, 1994.</A>
+ and HotWire <A HREF="#30455" CLASS="XRef">
+See Laffra, C., Malhotra,A. &quot;HotWire -A Visual Debugger for C++&quot;. In Proceedings of USENIX C++ Technical Conference. 109-122,1994</A>
+ analyse dynamic behaviour of applications and provide visual effects to point out application anomalies or global behaviour such as memory allocation. Such tools are interesting as profiler tools and as tools for reverse engineering. Look <A HREF="#24930" CLASS="XRef">
+See LOOK, Objective Software Technology Ltd., 1 Michaelson Square, Kirkton Campus, Livingston, Scotland,1996. http://www.objectivesoft.com/</A>
+ provides calling views of C++ applications. Scene <A HREF="#14607" CLASS="XRef">
+See Koskimies, K., Mossenbock, H., &quot;Scene: Using Scenario Diagrams and Active Test for Illustrating Object-Oriented Programs&quot;, 366-375, In Proceedings of the 18th ICSE, 1996.</A>
+ is a tool for the Oberon language that extracts interaction diagrams from dynamic trace information. In contrast to the tools described above that operate on either static or dynamic information, ProgramExplorer proposes an approach in which dynamic information is used to enhance static information for program understanding <A HREF="#40327" CLASS="XRef">
+See Lange, D.B., Nakamura, Y. &quot;Interactive Visualization of Design Patterns can help in Framework Understanding&quot;. In Proceedings of OPSLA'95, ACM Press 1995.</A>
+. In Program Explorer static and dynamic information is represented as Prolog facts derived from parsing and debugging tools. These facts serve as a database on which queries can be made to extract new abstractions. </P>
+</DIV>
+<DIV>
+<H5 CLASS="Section">
+<A NAME="pgfId=13682">
+ </A>
+Conclusions and Future Work</H5>
+<P CLASS="Body">
+<A NAME="pgfId=15497">
+ </A>
+The case studies provided by the industrial partners of the FAMOOS project, strongly suggest the need for two levels of restructuring: low-level transformations clean up the source code, repairing and refining the structures and dependencies; and high-level transformations resolve architectural problems.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=15349">
+ </A>
+We have identified some approaches to low-level and high-level transformations: low-level restructuring transformations are based upon the detection and resolution of dependencies; high-level restructuring transformations are based upon design pattern transformations. Now that we have identified these approaches, we can validate them against the case studies, to investigate their applicability on an industrial scale.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=13603">
+ </A>
+Open issues include understanding the scalability of our approach as well as the limits of tool support. The scalability of the approach is vital since two of the case studies are more than two million lines of code. The limit of tools in terms of automation is important since human intervention will ultimately limit what can be accomplished rather than computational power.</P>
+</DIV>
+<DIV>
+<H5 CLASS="Section">
+<A NAME="pgfId=8013">
+ </A>
+Acknowledgements</H5>
+<P CLASS="Body">
+<A NAME="pgfId=13860">
+ </A>
+We gratefully acknowledge funding from ESPRIT IV project #21975 and from the Swiss National Science Foundation, grant MHV21-41671.94 (to T. Richner) and project grant 2000-46947.96. We would also like to thank the partners in FAMOOS project for the invaluable input that formed an essential ingredient of this paper. Finally, we thank Franz Achermann for his helpful comments on the manuscript.</P>
+<P CLASS="Indented">
+<A NAME="pgfId=14709">
+ </A>
+All authors contributed equally to the paper, as reflected in the alphabetical order of the names.</P>
+</DIV>
+<DIV>
+<H5 CLASS="Section">
+<A NAME="pgfId=13861">
+ </A>
+References</H5>
+<OL>
+<LI CLASS="Reference">
+<A NAME="pgfId=13867">
+ </A>
+<A NAME="20636">
+ </A>
+Beck, K., Johnson, R. &quot;Patterns Generate  Architectures&quot;, In Proceedings of ECOOP'94, LNCS 821, 139-149, Springer Verlag, 1994.<A NAME="13384">
+ </A>
+</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13874">
+ </A>
+<A NAME="10106">
+ </A>
+Brown, K. &quot;Design Reverse-Engineering and Automated Design Pattern Detection in Smalltalk&quot;, Master Thesis, North California State University, 1996. </LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13875">
+ </A>
+<A NAME="24453">
+ </A>
+Buschmann, F., Meunier, R., Rohnert, H., Sommerland, P., Stad, M., <EM CLASS="Emphasis">
+Pattern-Oriented Software Architecture --A System of Patterns</EM>
+, Whiley, 1996.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13877">
+ </A>
+<A NAME="30290">
+ </A>
+Chikofsky, E.J., Cross, J.H. II, &quot;Reverse Engineering and Design Recovery: A Taxonomy&quot;, In IEEE Software Engineering,13-17, January 1990.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13622">
+ </A>
+<A NAME="16520">
+ </A>
+Concerto2/Audit-CC++, User Manual, Sema Group, 1996.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13624">
+ </A>
+<A NAME="20118">
+ </A>
+Consens, M., Mendelzon, A., Ryman, A. &quot;Visualizing and Querying Software Structures&quot;. In Proceedings of the 14th International Conference on Software Engineering, 138-156, 1992.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13626">
+ </A>
+<A NAME="34452">
+ </A>
+Grass, J.E. &quot;Object-Oriented Design Archeology with CIA++&quot;, In Computing Systems. vol. 5, (1), 5-67, 1992.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13629">
+ </A>
+<A NAME="35947">
+ </A>
+De Pauw, W., Kimelman, D. and Vlissides, J., &quot;Modelling Object-Oriented Program Execution&quot;, In Proceedings of ECOOP'94, LNCS 821, 163-182, 1994.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13631">
+ </A>
+<A NAME="17906">
+ </A>
+Elmasri, R., Navathe, S. B. &quot;Fundamentals of Database Systems, Second Edition&quot;. Benjamin/Cummings, 1994.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13633">
+ </A>
+<A NAME="41820">
+ </A>
+Gall, H., Kl&ouml;sch, R., Mittermeir, R., &quot;Object-Oriented Re-Architecturing&quot;, In Proceedings ESEC `95, LNCS 989</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13637">
+ </A>
+<A NAME="10182">
+ </A>
+Gamma, E., Helm, R., Johnson, R., Vlissides, J. &quot;Design Patterns&quot;, Addison Wesley, Reading, MA, 1995.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13641">
+ </A>
+<A NAME="14376">
+ </A>
+Harris, D.R., Yeh, A.S., Reubenstein, H.B. &quot;Extracting Architectural Features from Source Code&quot;, In Automated Software Engineering. vol. 3, (1-2), 109-139, 1996.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13643">
+ </A>
+<A NAME="31346">
+ </A>
+Jacobson, I and Lindstr&ouml;m, F., &quot;Re-engineering of old systems to an object-oriented architecture&quot;. In Proceedings of OOPSLA `91, 340-350, ACM Press, 1991.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=14879">
+ </A>
+<A NAME="34954">
+ </A>
+Johnson, R., Opdyke, W., &quot;Refactoring and Aggregation&quot;. In Proceedings of ISOTAS '93 LNCS 742, Springer-Verlag, 264-278, 1993.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13645">
+ </A>
+<A NAME="36074">
+ </A>
+Johnson, R., Foote, B., &quot;Designing Reusable Classes&quot;, Journal of Object-Oriented Programming, June/July, 1988</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13647">
+ </A>
+<A NAME="32662">
+ </A>
+Johnson, R.E., &quot;Documenting Frameworks using Patterns&quot;, In Proceedings of OOPSLA'92, ACM Press, 63-76, 1992.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13649">
+ </A>
+<A NAME="36135">
+ </A>
+Kazman, R., Burth, M.,&quot;Assessing Architectural Complexity&quot;, University of Waterloo,1995. http://www.cgl.uwaterloo.ca/~rnkazman/assessing.ps</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13651">
+ </A>
+<A NAME="32072">
+ </A>
+Kleyn, M.F., Ginrich, P.C. &quot;GraphTrace - Understanding Object-Oriented Systems Using Concurrently Animated Views&quot;. In <EM CLASS="Emphasis">
+Proceedings of OOPSLA'88,191--204, ACM Press, 1988.</EM>
+</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13653">
+ </A>
+<A NAME="15325">
+ </A>
+Koenig, A. &quot;Patterns and antipatterns&quot;. Journal of Object-Oriented Programming, March-April 1995.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13655">
+ </A>
+<A NAME="14607">
+ </A>
+Koskimies, K., Mossenbock, H., &quot;Scene: Using Scenario Diagrams and Active Test for Illustrating Object-Oriented Programs&quot;, 366-375, In Proceedings of the 18th ICSE, 1996.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13659">
+ </A>
+<A NAME="30455">
+ </A>
+Laffra, C., Malhotra,A. &quot;HotWire -A Visual Debugger for C++&quot;. In Proceedings of USENIX C++ Technical Conference. 109-122,1994</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13661">
+ </A>
+<A NAME="40327">
+ </A>
+Lange, D.B., Nakamura, Y. &quot;Interactive Visualization of Design Patterns can help in Framework Understanding&quot;. In <EM CLASS="Emphasis">
+Proceedings of OPSLA'95, ACM Press 1995</EM>
+.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13663">
+ </A>
+<A NAME="24930">
+ </A>
+LOOK, Objective Software Technology Ltd., 1 Michaelson Square, Kirkton Campus, Livingston, Scotland,1996. http://www.objectivesoft.com/</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13665">
+ </A>
+<A NAME="15810">
+ </A>
+Meijler, T.D., Demeyer, S., Engel, R. &quot;Making Design Patterns Explicit in FACE&quot;, to appear in ESEC FSE`97 Proceedings</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13667">
+ </A>
+<A NAME="22271">
+ </A>
+Meijler, T.D., Nierstrasz, O., &quot;Beyond Objects: Components&quot;. In Cooperative Information Systems, M. Papazoglou (ed.), Academic Press, London, to appear. </LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13669">
+ </A>
+<A NAME="22000">
+ </A>
+Murphy, G. C.,Notkin, D. &quot;Lightweight Source Model Extraction&quot;. In <EM CLASS="Emphasis">
+SIGSOFT'95 Proceedings, ACM Press 1995</EM>
+. Available on the world-wide web at &quot;http://www.cs.ubc.ca/spider/murphy/&quot;.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13671">
+ </A>
+<A NAME="20148">
+ </A>
+Nebbe R., Richner, T., &quot;Understanding Dependencies&quot;, submitted to the ECOOP `97 Re-engineering Workshop</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13673">
+ </A>
+<A NAME="22594">
+ </A>
+Riepula, M. et al. &quot;Industrial Requirements&quot;. FAMOOS Project Deliverable D1.1. Confidential.</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=14866">
+ </A>
+<A NAME="23120">
+ </A>
+Shaw, M., Garlan, D., &quot;Software Architecture: Perspective on an Emerging Discipline&quot;, Prentice-Hall, 1996</LI>
+<LI CLASS="Reference">
+<A NAME="pgfId=13677">
+ </A>
+<A NAME="30396">
+ </A>
+Sniff+2.2.1, TakeFive Software GmbH,1996.</LI>
+</OL>
+<P CLASS="Indented">
+<A NAME="pgfId=13678">
+ </A>
+&nbsp;</P>
+<P CLASS="Indented">
+<A NAME="pgfId=13679">
+ </A>
+&nbsp;</P>
+<P CLASS="Indented">
+<A NAME="pgfId=6621">
+ </A>
+&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+<HR>
+<DIV CLASS="footnotes">
+<DIV CLASS="footnote">
+<P CLASS="Footnote">
+<SPAN CLASS="footnoteNumber">
+1.</SPAN>
+<A NAME="pgfId=14383">
+ </A>
+Authors' address: Institut f&uuml;r Informatik (IAM), Universit&auml;t Bern, Neubr&uuml;ckstrasse 10, CH-3012 Berne, Switzerland. Tel: +41 (31) 631.4430. Fax: +41 (31) 631.3965. E-mail: famoos@iam.unibe.ch. WWW: http://www.iam.unibe.ch/~famoos/</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

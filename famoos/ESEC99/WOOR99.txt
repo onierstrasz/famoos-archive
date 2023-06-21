@@ -1,0 +1,21 @@
+Report: Workshop on Object-Oriented Reengineering (WOOR'99)
+Toulouse / France , Monday September 6th, 1999
+
+Serge Demeyer and Harald Gall
+
+
+On September 6th a workshop around the theme of Object-Oriented Reengineering was organized in conjunction with the ESEC/FSE'99 conference in Toulouse, France. This workshop was the second in its row, as two years before the same workshop has been organized (see http://www.iam.unibe.ch/~famoos/ESCE97/).
+
+Although this years workshop did not attract that many participants (8 persons coming from Europe, America and Asia) and papers (5 papers, covering topics like UML, exchange models, architecture, visualization, procedural to object-based translation), it turned out to be a very productive day with lots of sparkling discussions and fresh insights. Below is a list of resolutions and recommendations that we wanted to share with you. For more information, you can consult the papers and list of participants on the web (see http://www.iam.unibe.ch/~famoos/ESCE99/). The same information is also available as a technical report from the Technical University of Vienna in Austria (TUV-1841-99-13)
+
+* What is a "better system" ?
+If someone asks to reengineer a system, there is always the underlying question to improve that system. However, what criteria should one use to assess improvement ? The consensus within the group was that these criteria should stem from the business case that serves as the reengineering context. If not, the field will loose its credibility. In that context it is also good to point out that reengineers should be aware of reengineering economics, i.e. analyzing whether the cost is worth the gain.
+
+* How to organize tool- and method-adoption ?
+Accepting the idea that reengineering needs a business case, implies that one must take special care to convince software industry to adopt methods and tools. Here as well a practical and down-to-earth approach seems most appropriate. For instance, make sure that your tools and methods fit in well with existing business processes. Also, consider a "Trojan horse" approach by injecting tools, methods and students into existing projects. "Do the simplest thing that may possibly work" may serve as a guiding principle, especially concerning the trade-off between automated versus manual approaches.
+
+* What is the "big picture" of a system ?
+While reverse engineering there is often the need or goal for the "big picture" of the system. Concerning such an overview blueprint, the group agreed that the presence of UML as a de facto standard is a good thing, although we concluded that in itself UML is not sufficient. Something especially lacking is a format for exchanging "big pictures", the Big Picture eXchange Format (BPIXF) as we called it. Related to system blueprints is visualization in general, which is considered a good practice for program understanding. Especially because --as was experienced by all practitioners around the table-- documentation is and will always be incomplete. Given this insight, humans are necessary in any reengineering loop, yet the question when to inject human expertise remains an open one.
+
+* What makes object-oriented reengineering different from normal reengineering ?
+Although we did not tackle that question explicitly, some of the issues raised during the discussions were relevant in that context. For instance, people pointed out that combining static and dynamic analysis is much more relevant in object-oriented reengineering, because of later binding. Also, the issue of distribution becomes a lot more important as this often provides a business case for migrating towards objects.

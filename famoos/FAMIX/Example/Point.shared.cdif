@@ -1,0 +1,187 @@
+CDIF, SYNTAX "SYNTAX.1" "02.00.00", ENCODING "ENCODING.1" "02.00.00"
+#| This file contains a transfer with information according to the
+   FAMOOS Information Exchange (FAMIX) Model, see
+     http://www.iam.unibe.ch/~famoos/FAMIX/
+   using the CDIF standard for information exchange, see
+     http://www.eigroup.org/cdif/index.html
+|#
+
+(:HEADER
+    (:SUMMARY
+        (ExporterName     "sniff2famix")
+        (ExporterVersion  "1.1")
+        (ExporterDate     "1999/06/16")
+        (ExporterTime     "14.14.23")
+        (PublisherName    "unknown")
+        (ParsedSystemName "Point.shared")
+        (ReificationLevel "3")
+        (SourceLanguage   "Java")
+    )
+)
+
+(:META-MODEL
+
+    (:SUBJECTAREAREFERENCE Foundation
+        (:VERSIONNUMBER "01.00")
+    )
+
+    (:SUBJECTAREAREFERENCE FAMIX
+        (:VERSIONNUMBER "2.0")
+    )
+)
+
+(:MODEL
+
+(Class FM1
+	(name "Point")
+	(uniqueName "Point")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "Point.java" start 1 end 179|]#)
+)
+
+(Method FM2
+	(name "Point")
+	(belongsToClass "Point")
+	(uniqueName "Point.Point(int,int)")
+	(sourceAnchor #[file "Point.java" start 55 end 59|]#)
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(signature "Point(int,int)")
+	(isAbstract -FALSE-)
+	(isConstructor -TRUE-)
+	(declaredReturnType "")
+)
+
+(Method FM3
+	(name "getX")
+	(belongsToClass "Point")
+	(uniqueName "Point.getX()")
+	(sourceAnchor #[file "Point.java" start 113 end 116|]#)
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(signature "getX()")
+	(isAbstract -FALSE-)
+	(isConstructor -FALSE-)
+	(declaredReturnType "int")
+)
+
+(Method FM4
+	(name "getY")
+	(belongsToClass "Point")
+	(uniqueName "Point.getY()")
+	(sourceAnchor #[file "Point.java" start 152 end 155|]#)
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(signature "getY()")
+	(isAbstract -FALSE-)
+	(isConstructor -FALSE-)
+	(declaredReturnType "int")
+)
+
+(Access FM5
+	(accesses "Point._x")
+	(accessedIn "Point.Point(int,int)")
+)
+
+(Access FM6
+	(accesses "Point._y")
+	(accessedIn "Point.Point(int,int)")
+)
+
+(Access FM7
+	(accesses "Point._x")
+	(accessedIn "Point.getX()")
+)
+
+(Access FM8
+	(accesses "Point._y")
+	(accessedIn "Point.getY()")
+)
+
+(Attribute FM9
+	(name "_x")
+	(belongsToClass "Point")
+	(uniqueName "Point._x")
+	(sourceAnchor #[file "Point.java" start 37 end 38|]#)
+	(hasClassScope -FALSE-)
+	(declaredType "int")
+	(accessControlQualifier "private")
+)
+
+(Attribute FM10
+	(name "_y")
+	(belongsToClass "Point")
+	(uniqueName "Point._y")
+	(sourceAnchor #[file "Point.java" start 41 end 42|]#)
+	(hasClassScope -FALSE-)
+	(declaredType "int")
+	(accessControlQualifier "private")
+)
+
+(Class FM11
+	(name "ColoredPoint")
+	(uniqueName "ColoredPoint")
+	(isAbstract -FALSE-)
+	(sourceAnchor #[file "ColoredPoint.java" start 25 end 229|]#)
+)
+
+(InheritanceDefinition FM12
+	(subclass "ColoredPoint")
+	(superclass "Point")
+	(accessControlQualifier "private")
+	(index -NULL-)
+)
+
+(Method FM13
+	(name "ColoredPoint")
+	(belongsToClass "ColoredPoint")
+	(uniqueName "ColoredPoint.ColoredPoint(int,int,Color)")
+	(sourceAnchor #[file "ColoredPoint.java" start 102 end 113|]#)
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(signature "ColoredPoint(int,int,Color)")
+	(isAbstract -FALSE-)
+	(isConstructor -TRUE-)
+	(declaredReturnType "")
+)
+
+(Method FM14
+	(name "getColor")
+	(belongsToClass "ColoredPoint")
+	(uniqueName "ColoredPoint.getColor()")
+	(sourceAnchor #[file "ColoredPoint.java" start 194 end 201|]#)
+	(accessControlQualifier "public")
+	(hasClassScope -FALSE-)
+	(signature "getColor()")
+	(isAbstract -FALSE-)
+	(isConstructor -FALSE-)
+	(declaredReturnType "Color")
+)
+
+(Invocation FM15
+	(invokedBy "ColoredPoint.ColoredPoint(int,int,Color)")
+	(invokes "Point(int,int)")
+	(base "Point")
+)
+
+(Access FM16
+	(accesses "ColoredPoint._color")
+	(accessedIn "ColoredPoint.ColoredPoint(int,int,Color)")
+)
+
+(Access FM17
+	(accesses "ColoredPoint._color")
+	(accessedIn "ColoredPoint.getColor()")
+)
+
+(Attribute FM18
+	(name "_color")
+	(belongsToClass "ColoredPoint")
+	(uniqueName "ColoredPoint._color")
+	(sourceAnchor #[file "ColoredPoint.java" start 84 end 89|]#)
+	(hasClassScope -FALSE-)
+	(declaredType "Color")
+	(accessControlQualifier "private")
+)
+
+)

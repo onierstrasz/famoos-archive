@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+            "http://www.w3.org/TR/REC-html40/loose.dtd">
+
+<HTML>
+<!--
+Version History
+===============
++ 11.06.98: First page (stef)
++ 30.07.98: Second (with feedbackscript)
++ 10.08.98: Robb
++ 29.04.99: Replaced links to feedback page with e-mail; apparantly the
+  feedback page was removed (Serge)
++ 24.11.99: Serge, redid the whole page the point to the new reverse
+  and reengineering patterns part of the handbook
+-->
+
+<HEAD>
+	<TITLE>SCG / FAMOOS / Reengineering Patterns</TITLE>
+	<LINK REV="MADE" HREF="mailto:famoos@iam.unibe.ch">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<!-- MAIN-MENU -->
+<CENTER>
+	  <A HREF= "http://www.iam.unibe.ch/~famoos/">FAMOOS Home</A>
+	| <A HREF= "mailto:famoos@iam.unibe.ch">E-mail Feedback</A>
+</CENTER>
+<HR>
+
+<!-- /MAIN-MENU -->
+<TABLE>
+<TR>
+
+  <TD VALIGN=TOP>
+  <A HREF = "../">
+   <IMG ALT="FAMOOS Logo" SRC="../Images/bigfamoos.gif" WIDTH=75 HEIGHT=83 ALIGN=left BORDER=0 >
+  </A>
+  </TD>
+
+  <TD>
+  <EM>Last revision: November, 25th 1999</EM>
+
+<H1>SCG / FAMOOS / Reengineering Patterns</H1>
+
+<P>This document collects a number of reengineering patterns
+explaining you possible approaches for reengineering (or reverse
+engineering) object-oriented legacy systems.
+
+<BR>Don't forget to <A HREF =
+"http://www.dcs.ed.ac.uk/home/pxs/reengineering-patterns.html"> join
+the reengineering mailing list hosted at Edinburgh</a> and <A
+HREF="mailto:famoos@iam.unibe.ch">to send us feedback about the
+patterns.</A></P>
+
+
+
+  </TD>
+
+</TR>
+</TABLE>
+
+<HR>
+
+<H2>Current Status</H2>
+
+<P>The current reengineering patterns are all <EM>canditate</EM>
+reengineering patterns. This means that they need further iterations
+and to become full-blown reengineering patterns. Some of them have
+been workshopped at EuroPLOP'98 and EuroPLOP'99 but we are actively
+looking for other places to obtain feedback, that's why we make
+everything available on the web.</P>
+
+<!--
+<P>We also maintain a list of 'work in progress' patterns in a
+wiki-web page. You can check this out at <A HREF =
+"../../../cgi-bin/scgwiki.cgi?ReverseEngineeringAndReengineeringPatterns">http://www.iam.unibe.ch/~scg/cgi-bin/scgwiki.cgi</A></P>
+-->
+<DL>
+
+<DT><EM>Type Check Elimination</EM></DT>
+
+<DD>These two patterns tell you how you might eliminate
+type-checks by exploiting polymorphic features in OO languages.
+<UL>
+
+  <LI>Most recent version as part of the <A HREF =
+  "../handbook/">FAMOOS handbook</A> [<A HREF = "typeelem.pdf">PDF</A> | <A HREF = 
+"typeelem.ps.gz">compressed postcript</A>] </LI>
+
+  <LI>Version as accepted on the Working Conference on Reverse
+   Engineering 1999 (WCRE'99) [<A HREF =
+   "../Duca99c/">index</A>]</LI>
+
+  <LI>Version after being workshopped at EuroPLOP'98 [<A HREF =
+   "../Duca98b/">index</A>]</LI>
+
+
+</UL>
+</DD>
+
+  <DT><EM>A Pattern Language for Reverse Engineering</EM></DT>
+
+<DD>This is an (incomplete) pattern language explaining you how to
+reverse engineer an object-oriented legacy system, going from the
+first contact you have with the system (i.e., Read All the Code in One
+Hour), up untill you are preparing to actually reengineer the system
+(i.e., Write the Tests).
+
+<UL>
+
+  <LI>Most recent version as part of the <A HREF =
+  "../handbook/">FAMOOS handbook</A> [<A HREF = "reveng.pdf">PDF</A> | <A HREF = 
+"reveng.ps.gz">compressed postcript</A>] </LI>
+
+  <LI>Version after being workshopped at EuroPLOP'99 [<A HREF = "../Deme99n/">index</A>]</LI>
+
+</UL>
+</DD>
+
+
+  <DT><EM>Other Reengineering Patterns</EM></DT>
+
+<DD>Some other reengineering patterns, among others dealing with
+<EM>Code Duplication</EM> and <EM>Improving Flexibility</EM>.
+
+<UL>
+
+  <LI>Most recent version as part of the <A HREF =
+  "../handbook/">FAMOOS handbook</A> [<A HREF = "other.pdf">PDF</A> | <A HREF = 
+"other.ps.gz">compressed postcript</A>] </LI>
+
+</UL>
+</DD>
+
+</DL>
+
+<H2>The Future</H2>
+We are currently rewriting these patterns to form a handbook on
+object-oriented reengineering. The working title is 'Object-Oriented
+Reengineering: A Pattern-based Approach' and it is expected to appear
+in the first quarter of 2001.
+
+<!--
+<H2> We Need Your Feedback! </H2>
+<P>The candidate patterns need to be improved. That's why we need your help. 
+
+If you: 
+<UL>
+<LI> Like the patterns,</LI>
+<LI> Dislike the patterns,</LI>
+<LI> Have applied other patterns or these patterns, </LI>
+<LI> Any kind of comments, </LI>
+</UL>
+
+... please do not hesitate to write us. Send us e-mail (<A
+HREF="mailto:famoos@iam.unibe.ch">famoos@iam.unibe.ch</A>)
+containing your feedback, or check out the '<A HREF =
+"../../../cgi-bin/scgwiki.cgi?ReverseEngineeringAndReengineeringPatterns">work
+in progress</A>' patterns to see where we are heading.
+-->
+
+<H2>Submitting your own Reengineering Patterns</H2>
+
+<P>We are also interested in other reengineering patterns.  So if you
+experience in applying reengineering patterns or with reengineering
+techniques write us about your experience. We welcome patterns from
+any author wishing to contribute.  If you have an idea and you are
+looking for a co-author, we would also be interested.</P>
+
+<H2> Related Web Page </H2>
+
+<P>We are in contact with Perdita Stevens and Rob Pooley at University of
+Edinburgh. They are also working on reengineering patterns. So do not
+hesitate to register to their mailing list and to read their patterns
+at <A HREF =
+"http://www.dcs.ed.ac.uk/home/pxs/reengineering-patterns.html"
+>http://www.dcs.ed.ac.uk/home/pxs/reengineering-patterns.html</A>.</P>
+
+<P>More information about patterns in general can be obtained at <A
+HREF = "http://hillside.net/patterns/patterns.html"
+>http://hillside.net/patterns/patterns.html </A> </P>
+
+
+<H2> Acknowledgements</H2>
+<P>This work has been funded by the Swiss Government under Project
+no. NFS-2000-46947.96 and BBW-96.0015 as well as by the European Union under
+the FAMOOS ESPRIT Project no. 21975.
+</P>
+
+
+
+<!-- MAIN-MENU -->
+<HR>
+<CENTER>
+	  <A HREF= "http://www.iam.unibe.ch/~famoos/">FAMOOS Home</A>
+	| <A HREF= "mailto:famoos@iam.unibe.ch">E-mail Feedback</A>
+</CENTER>
+<!-- /MAIN-MENU -->
+
+</BODY>
+
+</HTML>
