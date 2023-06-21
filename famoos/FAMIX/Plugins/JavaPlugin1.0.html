@@ -66,7 +66,7 @@
 <CODE><LI>SourceLanguage<BR>
 For Java models this attribute always contains the string &quot;Java&quot;.</LI>
 <LI>SourceDialect<BR>
-The Java language doesn’t really have dialects, but it has versions. If known, this version can be stored in this attribute. The possibly interesting issues for FAMIX on the language-feature-and-syntax level (as opposed to added libraries) between the different versions are:<BR>
+The Java language doesnÂ’t really have dialects, but it has versions. If known, this version can be stored in this attribute. The possibly interesting issues for FAMIX on the language-feature-and-syntax level (as opposed to added libraries) between the different versions are:<BR>
 1.0.x -&gt; 1.1.x: &#9;- Addition of inner classes (including anonymous ones)<BR>
 &#9;&#9;&#9;- Final method parameters and local variables<BR>
 1.1.x -&gt; 1.2.x:&#9;- Addition of a new keyword (strictfp)</LI></UL>
@@ -124,7 +124,7 @@ Is a predicate telling if the class is defined public or not. Public (as opposed
 <LI>isFinal: Boolean; optional<BR>
 Is a predicate telling if the class is defined final or not. Final classes cannot be subclassed (and subsequently its methods cannot be overridden). Interfaces cannot be final.</LI>
 <LI>isAbstract<BR>
-In Java a class is abstract if the class is declared abstract. This is obligoraty if one or more of its methods are abstract. Even if the class does not contain any abstract methods, it can be declared abstract, implying that  the class is not allowed to be instantiated. Interfaces are always abstract, but don’t have to be declared as such (although you may if you want to).</LI>
+In Java a class is abstract if the class is declared abstract. This is obligoraty if one or more of its methods are abstract. Even if the class does not contain any abstract methods, it can be declared abstract, implying that  the class is not allowed to be instantiated. Interfaces are always abstract, but donÂ’t have to be declared as such (although you may if you want to).</LI>
 <LI>belongsToPackage<BR>
 </CODE>The package to which a class belongs is defined by the package statement at the beginning of a Java source file that also contains the class definition.</LI></UL>
 
@@ -203,7 +203,7 @@ Is a predicate telling if the method is defined native or not. Native methods ar
 <LI>hasClassScope<BR>
 </CODE>A method in Java has class scope if it is defined static.</LI>
 <CODE><LI>isAbstract<BR>
-</CODE>A method is abstract, if it is declared abstract with the abstract keyword. An abstract method in Java doesn’t have an implementation.</LI>
+</CODE>A method is abstract, if it is declared abstract with the abstract keyword. An abstract method in Java doesnÂ’t have an implementation.</LI>
 <CODE><LI>isConstructor<BR>
 </CODE>A constructor in Java has the form of a method with no declared return type and a name identical to the name of the class it belongs to.</LI></UL>
 
@@ -259,7 +259,7 @@ This attribute contains the unique name of the FAMIX class entity (which is a Ja
 <CODE><LI>isFinal: Boolean; optional<BR>
 Is a predicate telling if the attribute is defined final or not. Final attributes are set only once and cannot be changed afterwards.</LI>
 <LI>isTransient: Boolean; optional<BR>
-Is a predicate telling if the (non-static) attribute is defined transient or not. Transient indicates that an attribute is not part of an object’s persistent state and thus needs not to be serialized with the object.</LI>
+Is a predicate telling if the (non-static) attribute is defined transient or not. Transient indicates that an attribute is not part of an objectÂ’s persistent state and thus needs not to be serialized with the object.</LI>
 <LI>isVolatile: Boolean; optional<BR>
 Is a predicate telling if the attribute is defined volatile or not. Volatile specifies that an attribute is used by synchronized threads and that the compiler should not attempt to  perform optimizations with it.</LI>
 <LI>hasClassScope<BR>
@@ -341,7 +341,7 @@ Is a predicate telling if the attribute is defined final or not. Final parameter
 </TABLE>
 
 <B><P><A NAME="_Toc460243279">Figure 12: InheritanceDefinition</A></P>
-</B><P>In Java classes always inherit from a single class (except the root class Object that doesn’t inherit from any class). A class can <I>implement</I> multiple interfaces, which simulates some kind of multiple inheritance, but as interfaces do not have any implementation, resolving which method needs to be executed, is not a problem. Interfaces can inherit from multiple interfaces. In FAMIX classes and interfaces are treated similarly, as shown by the fact that they are both represented as classes, therefore both class inheritance and interface implementation is represented by an InheritanceDefinition in FAMIX.</P>
+</B><P>In Java classes always inherit from a single class (except the root class Object that doesnÂ’t inherit from any class). A class can <I>implement</I> multiple interfaces, which simulates some kind of multiple inheritance, but as interfaces do not have any implementation, resolving which method needs to be executed, is not a problem. Interfaces can inherit from multiple interfaces. In FAMIX classes and interfaces are treated similarly, as shown by the fact that they are both represented as classes, therefore both class inheritance and interface implementation is represented by an InheritanceDefinition in FAMIX.</P>
 <P>The new or modified attributes are:</P>
 
 <UL>
@@ -376,7 +376,7 @@ Is a predicate telling if the attribute is defined final or not. Final parameter
 <CODE><LI>base<BR>
 In Java this attribute contains t</CODE>he statically determinable class of the expression receiving the invocation. For example:<BR>
 &#9;<CODE>MyClass r = new MyClass();<BR>
-&#9;…<BR>
+&#9;Â…<BR>
 &#9;r.m();<BR>
 Then MyClass is the receiving class (and thus the base) of this invocation. </LI>
 <LI>candidates<BR>
@@ -424,7 +424,7 @@ For invocations the candidates attribute holds either all methods overriding the
 
 <LI><A NAME="_Ref460140161"><A NAME="_Toc460243256"><B><FONT SIZE=5>Miscellaneous</A></A></LI>
 </B></FONT><P>Java does not have functions or global variables, thus those entities will never appear in a FAMIX model of a Java system. Next to that, arrays and primitive types are not handled explicitly in this FAMIX extension either.</P>
-<P>Then there is a minor issue about file visibility. Normally a class with  default visibility is visible within its  package. However, when such a class is defined in the same file of another class <I>and</I> the name of the file is the same as the name of the other with the .java extension <I>and</I> theses classes are not defined in the default package, then the class is <I>not</I> visible outside the file, even to classes in the same package that are defined in other files. This issue is not dealed with in this Java language plug-in, because it’s a minor issue and in model transfers we assume a compilable system anyway.</P>
+<P>Then there is a minor issue about file visibility. Normally a class with  default visibility is visible within its  package. However, when such a class is defined in the same file of another class <I>and</I> the name of the file is the same as the name of the other with the .java extension <I>and</I> theses classes are not defined in the default package, then the class is <I>not</I> visible outside the file, even to classes in the same package that are defined in other files. This issue is not dealed with in this Java language plug-in, because itÂ’s a minor issue and in model transfers we assume a compilable system anyway.</P>
 <LI><A NAME="_Ref460140083"><A NAME="_Toc460243257"><B><FONT SIZE=5>Pending issues</A></A></LI></OL>
 
 </B></FONT><P>Issues  not yet covered in this plug-in are:</P>
@@ -458,7 +458,7 @@ Implicit methods could be introduces with an isImplicit attribute for methods an
 <TR><TD WIDTH="35%" VALIGN="TOP">
 <STRONG><P>Deliverable Id:</STRONG></TD>
 <TD WIDTH="65%" VALIGN="TOP">
-<P>D 2.2 – FINALFHB Final FAMOOS Methodology Handbook</TD>
+<P>D 2.2 Â– FINALFHB Final FAMOOS Methodology Handbook</TD>
 </TR>
 <TR><TD WIDTH="35%" VALIGN="TOP">
 <STRONG><P>Date for delivery:</STRONG></TD>

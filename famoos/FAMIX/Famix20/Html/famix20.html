@@ -30,7 +30,7 @@
 
 <P><IMG SRC="Image224.gif" WIDTH=595 HEIGHT=179></P>
 <B><P><A NAME="_Ref422565572"><A NAME="_Toc460240189">Figure 1</A></A>: FAMOOS reengineering life cycle</A></A></P>
-</B><P>To realise that life cycle, three research areas –which are likely to furnish solutions– have been investigated. To understand the context of this work, check out [WHYFAMIX].</P>
+</B><P>To realise that life cycle, three research areas Â–which are likely to furnish solutionsÂ– have been investigated. To understand the context of this work, check out [WHYFAMIX].</P>
 <DL>
 <DT>Metrics &amp; Heuristics [DETECTM]</DT>
 <DD>Applied in phase (3) to identify problems and phase (4) to measure improvement.</DD>
@@ -58,7 +58,7 @@
 <EM><LI>Simple to process.</EM> As the exchange format will be fed into a wide variety of tool prototypes, the format itself should be quite easy to convert into the internal data structures of those prototypes. On top of that, processing by "standard" file utilities (i.e., grep, sed) and scripting languages (i.e., perl, python) must be easy since they may be necessary to cope with format mismatches.</LI>
 <EM><LI>Convenient for querying.</EM> A large portion of reengineering is devoted to the search for information. The representation should be chosen so that it may easily be transformed into an input-stream for querying tools (i.e., spreadsheets and databases).</LI>
 <EM><LI>Human readable.</EM> The exchange format will be employed by (buggy) prototypes. To ease debugging, the format itself should be readable by humans. Especially, references between entities should be by name rather than by identifiers bearing no semantics.</LI>
-<EM><LI>Allows combination with information from other sources.</EM> Although most of the data model will be extracted from source code, we expect that other origins can provide input as well. Especially CASE tools with design diagrams (e.g., TDE or Rational/Rose) are likely candidates. Thus, the representation should allow merging information from other origins. Note that —just like with the "human readable" requirement— this implies that references between entities should be by name rather than by identifiers bearing no semantics.</LI>
+<EM><LI>Allows combination with information from other sources.</EM> Although most of the data model will be extracted from source code, we expect that other origins can provide input as well. Especially CASE tools with design diagrams (e.g., TDE or Rational/Rose) are likely candidates. Thus, the representation should allow merging information from other origins. Note that Â—just like with the "human readable" requirementÂ— this implies that references between entities should be by name rather than by identifiers bearing no semantics.</LI>
 <EM><LI>Supports industry standards.</EM> Since the tool prototypes must be utilised within an industry context, they must integrate with whatever tools already in use. Ad hoc exchange formats (even when they can be translated with scripts) hinder such integration, and --when available-- the representation should favour an industry standard.</LI></OL>
 
 <H2><A NAME="_Toc460240140">3) CDIF Transfer Format</A></H2>
@@ -77,7 +77,7 @@
 <B><P><A NAME="_Ref423492991"><A NAME="_Toc460240192">Figure 4</A>:  Basic structure of the complete model</A></P>
 </B><P>In the following sections we describe the different entities with their attributes, and how these entities are represented in the CDIF transfer format. Some of the attributes might not appear in the CDIF format. Mandatory attributes always appear. Optional attributes that do not appear, have either a default value or are unknown. </P>
 <H3><A NAME="_Toc460240144">4.3. Basic Data Types</A></H3>
-<P>Besides the usual primitive data types (String, Integer, Boolean…) we have a number of extra data types in our model that are considered "basic". These are <CODE>Name</CODE>, <CODE>Qualifier and Index:</P>
+<P>Besides the usual primitive data types (String, Integer, BooleanÂ…) we have a number of extra data types in our model that are considered "basic". These are <CODE>Name</CODE>, <CODE>Qualifier and Index:</P>
 
 <UL>
 <LI>Name</CODE> vs. <CODE>Qualifier</CODE><BR>
@@ -189,11 +189,11 @@ Identifies the location in the source where the information is extracted.<BR>
 The exact format of the qualifier is dependent on the source of the information. Usually, it will be an anchor in a source file, in which case the following format should be used<BR>
 &#9;<CODE>file "&lt;filespec&gt;" start &lt;start_index&gt; end &lt;end_index&gt;</CODE>.<BR>
 Where &lt;<CODE>filespec</CODE>&gt; is a string holding the name of the source-file in an operating system dependent format (preferably a filename relative to some project directory). Note that filenames may contain spaces and double quotation marks. A double quotation mark in a filename should be escaped with a <FONT FACE="Courier New" SIZE=2>\"</FONT>. &lt;<CODE>start_index</CODE>&gt; and &lt;<CODE>end_index</CODE>&gt; are indices starting at 1 and holding the beginning/ending character position in the source file.<BR>
-Extra position indices or whole source anchors may be added to handle anchors in files that may need to be displayed with external editors. For instance, the line and column of the character (<CODE>startline</CODE>, <CODE>startcol</CODE>, <CODE>endline</CODE>, <CODE>endcol</CODE>). Or the negative offset counting from the end of the file instead of from the beginning (<CODE>negstart</CODE>, <CODE>negend</CODE>). In CDIF a basic source anchor looks as follows (delimited with a ‘|’, see appendix "A. Clarifications on the CDIF Encoding" - p.<A HREF="#MultivaluedStrings">*</A> for a description of multi-valued strings in CDIF):<BR>
+Extra position indices or whole source anchors may be added to handle anchors in files that may need to be displayed with external editors. For instance, the line and column of the character (<CODE>startline</CODE>, <CODE>startcol</CODE>, <CODE>endline</CODE>, <CODE>endcol</CODE>). Or the negative offset counting from the end of the file instead of from the beginning (<CODE>negstart</CODE>, <CODE>negend</CODE>). In CDIF a basic source anchor looks as follows (delimited with a Â‘|Â’, see appendix "A. Clarifications on the CDIF Encoding" - p.<A HREF="#MultivaluedStrings">*</A> for a description of multi-valued strings in CDIF):<BR>
 <BR>
 <CODE>(sourceAnchor #[file "factory.h" start 260 end 653|]#)</LI>
 <LI>comments: 0..N String; optional</CODE><BR>
-Entities and associations may own a number of comments, where developers and tools store textual information about the object. In CDIF we represent this with a CDIF TextValue, where the blocks are delimited by a ‘|’ (see appendix "A. Clarifications on the CDIF Encoding" - p.<A HREF="#MultivaluedStrings">*</A> for a description of multi-valued strings in CDIF):<BR>
+Entities and associations may own a number of comments, where developers and tools store textual information about the object. In CDIF we represent this with a CDIF TextValue, where the blocks are delimited by a Â‘|Â’ (see appendix "A. Clarifications on the CDIF Encoding" - p.<A HREF="#MultivaluedStrings">*</A> for a description of multi-valued strings in CDIF):<BR>
 <BR>
 <CODE>(comments #[commentLines|]#,#[commentLines|]#,...)</LI></UL>
 
@@ -371,7 +371,7 @@ declaredReturnClass (): Name</TD>
 
 <UL>
 <LI>accessControlQualifier: Qualifier; optional</CODE><BR>
-Is a string with a language dependent interpretation, that defines who is allowed to invoke it (for instance, 'public', 'private'…).</LI>
+Is a string with a language dependent interpretation, that defines who is allowed to invoke it (for instance, 'public', 'private'Â…).</LI>
 <CODE><LI>signature: Qualifier; mandatory</CODE><BR>
 Is a string that allows to uniquely distinguish a behavioural entity. This is necessary because there exist OO languages (i.e., C++, Java) that allow to overload methods, so that the same method name may be associated with different parameter lists, each with its own method body. The way a signature string is composed is language dependent, but it should at least include the name of the method. The UML [Booc96a] compliant notation will be used, which will typically look like (see also 4.4. Naming Conventions - p. <A HREF="#namingConventions">*</A>) "<CODE>package::subpackage::classname.methodname(parameters)</CODE>" .</LI>
 <CODE><LI>isPureAccessor: Boolean; optional</CODE><BR>
@@ -511,7 +511,7 @@ hasClassScope (): Boolean</TD>
 <CODE><LI>belongsToClass: Name; mandatory</CODE><BR>
 Is a name referring to the class owning the attribute. It uses the uniqueName of the class as a reference.</LI>
 <CODE><LI>accessControlQualifier: Qualifier; optional</CODE><BR>
-Is a string with a language dependent interpretation, that defines who is allowed to access it (for instance, 'public', 'private'…).</LI></UL>
+Is a string with a language dependent interpretation, that defines who is allowed to access it (for instance, 'public', 'private'Â…).</LI></UL>
 
 
 <UL>
@@ -706,7 +706,7 @@ Is a name referring to the class that inherits. It uses the uniqueName of the cl
 <CODE><LI>superclass: Name; mandatory</CODE><BR>
 Is a name referring to the class that is inherited from. It uses the uniqueName of the class as a reference.</LI>
 <CODE><LI>accessControlQualifier: Qualifier; optional</CODE><BR>
-Is a string with a language dependent interpretation, that defines how subclasses access their superclasses (for instance, 'public', 'private'…).</LI>
+Is a string with a language dependent interpretation, that defines how subclasses access their superclasses (for instance, 'public', 'private'Â…).</LI>
 <CODE><LI>index: Index; optional</CODE><BR>
 In languages with multiple inheritance, this is the position of the superclass in the list of superclasses of one subclass. Usually this will have a null value, but it may be necessary for OO languages with multiple inheritance that resolve name collisions via the order of the superclasses (e.g., CLOS).</LI></UL>
 
@@ -730,7 +730,7 @@ isAccessLValue (): Boolean </TD>
 </TABLE>
 
 <B><P><A NAME="_Toc410624949"><A NAME="_Toc460240209">Figure 21: Access</A></A></P>
-</B><P>An <CODE>Access</CODE> represents the definition in source code of a <CODE>BehaviouralEntity</CODE> accessing a <CODE>StructuralEntity</CODE>. Depending on the level of extraction (see Table 1, p. <A HREF="#_Ref415979649">*</A>), that <CODE>StructuralEntity</CODE> may be an attribute, a local variable, an argument, a global variable…. What exactly constitutes such a definition is a language dependent issue. However, when the same structural entity is accessed more than once in a method body, then parsers should generate a separate access-association for each occurrence.</P>
+</B><P>An <CODE>Access</CODE> represents the definition in source code of a <CODE>BehaviouralEntity</CODE> accessing a <CODE>StructuralEntity</CODE>. Depending on the level of extraction (see Table 1, p. <A HREF="#_Ref415979649">*</A>), that <CODE>StructuralEntity</CODE> may be an attribute, a local variable, an argument, a global variableÂ…. What exactly constitutes such a definition is a language dependent issue. However, when the same structural entity is accessed more than once in a method body, then parsers should generate a separate access-association for each occurrence.</P>
 <P>Access is a concrete class inheriting from Association . Besides inherited attributes, it has the following attributes:</P>
 
 <UL>
@@ -882,10 +882,10 @@ The position of the argument in the list of arguments. Language plug-ins should 
 <H1><A NAME="_Toc460240173">Appendices</A></H1></DIR>
 
 <H2><A NAME="ClarifyCDIF"><A NAME="_Toc460240174">A. Clarifications on the CDIF Encoding</A></A></H2>
-<P>To satisfy the requirements for information exchange between tools (see "Requirements Specification" - p.<A HREF="#_Ref410210475">*</A>), we choose the CDIF standard as the basis for transferring information between tools. This choice at least satisfies the "supports industry standards" and the "extensible" requirements. Moreover, CDIF is open with respect to the specific format for a transfer, or —to state it in CDIF terminology— allows for different syntaxes and encodings.  By adopting the CDIF syntax SYNTAX.1 with the plain text encoding ENCODING.1 (see [CDIF94b] and [CDIF94c]), we also satisfy the "human readable" and "simple to process" requirements.</P>
+<P>To satisfy the requirements for information exchange between tools (see "Requirements Specification" - p.<A HREF="#_Ref410210475">*</A>), we choose the CDIF standard as the basis for transferring information between tools. This choice at least satisfies the "supports industry standards" and the "extensible" requirements. Moreover, CDIF is open with respect to the specific format for a transfer, or Â—to state it in CDIF terminologyÂ— allows for different syntaxes and encodings.  By adopting the CDIF syntax SYNTAX.1 with the plain text encoding ENCODING.1 (see [CDIF94b] and [CDIF94c]), we also satisfy the "human readable" and "simple to process" requirements.</P>
 <P>CDIF has proven to be a proper solution for our purposes. However, the explicit definition of associations and the lack of multi-valued string attributes leads to verbose transfers that are difficult to read for humans and hinders the merging of information coming from different sources. Also, there are some things we found unclear while reading the CDIF specifications.  Therefore, this part of the appendix describes our interpretation of the CDIF standard.</P>
 <H3><A NAME="_Toc460240175">A.1. Avoid Explicit Relationships</A></H3>
-<P>We avoid explicit relationships for the core model (see Figure 3).This might seem a bit strange at first, but our experiments have shown that heavy use of  CDIF relationships compromises the readability of the document a lot. First of all, information gets scattered around in the transfer instead of being nicely encapsulated in the entity it belongs to. And second, CDIF relationships employ meaningless identifiers –unique within a transfer only– instead of references by name. The latter also hinders the combination of information from different sources. </P>
+<P>We avoid explicit relationships for the core model (see Figure 3).This might seem a bit strange at first, but our experiments have shown that heavy use of  CDIF relationships compromises the readability of the document a lot. First of all, information gets scattered around in the transfer instead of being nicely encapsulated in the entity it belongs to. And second, CDIF relationships employ meaningless identifiers Â–unique within a transfer onlyÂ– instead of references by name. The latter also hinders the combination of information from different sources. </P>
 <P>Below is an example of how we encapsulate a "belongsToClass" attribute in Method, instead of defining an explicit "Class.HasMethod.Method" relationship and instantiating it for every Class/Method association. Thus we get ...</P>
 <PRE>&#9;(Method FM35<BR>
 &#9;&#9;(name "print")<BR>
@@ -906,7 +906,7 @@ The position of the argument in the list of arguments. Language plug-ins should 
 &#9;(Class.HasMethod.Entity FM56 FM17 FM35)</PRE>
 <H3><A NAME="MultivaluedStrings"><A NAME="_Toc460240176">A.2. Allow multi-valued String Attributes</A></A></H3>
 <P>To deal with many-to-1 relationships we need multi-valued string attributes. Indeed, we avoid explicit relationships to enhance the readability of a document and to ease combination of information from different sources. However, using a string attribute to encode a relationship (like we did above) only allows for 1-to-many relationships.</P>
-<P>CDIF provides IntegerList and PointList in its set of basic data types, thus —in principle— CDIF permits the use of multi-valued attributes. Unfortunately, there is no basic data type that copes with multi-valued strings. Yet, the CDIF "TextValue" data type comes near, thus in some rare occasions we interpret "TextValue" as a multi-valued text attribute.</P>
+<P>CDIF provides IntegerList and PointList in its set of basic data types, thus Â—in principleÂ— CDIF permits the use of multi-valued attributes. Unfortunately, there is no basic data type that copes with multi-valued strings. Yet, the CDIF "TextValue" data type comes near, thus in some rare occasions we interpret "TextValue" as a multi-valued text attribute.</P>
 <P>In the original CDIF standard, a TextValue denotes a set of characters which is divided into blocks with a maximum of 1024 characters. The beginning of each block is marked by "#[" while the end is marked by "]#". The actual value of the text is the concatenation of the blocks.</P>
 <P>To represent a multi-valued string attribute with a TextValue, we interpret each block in a TextValue as a separate string. Also, we require that each one of those strings must append a special delimiter character (which is "|") to its end so that the original multi-valued strings can be retrieved from the concatenated blocks. In the (unlikely) situation that a &quot;|&quot; appears in a string value it should be escaped with &quot;\|&quot;. Thus we get ...</P>
 <PRE>&#9;(Invocation FM35<BR>
@@ -972,7 +972,7 @@ The position of the argument in the list of arguments. Language plug-ins should 
 <TR><TD WIDTH="35%" VALIGN="TOP">
 <STRONG><P>Deliverable Id:</STRONG></TD>
 <TD WIDTH="65%" VALIGN="TOP">
-<P>D 2.2 – FINALFHB Final FAMOOS Methodology Handbook</TD>
+<P>D 2.2 Â– FINALFHB Final FAMOOS Methodology Handbook</TD>
 </TR>
 <TR><TD WIDTH="35%" VALIGN="TOP">
 <STRONG><P>Date for delivery:</STRONG></TD>
@@ -1076,7 +1076,7 @@ Document is now ready for reviewing and defining language plug-ins.</TD>
 - added Object and Property entity<BR>
 - converged meta-meta-model and meta-model in one model<BR>
 - changed "level of reification" into  "level of extraction"<BR>
-– all kinds of small changes</LI>
+Â– all kinds of small changes</LI>
 <LI>Included CDIF examples and the complete model definition in CDIF as an appendix</UL>
 </TD>
 </TR>

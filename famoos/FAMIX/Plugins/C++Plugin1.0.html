@@ -37,7 +37,7 @@
 <UL>
 <LI>New classes are added to the basic FAMIX model to model entities and associations unique to C++. These classes are marked as new entities and new associations respectively.</LI>
 <LI>New attributes are added to existing classes of the basic FAMIX model. In this case the class is marked "modified" and only the new and modified (see below) attributes are listed in the definition of the modified class.</LI>
-<LI>The definition of attributes of existing classes are modified or their syntax and semantics are instantiated for C++. The instantiation case mostly occurs for attribute definitions in the core model having a phrase like &quot;… is a language dependent issue&quot;.<BR>
+<LI>The definition of attributes of existing classes are modified or their syntax and semantics are instantiated for C++. The instantiation case mostly occurs for attribute definitions in the core model having a phrase like &quot;Â… is a language dependent issue&quot;.<BR>
 Like with new attributes the corresponding class is marked "modified" and the modified attributes are listed in the definition of the modified class. To discriminate modified from new attributes, modified attributes are listed without any type information since that information isn't modified anyway.</LI></UL>
 
 <OL>
@@ -66,7 +66,7 @@ Like with new attributes the corresponding class is marked "modified" and the mo
 in contrast to a class declaration of the form:<BR>
 <CODE>class A;</P>
 </CODE><P>Structures (<CODE>struct</CODE>) are modelled as classes. They differ only from classes in their members and base classes being public by default in spite of private in the case of classes. So only the parser must know the difference between classes and structures.</P>
-<P>Unions (<CODE>union</CODE>) are also modelled as classes. They are a kind of restricted classes: they can’t have any base classes, can’t be used as base classes, have no virtual methods, have no static methods or attributes. For a detailed description of all restrictions to unions please refer to [ISO98].</P>
+<P>Unions (<CODE>union</CODE>) are also modelled as classes. They are a kind of restricted classes: they canÂ’t have any base classes, canÂ’t be used as base classes, have no virtual methods, have no static methods or attributes. For a detailed description of all restrictions to unions please refer to [ISO98].</P>
 <P>The new or modified attributes are:</P>
 
 <UL>
@@ -103,7 +103,7 @@ In C++ a class is abstract, iff at least one of its methods is abstract.</LI></U
 <UL>
 <CODE><LI>baseType: Name; optional<BR>
 The core model defines the totally not interpreted attribute declaredReturnType and the attribute declaredReturnClass, which refers to the class in the return type declaration of the Behavioural Entity, if there is any. For Behavioural Entities with a fundamental return type, for example, there is no declared class. The new attribute baseReturnType is similar to the declaredReturnClass attribute: it refers to the <I>most specific type representable</I> in the language model, i.e., core model plus language plug-in. If we have C* f()</CODE> in the source code, the baseReturnType of f is class C with the current language plug-in. If future versions of the C++ plug-in would also define pointers as type entities, the baseReturnType would refer an array entity referring to the class C.<BR>
-baseReturnType can’t replace declaredReturnClass, because generic FAMIX readers wouldn’t see the class C, where the type declaration ends, because they don’t know the intermediate pointer entity.</LI></UL>
+baseReturnType canÂ’t replace declaredReturnClass, because generic FAMIX readers wouldnÂ’t see the class C, where the type declaration ends, because they donÂ’t know the intermediate pointer entity.</LI></UL>
 
 
 <UL>
@@ -155,7 +155,7 @@ The two behavioural entities, Method and Function, have different sets of allowe
 <CODE><LI>isVirtual: Boolean; optional<BR>
 </CODE>Indicates whether or not the method is declared virtual.</LI>
 <CODE><LI>isConst: Boolean; optional<BR>
-</CODE>Indicates whether or not the method is declared constant. Constant methods assert, that they do not alter the object’s attributes, so that they can safely be called upon constant objects.</LI>
+</CODE>Indicates whether or not the method is declared constant. Constant methods assert, that they do not alter the objectÂ’s attributes, so that they can safely be called upon constant objects.</LI>
 <CODE><LI>accessControlQualifier<BR>
 </CODE>The allowed access qualifiers are: <CODE>public</CODE> (access for anyone), <CODE>protected</CODE> (access restricted to derived classes) and <CODE>private</CODE> <FONT SIZE=3>(access only from within the class).</LI>
 </FONT><CODE><LI>isAbstract<BR>
@@ -212,7 +212,7 @@ They i</CODE>ndicate whether the function is declared external, i.e. globally ac
 <UL>
 <CODE><LI>baseType: Name; optional<BR>
 The core model defines the totally not interpreted attribute declaredType and the attribute declaredClass, which refers to the class in the type declaration of the Structural Entity, if there is any. For Structural Entities of fundamental type, for example, there is no declared class. The new attribute baseType is similar to the declaredClass attribute: it refers to the <I>most specific type representable</I> in the language model, i.e. core model plus language plug-in. If we have C* a[]</CODE> in the source code, the baseType is class C with the current language plug-in. If future versions of the C++ plug-in would also define pointers and arrays as type entities, the baseType would refer an array entity referring to a pointer entity referring to the class C.<BR>
-BaseType can’t replace declaredClass, because generic FAMIX readers wouldn’t see the class C, where the type declaration ends, because they dont’t know the intermediate entities array and pointer.</LI>
+BaseType canÂ’t replace declaredClass, because generic FAMIX readers wouldnÂ’t see the class C, where the type declaration ends, because they dontÂ’t know the intermediate entities array and pointer.</LI>
 <CODE><LI>isConstant: Boolean; optional<BR>
 </CODE>The <CODE>const</CODE> modifier is used in type declarations to express that the declared object must not be altered after its initialisation. This information could be interesting, e.g., to search for variables not declared as constant but only accessed once for writing. In such cases it is likely that the variable is a constant indeed and could therefore declared constant. In doing so future modifications of the source code cannot accidentally alter this variable.</LI></UL>
 
@@ -289,7 +289,7 @@ They i</CODE>ndicate whether the variable is declared external, i.e. globally ac
 <CODE><LI>accessControlQualifier<BR>
 </CODE>The allowed access specifiers are: <CODE>public, protected, private</CODE>. The specifier sets the maximum access that clients of the derived class will have to the features of the base class.</LI>
 <CODE><LI>index<BR>
-</CODE>The index is always ´null´ as name collisions in C++ are not resolved by the order of the base classes.</LI></UL>
+</CODE>The index is always Â´nullÂ´ as name collisions in C++ are not resolved by the order of the base classes.</LI></UL>
 
 <OL>
 <OL>
@@ -315,9 +315,9 @@ They i</CODE>ndicate whether the variable is declared external, i.e. globally ac
 </CODE>The statically determinable class of the expression receiving the variable access. For example:<BR>
 <CODE>C* r;<BR>
 r-&gt;v = 0;<BR>
-Then C is the receiving class of this access. The receiving class is ´null´ for accesses to global variables. For accesses to local variables and to formal parameters the receiving class is the class the method defining the local variables resp. parameters belongs to, i.e. it is ´null´ for local variables and parameters of global methods (functions). The receiving class is referenced by its uniqueName.</LI>
+Then C is the receiving class of this access. The receiving class is Â´nullÂ´ for accesses to global variables. For accesses to local variables and to formal parameters the receiving class is the class the method defining the local variables resp. parameters belongs to, i.e. it is Â´nullÂ´ for local variables and parameters of global methods (functions). The receiving class is referenced by its uniqueName.</LI>
 <LI>receivingVariable: Name; optional<BR>
-</CODE>The variable r in the above example. <CODE>The receiving variable is ´null´ for accesses to global or local variables, to formal parameters and within "chain calls". For example the access to attr in r.m1().attr </CODE>has no receiving variable.<CODE> The receiving variable is referenced by its uniqueName.</LI></UL>
+</CODE>The variable r in the above example. <CODE>The receiving variable is Â´nullÂ´ for accesses to global or local variables, to formal parameters and within "chain calls". For example the access to attr in r.m1().attr </CODE>has no receiving variable.<CODE> The receiving variable is referenced by its uniqueName.</LI></UL>
 
 <OL>
 <OL>
@@ -340,7 +340,7 @@ Then C is the receiving class of this access. The receiving class is ´null´ for 
 
 <UL>
 <CODE><LI>receivingVariable: Name; optional<BR>
-</CODE>The variable r in the above example.<CODE> The receiving variable is ´null´ for invocations of static or global methods and within "chain calls". For example the call to m2 in r.m1().m2() </CODE>has no receiving variable.<CODE> The receiving variable is referenced by its uniqueName.<A NAME="_Ref428673064"></LI>
+</CODE>The variable r in the above example.<CODE> The receiving variable is Â´nullÂ´ for invocations of static or global methods and within "chain calls". For example the call to m2 in r.m1().m2() </CODE>has no receiving variable.<CODE> The receiving variable is referenced by its uniqueName.<A NAME="_Ref428673064"></LI>
 <LI>base: Name; optional<BR>
 In C++ this attribute contains t</CODE>he statically determinable class of the expression receiving the invocation. For example:<BR>
 <CODE>C* r;<BR>
@@ -656,8 +656,8 @@ If exceptions prove to be of interest we could model them as follows:</LI>
 
 <LI><A NAME="_Toc460241079"><B><FONT SIZE=5>References</A></LI></OL>
 
-</B></FONT><P>[<A NAME="Famix20">Deme99</A>]&#9;Serge Demeyer, Sander Tichelaar and Patrick Steyaert, FAMIX – The FAMOOS Information Exchange Model, version 2.0 alpha, July 1999. See <A HREF="http://www.iam.unibe.ch/~famoos/FAMIX/">http://www.iam.unibe.ch/~famoos/FAMIX/</A>.</P>
-<P>[<A NAME="CppStandard">ISO98</A>]&#9;International Standard ISO/IEC 14882, Programming Languages — C++, First Edition 1998-09-01, American Natinal Standards Institute, New York.</P>
+</B></FONT><P>[<A NAME="Famix20">Deme99</A>]&#9;Serge Demeyer, Sander Tichelaar and Patrick Steyaert, FAMIX Â– The FAMOOS Information Exchange Model, version 2.0 alpha, July 1999. See <A HREF="http://www.iam.unibe.ch/~famoos/FAMIX/">http://www.iam.unibe.ch/~famoos/FAMIX/</A>.</P>
+<P>[<A NAME="CppStandard">ISO98</A>]&#9;International Standard ISO/IEC 14882, Programming Languages Â— C++, First Edition 1998-09-01, American Natinal Standards Institute, New York.</P>
 <FONT FACE="Arial" SIZE=5><H1 ALIGN="CENTER">&nbsp;</H1>
 <H1 ALIGN="CENTER"><A NAME="_Toc460241080">Cover Pages</A></H1>
 </FONT><B><FONT FACE="Arial" SIZE=4><P ALIGN="CENTER">Achievement 2.4.1a</P>
@@ -672,7 +672,7 @@ If exceptions prove to be of interest we could model them as follows:</LI>
 <TR><TD WIDTH="35%" VALIGN="TOP">
 <STRONG><P>Deliverable Id:</STRONG></TD>
 <TD WIDTH="65%" VALIGN="TOP">
-<P>D 2.2 – FINALFHB Final FAMOOS Methodology Handbook</TD>
+<P>D 2.2 Â– FINALFHB Final FAMOOS Methodology Handbook</TD>
 </TR>
 <TR><TD WIDTH="35%" VALIGN="TOP">
 <STRONG><P>Date for delivery:</STRONG></TD>

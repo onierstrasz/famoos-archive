@@ -28,7 +28,7 @@
 
 <P><IMG SRC="Image154.gif" WIDTH=444 HEIGHT=191></P>
 <B><P><A NAME="_Ref408981443"><A NAME="_Ref410538773"><A NAME="_Toc415978431">Figure 1</A>: FAMOOS re-engineering life cycle</A></A></P>
-</B><P>To realise that life cycle, three research areas –which are likely to furnish solutions– have been selected for further investigation</P><DIR>
+</B><P>To realise that life cycle, three research areas Â–which are likely to furnish solutionsÂ– have been selected for further investigation</P><DIR>
 
 <DL>
 <DT>Metrics &amp; Heuristics [DETECTM]</DT>
@@ -180,7 +180,7 @@ Is a string that provides some human readable reference to an entity.</LI>
 Is a string that is computed based on the name of the entity. Each class must define its specific formula. The uniqueName serves as an external reference to that entity and must be unique for all entities in the model.</LI></UL>
 
 <H3><A NAME="_Toc415978401">4.4. Basic Data Types</A></H3>
-<P>Besides the usual primitive data types (String, Integer, Boolean…) there are a number of extra data types that are considered "basic". Note that all data types have the possibility of representing a null-value.</P>
+<P>Besides the usual primitive data types (String, Integer, BooleanÂ…) there are a number of extra data types that are considered "basic". Note that all data types have the possibility of representing a null-value.</P>
 <TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=548>
 <TR><TD WIDTH="31%" VALIGN="TOP">
 <B><P ALIGN="CENTER">Name</B></TD>
@@ -274,7 +274,7 @@ declaredReturnType (): Qualifier</TD>
 <CODE><LI>belongsToClass: Name; mandatory</CODE><BR>
 Is a name referring to the class owning the method. It uses the uniqueName of the class as a reference.</LI>
 <CODE><LI>accessControlQualifier: Qualifier; optional, default = 'null'</CODE><BR>
-Is a string with a language dependent interpretation, that defines who is allowed to invoke it (for instance, 'public', 'private'…).</LI>
+Is a string with a language dependent interpretation, that defines who is allowed to invoke it (for instance, 'public', 'private'Â…).</LI>
 <CODE><LI>hasClassScope: Boolean; optional, default = 'false'</CODE><BR>
 Is a predicate telling whether the method has class scope (i.e., invoked on the class) or instance scope (i.e., invoked on an instance of that class).</LI>
 <CODE><LI>signature (): Qualifier; mandatory</CODE><BR>
@@ -315,7 +315,7 @@ interfaceSignatureAt (pos Integer): Qualifier</TD>
 <CODE><LI>belongsToClass: Name; mandatory</CODE><BR>
 Is a name referring to the class owning the attribute. It uses the uniqueName of the class as a reference.</LI>
 <CODE><LI>accessControlQualifier: Qualifier; optional, default = 'null'</CODE><BR>
-Is a string with a language dependent interpretation, that defines who is allowed to access it (for instance, 'public', 'private'…).</LI>
+Is a string with a language dependent interpretation, that defines who is allowed to access it (for instance, 'public', 'private'Â…).</LI>
 <CODE><LI>hasClassScope: Boolean; optional, default = 'false'</CODE><BR>
 Is a predicate telling whether the attribute has class scope (i.e., shared memory location for all instances of the class) or instance scope (i.e., separate memory location for each instance of the class).</LI>
 <CODE><LI>declaredType: Qualifier; optional, default = 'null'</CODE><BR>
@@ -349,7 +349,7 @@ Is a name referring to the class that inherits. It uses the uniqueName of the cl
 <CODE><LI>superclass: Name; mandatory</CODE><BR>
 Is a name referring to the class that is inherited from. It uses the uniqueName of the class as a reference.</LI>
 <CODE><LI>accessControlQualifier: Qualifier; optional, default = 'null'</CODE><BR>
-Is a string with a language dependent interpretation, that defines how subclasses access their superclasses (for instance, 'public', 'private'…).</LI>
+Is a string with a language dependent interpretation, that defines how subclasses access their superclasses (for instance, 'public', 'private'Â…).</LI>
 <CODE><LI>index: Index; optional, default = 'null'</CODE><BR>
 In languages with multiple inheritance, this is the position of the superclass in the list of superclasses of one subclass. Usually this will have a null value, but it may be necessary for OO languages with multiple inheritance that resolve name collisions via the order of the superclasses (i.e., CLOS).</LI></UL>
 
@@ -368,7 +368,7 @@ isArgument (): Boolean</TD>
 </TABLE>
 
 <B><P><A NAME="_Toc410624949"><A NAME="_Toc415978440">Figure 10: VariableAccess</A></A></P>
-</B><P>A <CODE>VariableAccess</CODE> represents the definition in source code of a method accessing a variable. Depending on the level of reification (see Table 1, p. <A HREF="#_Ref415979649">*</A>), that variable may be an attribute, a local variable, an argument, a global variable…. What exactly constitutes such a definition is a language dependent issue. Besides the attributes inherited from the meta-class Association, it has the following attributes:</P>
+</B><P>A <CODE>VariableAccess</CODE> represents the definition in source code of a method accessing a variable. Depending on the level of reification (see Table 1, p. <A HREF="#_Ref415979649">*</A>), that variable may be an attribute, a local variable, an argument, a global variableÂ…. What exactly constitutes such a definition is a language dependent issue. Besides the attributes inherited from the meta-class Association, it has the following attributes:</P>
 
 <UL>
 <CODE><LI>accessesVariable: Name; mandatory</CODE><BR>
@@ -405,9 +405,9 @@ Is a name referring to the method doing the method invocation. It uses the uniqu
 <CODE><LI>invokeMethod: Name; mandatory</CODE><BR>
 Is a name holding the name of the method invoked. Due to late binding polymorphism, the name of the invoked method is not enough to assess which method is invoked. Further analysis based on the arguments is necessary.</LI>
 <CODE><LI>candidateMethods: 0 .. N Name</CODE><BR>
-Is a multi-valued attribute holding a number of method names. Each method name refers to a method that may be the actual method invoked at run-time. When the collection is empty, it does not mean that no candidate method exists —since we assume to start from a working system, all methods invoked should exist. Rather an empty collection denotes that a parser did not perform the extra analysis to compute the candidate methods.</LI>
+Is a multi-valued attribute holding a number of method names. Each method name refers to a method that may be the actual method invoked at run-time. When the collection is empty, it does not mean that no candidate method exists Â—since we assume to start from a working system, all methods invoked should exist. Rather an empty collection denotes that a parser did not perform the extra analysis to compute the candidate methods.</LI>
 <CODE><LI>arguments: 0 .. N ArgumentDescriptor</CODE><BR>
-Is a multi-valued attribute holding a number of argument descriptors. Each argument descriptor gives more information about an argument being passed. When the collection is empty it does not mean that no arguments are passed —since each method invocation involves at least has one receiver there is always one argument, otherwise it is just a procedure call. Rather, an empty collection denotes that a parser did not extract information about the arguments.</LI></UL>
+Is a multi-valued attribute holding a number of argument descriptors. Each argument descriptor gives more information about an argument being passed. When the collection is empty it does not mean that no arguments are passed Â—since each method invocation involves at least has one receiver there is always one argument, otherwise it is just a procedure call. Rather, an empty collection denotes that a parser did not extract information about the arguments.</LI></UL>
 
 <H3><A NAME="_Toc415978408">4.11. ArgumentDescriptor</A>, ComplexExpression &amp;  SimpleVariableAccess</H3>
 <TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=548>
@@ -617,7 +617,7 @@ Is a predicate telling whether the parameter plays the role of the receiver. Thi
 <TR><TD WIDTH="35%" VALIGN="TOP">
 <STRONG><P>Deliverable Id:</STRONG></TD>
 <TD WIDTH="65%" VALIGN="TOP">
-<P>D 2.2 – FINALFHB Final FAMOOS Methodology Handbook</TD>
+<P>D 2.2 Â– FINALFHB Final FAMOOS Methodology Handbook</TD>
 </TR>
 <TR><TD WIDTH="35%" VALIGN="TOP">
 <STRONG><P>Date for delivery:</STRONG></TD>
