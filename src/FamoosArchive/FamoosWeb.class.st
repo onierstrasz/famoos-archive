@@ -7,6 +7,14 @@ Class {
 	#category : #FamoosArchive
 }
 
+{ #category : #constant }
+FamoosWeb class >> websiteFolder [
+	<gtExample>
+	<noTest>
+	^ FileLocator imageDirectory
+		/ 'pharo-local/iceberg/onierstrasz/famoos-archive/famoos'
+]
+
 { #category : #accessing }
 FamoosWeb >> files [
 	^ files
@@ -25,7 +33,7 @@ FamoosWeb >> filesByType [
 		do: [ :each | 
 			| type |
 			type := each basename copyAfterLast: $..
-			(filesByType at: type ifAbsentPut: [ Set new ]) add: each ].
+			(filesByType at: type ifAbsentPut: [ OrderedCollection new ]) add: each ].
 	^ filesByType associations sort: [ :a :b | a value size > b value size ]
 ]
 
@@ -43,7 +51,8 @@ FamoosWeb >> gtFilesByTypeFor: aView [
 			text: [:each | each value size ]
 			width: 50;
 		column: 'Files'
-			text: [:each | each value collect: #basename ]
+			text: [:each | each value collect: #basename ];
+		actionUpdateButton
 ]
 
 { #category : #view }
@@ -52,7 +61,7 @@ FamoosWeb >> gtItemsFor: aView [
 	^ aView forward
 		title: 'Website folder';
 		priority: 50;
-		object: [ self websiteFolder ];
+		object: [ self class websiteFolder ];
 		view: #gtItemsFor:
 ]
 
@@ -60,13 +69,5 @@ FamoosWeb >> gtItemsFor: aView [
 FamoosWeb >> initialize [
 	super initialize.
 	self
-		files: (self websiteFolder allFiles collect: [ :each | FamoosFile for: each ])
-]
-
-{ #category : #constant }
-FamoosWeb >> websiteFolder [
-	<gtExample>
-	<noTest>
-	^ FileLocator imageDirectory
-		/ 'pharo-local/iceberg/onierstrasz/famoos-archive/famoos'
+		files: (self class websiteFolder allFiles collect: [ :each | FamoosFile for: each ])
 ]

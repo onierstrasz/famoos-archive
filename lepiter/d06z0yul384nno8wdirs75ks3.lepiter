@@ -142,14 +142,14 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-21T10:58:01.538814+02:00"
+									"dateAndTimeString" : "2023-06-21T13:49:00.530221+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
 								"uidString" : "FCBIswG7DQCJFpnWAS+t2w=="
 							},
-							"code" : "FamoosWeb new websiteFolder "
+							"code" : "FamoosWeb websiteFolder"
 						},
 						{
 							"__type" : "textSnippet",
@@ -250,14 +250,14 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-21T11:10:15.979883+02:00"
+									"dateAndTimeString" : "2023-06-21T13:49:03.246657+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
 								"uidString" : "wSoIxAG7DQCKW1+kAS+t2w=="
 							},
-							"code" : "(FamoosWeb new websiteFolder allFiles collect: [:each | each basename copyAfterLast: $. ]) asBag sortedCounts"
+							"code" : "(FamoosWeb websiteFolder allFiles\r\tcollect: [ :each | each basename copyAfterLast: $. ]) asBag sortedCounts"
 						},
 						{
 							"__type" : "textSnippet",
@@ -512,6 +512,77 @@
 								"__type" : "textStyle"
 							},
 							"string" : "We update {{gtMethod:name=FamoosWeb>>#filesByType}} to use the new file wrappers."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T13:35:06.932973+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T13:42:29.679836+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "YWSA5QO7DQCWK9lpDSsMQQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Let's fix the printString to show just the local (relative) path."
+						},
+						{
+							"__type" : "pharoSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T13:34:49.726339+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T13:34:57.565858+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "otF55AO7DQCVuEr0DSsMQQ=="
+							},
+							"code" : "FamoosWeb new files first "
 						}
 					]
 				},
