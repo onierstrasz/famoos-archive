@@ -22,7 +22,8 @@ BaselineOfFamoosArchive class >> loadLepiter [
 { #category : #baseline }
 BaselineOfFamoosArchive >> baseline: spec [
 	<baseline>
-		^ spec for: #common do: [
-			spec package: 'FamoosArchive'
-		]
+	^ spec
+		for: #common
+		do: [ spec baseline: 'Scgbib' with: [ spec repository: 'github://scgbern/scgbib' ].
+			spec package: 'FamoosArchive' with: [ spec requires: 'Scgbib' ] ]
 ]
