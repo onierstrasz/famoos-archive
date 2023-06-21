@@ -24,6 +24,6 @@ BaselineOfFamoosArchive >> baseline: spec [
 	<baseline>
 	^ spec
 		for: #common
-		do: [ spec baseline: 'Scgbib' with: [ spec repository: 'github://scgbern/scgbib' ].
+		do: [ spec baseline: 'Scgbib' with: [ spec repository: 'github://scgbern/scgbib:main/src' ].
 			spec package: 'FamoosArchive' with: [ spec requires: 'Scgbib' ] ]
 ]
