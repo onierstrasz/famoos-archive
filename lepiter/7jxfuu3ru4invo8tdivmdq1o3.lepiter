@@ -898,14 +898,14 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-21T16:10:14.744238+02:00"
+									"dateAndTimeString" : "2023-06-21T16:25:40.934698+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
 								"uidString" : "jEweDQa7DQCbuvtoCMyWfw=="
 							},
-							"code" : "FamoosWeb refFiles reject: [ :each | ScgBib instance hasKey: each ref ]"
+							"code" : "FamoosWeb instance refFiles reject: [ :each | ScgBib instance hasKey: each ref ]"
 						}
 					]
 				},
