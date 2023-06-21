@@ -173,12 +173,12 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2023-06-21T10:42:08.610556+02:00"
+			"dateAndTimeString" : "2023-06-21T10:37:59.947816+02:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "FAMOOS Archive"
+		"title" : "FAMOOS Archive project"
 	},
 	"uid" : {
 		"__type" : "uuid",
