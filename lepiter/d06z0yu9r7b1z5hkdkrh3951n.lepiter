@@ -45,7 +45,119 @@
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
-					"items" : [ ]
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T10:49:32.496156+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T10:50:06.795899+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "2utclQG7DQC6uODhAS+t2w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "The FAMOOS archive is available online at [](https://scg.unibe.ch/archive/famoos/)."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T10:50:10.429675+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T10:51:14.136593+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "OL6flwG7DQC7sQ3RAS+t2w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "The website contains many broken links, and many links to papers that are also available from the [SCG Bib server](https://scg.unibe.ch/assets/scgbib/)."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T10:51:15.542089+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T10:52:54.611749+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "GD2BmwG7DQC+aEp8AS+t2w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "The goal of this project is to turn the website into a live model that can tell us what the website contains, which links exists, which are broken, what papers and other content exist, and possible generate new pages either in the old HTML format, or as markdown pages."
+						}
+					]
 				},
 				"createEmail" : {
 					"__type" : "email",
@@ -55,7 +167,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:38:12.83883+02:00"
+						"dateAndTimeString" : "2023-06-21T10:49:26.917685+02:00"
 					}
 				},
 				"editEmail" : {
@@ -66,23 +178,61 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:38:12.83883+02:00"
+						"dateAndTimeString" : "2023-06-21T10:49:31.570052+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "xi3abAG7DQC3Hd0WAS+t2w=="
+					"uidString" : "P8IHlQG7DQC6aCwBAS+t2w=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "# Project goal"
 			},
 			{
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
-					"items" : [ ]
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T10:53:13.243852+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-21T10:53:53.667948+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "sDuFogG7DQCE2F3yAS+t2w=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[Wrap the website files as FAMOOS objects]] "
+						}
+					]
 				},
 				"createEmail" : {
 					"__type" : "email",
@@ -103,7 +253,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:38:13.086401+02:00"
+						"dateAndTimeString" : "2023-06-21T10:49:21.750742+02:00"
 					}
 				},
 				"uid" : {
@@ -113,7 +263,7 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "# Exploration steps"
 			},
 			{
 				"__type" : "textSnippet",
@@ -129,7 +279,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:37:50.809151+02:00"
+						"dateAndTimeString" : "2023-06-21T10:54:35.521938+02:00"
 					}
 				},
 				"editEmail" : {
@@ -140,12 +290,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:37:50.809151+02:00"
+						"dateAndTimeString" : "2023-06-21T10:54:35.521938+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "bAyKawG7DQC2pwTiAS+t2w=="
+					"uidString" : "87VspwG7DQCGBEk5AS+t2w=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
