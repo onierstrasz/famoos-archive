@@ -1,3 +1,7 @@
+"
+I encapsulate the FAMOOS archival website.
+I contain a number of FamoosFile instances.
+"
 Class {
 	#name : #FamoosWeb,
 	#superclass : #Object,
@@ -6,6 +10,11 @@ Class {
 	],
 	#category : #FamoosArchive
 }
+
+{ #category : #example }
+FamoosWeb class >> instance [
+	^ self new
+]
 
 { #category : #constant }
 FamoosWeb class >> websiteFolder [
@@ -32,26 +41,27 @@ FamoosWeb >> filesByType [
 	self files
 		do: [ :each | 
 			| type |
-			type := each basename copyAfterLast: $..
+			type := each extension.
 			(filesByType at: type ifAbsentPut: [ OrderedCollection new ]) add: each ].
 	^ filesByType associations sort: [ :a :b | a value size > b value size ]
 ]
 
 { #category : #view }
-FamoosWeb >> gtFilesByTypeFor: aView [
+FamoosWeb >> gtFilesTreeTypeFor: aView [
 	<gtView>
-	^ aView columnedList
+	^ aView columnedTree
 		title: 'Files by type';
-		priority: 40;
+		priority: 42;
 		items: [ self filesByType ];
+		children: [ :each | each value ];
 		column: 'Type'
-			text: [:each | each key ]
-			width: 50;
+			text: [ :each | each isAssociation ifTrue: [ each key ] ifFalse: [ each fileType ] ]
+			width: 80;
 		column: 'Count'
-			text: [:each | each value size ]
+			text: [ :each | each isAssociation ifTrue: [ each value size ] ifFalse: [ '' ] ]
 			width: 50;
 		column: 'Files'
-			text: [:each | each value collect: #basename ];
+			text: [ :each | each isAssociation ifTrue: [ each value collect: #basename ] ifFalse: [ each ] ];
 		actionUpdateButton
 ]
 
@@ -65,9 +75,30 @@ FamoosWeb >> gtItemsFor: aView [
 		view: #gtItemsFor:
 ]
 
+{ #category : #example }
+FamoosWeb >> htmlFiles [
+	<gtExample>
+	<noTest>
+	^ self files select: #isHtml
+]
+
 { #category : #initialization }
 FamoosWeb >> initialize [
 	super initialize.
 	self
 		files: (self class websiteFolder allFiles collect: [ :each | FamoosFile for: each ])
+]
+
+{ #category : #example }
+FamoosWeb >> instance [
+	<gtExample>
+	<noTest>
+	^ self class instance
+]
+
+{ #category : #example }
+FamoosWeb >> refFiles [
+	<gtExample>
+	<noTest>
+	^ self htmlFiles select: #isRef
 ]
