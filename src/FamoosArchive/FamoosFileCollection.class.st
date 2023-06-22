@@ -53,12 +53,24 @@ FamoosFileCollection >> gtFilesTreeTypeFor: aView [
 			width: 50;
 		column: 'Files'
 			text: [ :each | each isAssociation ifTrue: [ each value collect: #basename ] ifFalse: [ each ] ];
-		"expandAll;"
+		expandSuchThat: [self filesByType size < 2];
 		actionUpdateButton;
 		send: [ :each | 
 			each isAssociation
 				ifTrue: [ FamoosFileCollection forFiles: each value ]
 				ifFalse: [ each ] ]
+]
+
+{ #category : #accessing }
+FamoosFileCollection >> gtSpotterForFilesFor: aSearch [
+	<gtSearch>
+	^ aSearch list
+		priority: 10;
+		items: [ self files ];
+		title: 'Files';
+		itemsLimit: Float infinity;
+		itemName: #localPath;
+		filterBySubstring
 ]
 
 { #category : #example }

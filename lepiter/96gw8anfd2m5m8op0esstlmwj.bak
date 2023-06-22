@@ -23,7 +23,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-21T10:54:02.807771+02:00"
+									"dateAndTimeString" : "2023-06-22T12:04:24.459429+02:00"
 								}
 							},
 							"editEmail" : {
@@ -34,17 +34,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-21T10:54:02.817527+02:00"
+									"dateAndTimeString" : "2023-06-22T12:05:02.593678+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "pPdOpQG7DQCFy363AS+t2w=="
+								"uidString" : "tTzyvha7DQCGhbXFD2QOmw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Wrap the website files as FAMOOS objects]]"
+							"string" : "There is no ready-made HTML parser, but there is {{gtClass:name=XMLDOMParser}}."
 						},
 						{
 							"__type" : "textSnippet",
@@ -60,7 +60,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-21T15:12:30.937125+02:00"
+									"dateAndTimeString" : "2023-06-22T12:05:03.075898+02:00"
 								}
 							},
 							"editEmail" : {
@@ -71,17 +71,51 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-21T15:12:31.444765+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:08.26162+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "g4O0QQW7DQC/XyENCMyWfw=="
+								"uidString" : "kHg/wRa7DQCH6torD2QOmw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Recognizing file types]] "
+							"string" : "This fails due to malformed XML:"
+						},
+						{
+							"__type" : "pharoSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-22T12:05:09.15098+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-22T12:05:57.413525+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "uimcwRa7DQCH9LoWD2QOmw=="
+							},
+							"code" : "XMLDOMParser parse: FamoosWeb htmlFiles files first contents"
 						},
 						{
 							"__type" : "textSnippet",
@@ -97,7 +131,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:44:52.347495+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:11.52556+02:00"
 								}
 							},
 							"editEmail" : {
@@ -108,17 +142,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T11:35:22.128023+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:21.00531+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "p5OBohW7DQCcqDQ2DgTqkg=="
+								"uidString" : "x3DnyBa7DQCJiZHiD2QOmw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Wrapping collections of files]] "
+							"string" : "Is there a more robust solution?"
 						},
 						{
 							"__type" : "textSnippet",
@@ -134,7 +168,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T11:58:58.081869+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:22.525465+02:00"
 								}
 							},
 							"editEmail" : {
@@ -145,17 +179,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T11:59:06.801552+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:28.466597+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "Rhl+qxa7DQCBNJMFD2QOmw=="
+								"uidString" : "g02PyRa7DQCKVg0KD2QOmw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Adding searches]] "
+							"string" : "Alternatively can we use PP?"
 						},
 						{
 							"__type" : "textSnippet",
@@ -171,7 +205,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T12:04:17.458082+02:00"
+									"dateAndTimeString" : "2023-06-22T12:12:43.489597+02:00"
 								}
 							},
 							"editEmail" : {
@@ -182,54 +216,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T12:13:35.209815+02:00"
+									"dateAndTimeString" : "2023-06-22T12:12:43.489597+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "x2SHvha7DQCGKm7xD2QOmw=="
+								"uidString" : "stKw3Ba7DQCMSTBRD2QOmw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[Parsing HTML / XML (?)]] "
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T12:13:52.688592+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T12:41:49.734935+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "geybpQG7DQCF7PGlAS+t2w=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "[[Using PP to extract links]] "
+							"string" : ""
 						}
 					]
 				},
@@ -241,7 +238,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:59.791145+02:00"
+						"dateAndTimeString" : "2023-06-22T12:09:14.841521+02:00"
 					}
 				},
 				"editEmail" : {
@@ -252,17 +249,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:59.797924+02:00"
+						"dateAndTimeString" : "2023-06-22T12:09:21.628569+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "fgpTgQG7DQC3Qwg9AS+t2w=="
+					"uidString" : "DhtB0Ba7DQCLCS4tD2QOmw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "[[FAMOOS Archive]]"
+				"string" : "#XMLDOMParser"
 			},
 			{
 				"__type" : "textSnippet",
@@ -278,7 +275,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:44:01.096109+02:00"
+						"dateAndTimeString" : "2023-06-22T12:12:43.715955+02:00"
 					}
 				},
 				"editEmail" : {
@@ -289,17 +286,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:44:01.096109+02:00"
+						"dateAndTimeString" : "2023-06-22T12:12:57.419707+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "4h2cgQG7DQC3ZRTVAS+t2w=="
+					"uidString" : "oEa03Ba7DQCMTuBMD2QOmw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "[[Using PP to extract links]] "
 			},
 			{
 				"__type" : "textSnippet",
@@ -315,7 +312,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:50.451772+02:00"
+						"dateAndTimeString" : "2023-06-22T12:13:02.996503+02:00"
 					}
 				},
 				"editEmail" : {
@@ -326,12 +323,12 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:50.451772+02:00"
+						"dateAndTimeString" : "2023-06-22T12:13:02.996503+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "gcL5gAG7DQC3QrtVAS+t2w=="
+					"uidString" : "VXna3Ra7DQCM8qcXD2QOmw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
@@ -339,7 +336,7 @@
 				"string" : ""
 			},
 			{
-				"__type" : "textSnippet",
+				"__type" : "pharoSnippet",
 				"children" : {
 					"__type" : "snippets",
 					"items" : [ ]
@@ -352,7 +349,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:48.358451+02:00"
+						"dateAndTimeString" : "2023-06-22T12:13:06.699668+02:00"
 					}
 				},
 				"editEmail" : {
@@ -363,23 +360,55 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:48.358451+02:00"
+						"dateAndTimeString" : "2023-06-22T12:13:09.027729+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "ttHZgAG7DQC3QWjpAS+t2w=="
+					"uidString" : "7vkS3ha7DQCM9wr+D2QOmw=="
 				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
+				"code" : "thisSnippet"
 			},
 			{
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
-					"items" : [ ]
+					"items" : [
+						{
+							"__type" : "pharoSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-22T12:09:40.201054+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2023-06-22T12:11:57.244016+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "UA7E0Ra7DQCLY3HlD2QOmw=="
+							},
+							"code" : "FamoosWeb htmlFiles files first contents.\r\r"
+						}
+					]
 				},
 				"createEmail" : {
 					"__type" : "email",
@@ -389,7 +418,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:34.24638+02:00"
+						"dateAndTimeString" : "2023-06-22T12:07:28.882135+02:00"
 					}
 				},
 				"editEmail" : {
@@ -400,54 +429,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:34.24638+02:00"
+						"dateAndTimeString" : "2023-06-22T12:10:34.964136+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "GXwCgAG7DQC3QCidAS+t2w=="
+					"uidString" : "VEzwyRa7DQCK5w26D2QOmw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:27.917232+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T10:43:27.917232+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "7uihfwG7DQC3PzzWAS+t2w=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : ""
+				"string" : "#Extracting links with PP"
 			}
 		]
 	},
@@ -459,7 +451,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2023-06-21T10:43:34.225636+02:00"
+			"dateAndTimeString" : "2023-06-22T12:04:24.432926+02:00"
 		}
 	},
 	"editEmail" : {
@@ -470,15 +462,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2023-06-21T10:43:34.225636+02:00"
+			"dateAndTimeString" : "2023-06-22T12:12:41.045834+02:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "FAMOOS Archive TOC"
+		"title" : "Parsing HTML / XML"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "4e5ba17f-01bb-0d00-b73e-6fed012faddb"
+		"uuid" : "33d4f1be-16bb-0d00-8684-f1010f640e9b"
 	}
 }

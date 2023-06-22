@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T10:45:37.201935+02:00"
+						"dateAndTimeString" : "2023-06-22T12:13:35.213563+02:00"
 					}
 				},
 				"editEmail" : {
@@ -29,54 +29,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T10:46:46.303343+02:00"
+						"dateAndTimeString" : "2023-06-22T12:13:35.213563+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "o6fNoxW7DQCdNVOHDgTqkg=="
+					"uidString" : "EBTG3xa7DQCNTTVjD2QOmw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "The FAMOOS web is just a particular case of a set of files. To have more uniform ways of viewing sets of files (like the html files), we should introduce a FamoosFileCollection as a wrapper around a collection of files."
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T10:46:47.237524+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T10:47:02.335757+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "e6paqRW7DQCisaD9DgTqkg=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "Then the FamoosWeb will just be a special subclass."
+				"string" : ""
 			},
 			{
 				"__type" : "textSnippet",
@@ -97,7 +60,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:47:21.74441+02:00"
+									"dateAndTimeString" : "2023-06-22T12:04:24.459429+02:00"
 								}
 							},
 							"editEmail" : {
@@ -108,51 +71,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:47:35.42156+02:00"
+									"dateAndTimeString" : "2023-06-22T12:05:02.593678+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "km92qhW7DQCj5y5mDgTqkg=="
+								"uidString" : "tTzyvha7DQCGhbXFD2QOmw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "We add the new class and make it a superclass. Then we  push up methods."
-						},
-						{
-							"__type" : "pharoSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:47:37.638638+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:47:44.929091+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "JbdbrBW7DQClhggPDgTqkg=="
-							},
-							"code" : "FamoosFileCollection new"
+							"string" : "There is no ready-made HTML parser, but there is {{gtClass:name=XMLDOMParser}}."
 						},
 						{
 							"__type" : "textSnippet",
@@ -168,7 +97,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:56:51.632554+02:00"
+									"dateAndTimeString" : "2023-06-22T12:05:03.075898+02:00"
 								}
 							},
 							"editEmail" : {
@@ -179,17 +108,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:57:25.214465+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:08.26162+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "bP9gzRW7DQCmmjX5DgTqkg=="
+								"uidString" : "kHg/wRa7DQCH6torD2QOmw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "We fix the `htmlFiles` and `refFiles` methods to return instances of {{gtClass:name=FamoosFileCollection}}. "
+							"string" : "This fails due to malformed XML:"
 						},
 						{
 							"__type" : "pharoSnippet",
@@ -205,7 +134,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:48:03.658201+02:00"
+									"dateAndTimeString" : "2023-06-22T12:05:09.15098+02:00"
 								}
 							},
 							"editEmail" : {
@@ -216,17 +145,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T10:48:10.644772+02:00"
+									"dateAndTimeString" : "2023-06-22T12:05:57.413525+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "nb7orRW7DQCmAyFZDgTqkg=="
+								"uidString" : "uimcwRa7DQCH9LoWD2QOmw=="
 							},
-							"code" : "FamoosWeb instance"
+							"code" : "XMLDOMParser parse: FamoosWeb htmlFiles files first contents"
 						},
 						{
-							"__type" : "pharoSnippet",
+							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
 								"items" : [ ]
@@ -239,7 +168,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T11:00:01.008003+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:11.52556+02:00"
 								}
 							},
 							"editEmail" : {
@@ -250,17 +179,20 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T11:00:08.468115+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:21.00531+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "MaSq2BW7DQCqFW1jDgTqkg=="
+								"uidString" : "x3DnyBa7DQCJiZHiD2QOmw=="
 							},
-							"code" : "FamoosWeb htmlFiles"
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Is there a more robust solution?"
 						},
 						{
-							"__type" : "pharoSnippet",
+							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
 								"items" : [ ]
@@ -273,7 +205,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T11:00:09.302543+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:22.525465+02:00"
 								}
 							},
 							"editEmail" : {
@@ -284,14 +216,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T11:00:14.904396+02:00"
+									"dateAndTimeString" : "2023-06-22T12:07:28.466597+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "FDQp2RW7DQCqYFoXDgTqkg=="
+								"uidString" : "g02PyRa7DQCKVg0KD2QOmw=="
 							},
-							"code" : "FamoosWeb refFiles"
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Alternatively can we use PP?"
 						}
 					]
 				},
@@ -303,7 +238,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T11:35:06.096789+02:00"
+						"dateAndTimeString" : "2023-06-22T12:09:14.841521+02:00"
 					}
 				},
 				"editEmail" : {
@@ -314,54 +249,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T11:35:16.178893+02:00"
+						"dateAndTimeString" : "2023-06-22T12:09:21.628569+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "2rojVha7DQCqoYPUD2QOmw=="
+					"uidString" : "DhtB0Ba7DQCLCS4tD2QOmw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "#Wrapping file collections"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T11:34:57.862733+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T11:35:42.917176+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "WhmmVRa7DQCqnEtrD2QOmw=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "# Expanding the tree"
+				"string" : "#XMLDOMParser"
 			}
 		]
 	},
@@ -373,7 +271,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2023-06-22T10:45:14.081237+02:00"
+			"dateAndTimeString" : "2023-06-22T12:04:24.432926+02:00"
 		}
 	},
 	"editEmail" : {
@@ -384,15 +282,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2023-06-22T11:35:21.867407+02:00"
+			"dateAndTimeString" : "2023-06-22T12:13:35.203438+02:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Wrapping collections of files"
+		"title" : "Parsing HTML / XML (?)"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "2537cda3-15bb-0d00-9d34-c9080e04ea92"
+		"uuid" : "33d4f1be-16bb-0d00-8684-f1010f640e9b"
 	}
 }

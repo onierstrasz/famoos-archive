@@ -97,6 +97,17 @@ FamoosFile >> gtPathFor: aView [
 		view: #gtPathFor:
 ]
 
+{ #category : #accessing }
+FamoosFile >> hrefParser [
+	"An island parser to extract hrefs.
+	See: http://kursjan.github.io/petitparser2/scripting.html"
+
+	| href |
+	href := ('<a href="' asPParser , $" asPParser negate star flatten trim
+			, '">' asPParser) ==> #second.
+	^ (href sea ==> #second) star
+]
+
 { #category : #testing }
 FamoosFile >> isFile [
 	^ self fileReference isFile
@@ -124,6 +135,13 @@ FamoosFile >> isRef [
 	^ self isHtml
 		and: [ self contents
 				beginsWith: self refHeader ]
+]
+
+{ #category : #accessing }
+FamoosFile >> links [
+	self assert: self isHtml.
+
+	^ self hrefParser parse: FamoosWeb htmlFiles files first contents
 ]
 
 { #category : #accessing }
