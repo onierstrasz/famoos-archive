@@ -512,14 +512,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-21T18:25:52.455447+02:00"
+						"dateAndTimeString" : "2023-06-21T18:32:47.050749+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
 					"uidString" : "TzRO9Qe7DQCRDLBHAEAszQ=="
 				},
-				"code" : "Metacello new\n\trepository: 'github://scgbern/scgbib:main/src';\n\tbaseline: 'Scgbib';\n\tload.\n#BaselineOfScgbib asClass loadLepiter."
+				"code" : "#BaselineOfScgbib asClass loadLepiter."
 			}
 		]
 	},
