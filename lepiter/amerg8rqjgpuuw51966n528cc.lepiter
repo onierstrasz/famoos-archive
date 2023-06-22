@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:12:59.023208+02:00"
+						"dateAndTimeString" : "2023-06-22T17:24:49.148634+02:00"
 					}
 				},
 				"editEmail" : {
@@ -29,91 +29,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:14:25.978956+02:00"
+						"dateAndTimeString" : "2023-06-22T17:25:49.822514+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "e9ud3Ra7DQCM74rrD2QOmw=="
+					"uidString" : "8LbTOBu7DQCEO5H2B0Rtsw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Can we easily build an island parser to extract the links?"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:15:17.170445+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:15:23.777284+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "ZM7Z5Ra7DQCPULkQD2QOmw=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "See {{gtPage:Parsing with PetitParser2|db=2j9m7db2i4oz116bexd7wbdxo}}."
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:15:24.033748+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:17:33.643536+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "W4lC5ha7DQCPdsGpD2QOmw=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "For the island operators see [Scripting with bounded seas](http://kursjan.github.io/petitparser2/scripting.html)."
+				"string" : "We want to see nice views of the external urls of the famoos web grouped by status."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -129,7 +55,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:13:16.071631+02:00"
+						"dateAndTimeString" : "2023-06-22T17:25:51.745745+02:00"
 					}
 				},
 				"editEmail" : {
@@ -140,14 +66,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:31:47.614766+02:00"
+						"dateAndTimeString" : "2023-06-22T17:25:58.123623+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "Zvuh3ha7DQCNH/VjD2QOmw=="
+					"uidString" : "d9uOPBu7DQCGYkNCB0Rtsw=="
 				},
-				"code" : "href := ('<a href=\"' asPParser , $\" asPParser negate star flatten trim, '\">' asPParser)\r\t\t==> #second.\r(href sea ==> #second) star parse: FamoosWeb htmlFiles files first contents"
+				"code" : "FamoosWeb instance "
 			},
 			{
 				"__type" : "textSnippet",
@@ -163,7 +89,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:25:20.620076+02:00"
+						"dateAndTimeString" : "2023-06-22T17:26:04.693957+02:00"
 					}
 				},
 				"editEmail" : {
@@ -174,51 +100,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:25:37.94616+02:00"
+						"dateAndTimeString" : "2023-06-22T17:27:25.8514+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "xqOMjRm7DQCSBoamB0Rtsw=="
+					"uidString" : "U29UPRu7DQCGvAoZB0Rtsw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "We adapt it to handle spaces and capitalization."
-			},
-			{
-				"__type" : "pharoSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:23:25.943647+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:25:11.779105+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "DNK2hhm7DQCRV9N6B0Rtsw=="
-				},
-				"code" : "| href hrefSea |\rhref := (('<a' asPParser / '<A' asPParser) trim\r\t\t, ('href' asPParser / 'HREF' asPParser) trim , '=' asPParser trim\r\t\t, $\" asPParser , $\" asPParser negate star flatten trim , '\">' asPParser)\r\t\t==> #fifth.\rhrefSea := (href sea ==> #second) star.\r\rhrefSea parse: FamoosWeb htmlFiles files first contents"
+				"string" : "These should be views ... (need to be reorganized)."
 			},
 			{
 				"__type" : "textSnippet",
@@ -234,7 +126,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:29:23.543921+02:00"
+						"dateAndTimeString" : "2023-06-22T17:38:52.975406+02:00"
 					}
 				},
 				"editEmail" : {
@@ -245,17 +137,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:29:31.370897+02:00"
+						"dateAndTimeString" : "2023-06-22T17:39:23.959587+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "3VwHnBm7DQCTVHjfB0Rtsw=="
+					"uidString" : "aHofaxu7DQCKPj7rB0Rtsw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "We extract it as a PP parser class."
+				"string" : "We add a `Link status` view to each Famoos file."
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -271,7 +163,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:27:01.47143+02:00"
+						"dateAndTimeString" : "2023-06-22T17:39:25.972832+02:00"
 					}
 				},
 				"editEmail" : {
@@ -282,14 +174,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:28:52.3608+02:00"
+						"dateAndTimeString" : "2023-06-22T17:39:34.444375+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "tYCPkxm7DQCTBdI5B0Rtsw=="
+					"uidString" : "AvkWbRu7DQCLQkdQB0Rtsw=="
 				},
-				"code" : "hrefSea := HrefLinkParser new"
+				"code" : "FamoosWeb instance files first"
 			},
 			{
 				"__type" : "textSnippet",
@@ -305,7 +197,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:21:35.968697+02:00"
+						"dateAndTimeString" : "2023-06-22T17:38:53.236483+02:00"
 					}
 				},
 				"editEmail" : {
@@ -316,51 +208,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:22:20.964359+02:00"
+						"dateAndTimeString" : "2023-06-22T17:39:56.257386+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "WrcogBm7DQCQxbMrB0Rtsw=="
+					"uidString" : "83Ijaxu7DQCKQ+/TB0Rtsw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "We save this as {{gtMethod:name=FamoosFile>>#hrefParser}}."
-			},
-			{
-				"__type" : "pharoSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:37:28.593675+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T12:40:50.953839+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "/rQ1NRe7DQCbDw37D2QOmw=="
-				},
-				"code" : "FamoosWeb htmlFiles files first links"
+				"string" : "Perhaps this information needs to be cached."
 			},
 			{
 				"__type" : "textSnippet",
@@ -376,7 +234,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:31:39.509755+02:00"
+						"dateAndTimeString" : "2023-06-22T17:29:10.617923+02:00"
 					}
 				},
 				"editEmail" : {
@@ -387,17 +245,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:31:55.292116+02:00"
+						"dateAndTimeString" : "2023-06-22T17:29:15.650279+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "/wgipBm7DQCU0AhxB0Rtsw=="
+					"uidString" : "oGhpSBu7DQCI1LOHB0Rtsw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "We add a view so we can browse the links of each HTML file.s"
+				"string" : "Group links by type:"
 			},
 			{
 				"__type" : "pharoSnippet",
@@ -413,7 +271,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:30:49.3035+02:00"
+						"dateAndTimeString" : "2023-06-22T17:26:19.971927+02:00"
 					}
 				},
 				"editEmail" : {
@@ -424,48 +282,14 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:30:52.293166+02:00"
+						"dateAndTimeString" : "2023-06-22T17:28:59.820116+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "sO4joRm7DQCUwStHB0Rtsw=="
+					"uidString" : "sI89Phu7DQCG5LBAB0Rtsw=="
 				},
-				"code" : "FamoosWeb htmlFiles"
-			},
-			{
-				"__type" : "pharoSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [ ]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:32:14.248533+02:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:32:21.223064+02:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "mRw0phm7DQCWAWyGB0Rtsw=="
-				},
-				"code" : "FamoosWeb instance"
+				"code" : "FamoosWeb instance  linkDict"
 			},
 			{
 				"__type" : "textSnippet",
@@ -481,7 +305,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:30:42.226093+02:00"
+						"dateAndTimeString" : "2023-06-22T17:29:21.71223+02:00"
 					}
 				},
 				"editEmail" : {
@@ -492,17 +316,122 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2023-06-22T15:30:42.226093+02:00"
+						"dateAndTimeString" : "2023-06-22T17:29:40.522342+02:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "q38HoBm7DQCUCHH6B0Rtsw=="
+					"uidString" : "2bESSRu7DQCJQdW3B0Rtsw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "Just a subgroup of the above:"
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2023-06-22T17:26:10.341416+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2023-06-22T17:26:17.025782+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "vJqqPRu7DQCGwcwsB0Rtsw=="
+				},
+				"code" : "FamoosWeb instance  urls"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2023-06-22T17:29:43.976153+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2023-06-22T17:29:51.166016+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "TmpmShu7DQCJ348SB0Rtsw=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Group by status:"
+			},
+			{
+				"__type" : "pharoSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2023-06-22T17:26:29.87954+02:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2023-06-22T17:26:59.954788+02:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "2L3UPhu7DQCHID7mB0Rtsw=="
+				},
+				"code" : "FamoosWeb instance  urlStatus "
 			}
 		]
 	},
@@ -514,7 +443,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2023-06-22T12:12:58.992204+02:00"
+			"dateAndTimeString" : "2023-06-22T17:24:49.124544+02:00"
 		}
 	},
 	"editEmail" : {
@@ -525,15 +454,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2023-06-22T12:41:49.730705+02:00"
+			"dateAndTimeString" : "2023-06-22T17:24:49.124544+02:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Using PP to extract links"
+		"title" : "*** Prepare views of URLs and status"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "d6619ddd-16bb-0d00-8cee-b0310f640e9b"
+		"uuid" : "bc57d338-1bbb-0d00-843a-a75c07446db3"
 	}
 }

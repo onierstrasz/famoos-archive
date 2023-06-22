@@ -6,7 +6,8 @@ Class {
 	#name : #FamoosFile,
 	#superclass : #Object,
 	#instVars : [
-		'fileReference'
+		'fileReference',
+		'hrefSea'
 	],
 	#category : #FamoosArchive
 }
@@ -88,6 +89,39 @@ FamoosFile >> gtFigureFor: aView [
 ]
 
 { #category : #view }
+FamoosFile >> gtLinksFor: aView [
+	<gtView>
+	self isHtml ifFalse: [ ^ aView empty ].
+	^ aView forward
+		title: 'Links';
+		priority: 30;
+		object: [ self links ];
+		view: #gtItemsFor:
+]
+
+{ #category : #view }
+FamoosFile >> gtLinksWithStatusFor: aView [
+	<gtView>
+	self isHtml ifFalse: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Link status';
+		priority: 40;
+		items: [ self links ];
+		actionUpdateButtonTooltip: 'Update item list';
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Item'
+			text: [ :eachItem | eachItem gtDisplayText ]
+			width: 400;
+		column: 'Status'
+			text: [ :eachItem | 
+				(eachItem beginsWith: 'http://')
+					ifTrue: [ FamoosUtility urlStatus: eachItem ]
+					ifFalse: [ '' ] ]
+]
+
+{ #category : #view }
 FamoosFile >> gtPathFor: aView [
 	<gtView>
 	^ aView forward
@@ -102,10 +136,7 @@ FamoosFile >> hrefParser [
 	"An island parser to extract hrefs.
 	See: http://kursjan.github.io/petitparser2/scripting.html"
 
-	| href |
-	href := ('<a href="' asPParser , $" asPParser negate star flatten trim
-			, '">' asPParser) ==> #second.
-	^ (href sea ==> #second) star
+	^ HrefLinkParser new
 ]
 
 { #category : #testing }
@@ -140,8 +171,7 @@ FamoosFile >> isRef [
 { #category : #accessing }
 FamoosFile >> links [
 	self assert: self isHtml.
-
-	^ self hrefParser parse: FamoosWeb htmlFiles files first contents
+	^ self hrefParser parse: self contents
 ]
 
 { #category : #accessing }

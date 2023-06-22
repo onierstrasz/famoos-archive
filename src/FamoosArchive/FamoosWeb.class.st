@@ -5,6 +5,13 @@ I contain a number of FamoosFile instances.
 Class {
 	#name : #FamoosWeb,
 	#superclass : #FamoosFileCollection,
+	#instVars : [
+		'linkDict',
+		'urlStatus'
+	],
+	#classInstVars : [
+		'instance'
+	],
 	#category : #FamoosArchive
 }
 
@@ -15,9 +22,9 @@ FamoosWeb class >> htmlFiles [
 
 { #category : #convenience }
 FamoosWeb class >> instance [
-	"For now, not a singleton. Could be done later."
-
-	^ self new
+	"A singleton so we can cache the analysis results too."
+	instance ifNil: [ instance := self new ].
+	^ instance
 ]
 
 { #category : #convenience }
@@ -48,4 +55,33 @@ FamoosWeb >> initialize [
 	super initialize.
 	self
 		files: (self class websiteFolder allFiles collect: [ :each | FamoosFile for: each ])
+]
+
+{ #category : #accessing }
+FamoosWeb >> linkDict [
+	"Dictionary of links to files containing them."
+
+	linkDict
+		ifNil: [ linkDict := Dictionary new.
+			FamoosWeb instance htmlFiles files
+				do: [ :file | 
+					file links
+						do: [ :link | (linkDict at: link ifAbsentPut: [ Set new ]) add: file ] ].
+			linkDict := linkDict associations sorted asOrderedDictionary ].
+	^ linkDict
+]
+
+{ #category : #querying }
+FamoosWeb >> urlStatus [
+	urlStatus
+		ifNil: [ urlStatus := (self urls
+					collect: [ :each | each -> (FamoosUtility urlStatus: each) ]) asDictionary ].
+	^ urlStatus
+]
+
+{ #category : #accessing }
+FamoosWeb >> urls [
+	"External URLs"
+
+	^ self linkDict keys sorted select: [ :each | each beginsWith: 'http' ]
 ]

@@ -15,6 +15,15 @@ FamoosFileCollection class >> forFiles: aFileCollection [
 	^ self new files: aFileCollection
 ]
 
+{ #category : #querying }
+FamoosFileCollection class >> urlStatus: anUrlString [
+	^ [ ZnClient new
+		enforceHttpSuccess;
+		timeout: 1;
+		head: anUrlString;
+		response ] onErrorDo: [ :ex | ex printString ]
+]
+
 { #category : #accessing }
 FamoosFileCollection >> files [
 	^ files

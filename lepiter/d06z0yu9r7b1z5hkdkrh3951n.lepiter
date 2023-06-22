@@ -516,7 +516,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T12:14:02.148497+02:00"
+									"dateAndTimeString" : "2023-06-22T17:25:15.148602+02:00"
 								}
 							},
 							"uid" : {
@@ -526,7 +526,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : ""
+							"string" : "[[Checking links]]"
 						},
 						{
 							"__type" : "textSnippet",
@@ -553,7 +553,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2023-06-22T11:06:44.778997+02:00"
+									"dateAndTimeString" : "2023-06-22T17:24:53.450314+02:00"
 								}
 							},
 							"uid" : {
@@ -563,7 +563,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : ""
+							"string" : "[[*** Prepare views of URLs and status]] "
 						}
 					]
 				},
